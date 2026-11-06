@@ -2,7 +2,10 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "db_sdn1beririjarak";\n\n// Nonaktifkan exception mysqli agar kegagalan koneksi dapat ditangani oleh halaman.\nmysqli_report(MYSQLI_REPORT_OFF);
+$database = "db_sdn1beririjarak";
+
+// Nonaktifkan exception mysqli agar kegagalan koneksi dapat ditangani oleh halaman.
+mysqli_report(MYSQLI_REPORT_OFF);
 
 // Membuat koneksi ke database.
 $koneksi = mysqli_connect($host, $user, $password, $database);
@@ -15,7 +18,9 @@ if (!$koneksi) {
 }
 
 // Mengatur karakter database.
-if ($koneksi) {\n    mysqli_set_charset($koneksi, "utf8mb4");\n}
+if ($koneksi) {
+    mysqli_set_charset($koneksi, "utf8mb4");
+}
 
 // Jangan tambahkan tag penutup PHP agar tidak ada output tak sengaja
 // yang dapat mengganggu header redirect dan session.
