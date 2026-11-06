@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "db_sdn1beririjarak";
+$database = "db_sdn1beririjarak";\n\n// Nonaktifkan exception mysqli agar kegagalan koneksi dapat ditangani oleh halaman.\nmysqli_report(MYSQLI_REPORT_OFF);
 
 // Membuat koneksi ke database.
 $koneksi = mysqli_connect($host, $user, $password, $database);
