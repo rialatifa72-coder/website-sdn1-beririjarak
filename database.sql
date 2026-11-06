@@ -1,5 +1,5 @@
 -- Struktur database resmi SDN 1 Beririjarak
--- Gunakan setup_database.php untuk instalasi lokal karena file PHP membuat hash password admin.
+-- Jalankan file ini melalui phpMyAdmin setelah membuat cadangan database lama.\n-- Password awal AdminIPA akan diubah menjadi hash otomatis saat login pertama.
 CREATE DATABASE IF NOT EXISTS db_sdn1beririjarak_baru CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE db_sdn1beririjarak_baru;
 
