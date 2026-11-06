@@ -19,6 +19,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (!$koneksi) {
             $error = "Database belum dapat dihubungkan. Pastikan MySQL aktif dan buka installer database untuk menyiapkan db_sdn1beririjarak_baru.";
         } else {
+            // Migrasi kompatibilitas akun awal ke kredensial baru yang diminta pemilik.
+            if ($username === "Admin2026" && $password === "AdminIPA") {
+                $checkNew = mysqli_query($koneksi, "SELECT id FROM tb_users WHERE username = 'Admin2026' LIMIT 1");
+                if ($checkNew && mysqli_num_rows($checkNew) === 0) {
+                    $newHash = password_hash("AdminIPA", PASSWORD_DEFAULT);
+                    $migrate = mysqli_prepare($koneksi, "UPDATE tb_users SET username = 'Admin2026', password = ?, nama_lengkap = 'Administrator Sekolah' WHERE username = 'admin'");
+                    if ($migrate) {
+                        mysqli_stmt_bind_param($migrate, "s", $newHash);
+                        mysqli_stmt_execute($migrate);
+                        mysqli_stmt_close($migrate);
+                    }
+                }
+            }
+
             $stmt = mysqli_prepare($koneksi, "SELECT username, password FROM tb_users WHERE username = ? LIMIT 1");
 
             if (!$stmt) {
