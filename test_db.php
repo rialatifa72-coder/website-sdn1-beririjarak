@@ -21,10 +21,10 @@ if ($missing) {
     exit("Koneksi berhasil, tetapi tabel berikut belum tersedia: " . implode(", ", $missing) . ". Jalankan installer database terlebih dahulu.");
 }
 
-$result = mysqli_query($koneksi, "SELECT id FROM tb_users WHERE username = 'admin' LIMIT 1");
+$result = mysqli_query($koneksi, "SELECT id FROM tb_users WHERE username = 'Admin2026' LIMIT 1");
 if (!$result || mysqli_num_rows($result) === 0) {
     http_response_code(500);
-    exit("Tabel tersedia, tetapi akun administrator belum ditemukan. Jalankan installer database.");
+    exit("Tabel tersedia, tetapi akun Admin2026 belum ditemukan. Jalankan migrasi akun administrator.");
 }
 
 echo "OK: database db_sdn1beririjarak_baru, tujuh tabel, dan akun administrator tersedia.";
