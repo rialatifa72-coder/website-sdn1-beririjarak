@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"]==="POST") {
   if(!$koneksi) { $error="Database tidak dapat dihubungkan. Pastikan MySQL aktif dan database baru sudah disiapkan."; }
   else {
    $stmt=mysqli_prepare($koneksi,"SELECT id,username,password FROM tb_users WHERE username=? LIMIT 1");
-   if(!$stmt) { $error="Tabel akun belum siap. Jalankan setup_database.php."; }
+   if(!$stmt) { $error="Tabel akun belum siap. Pastikan database.sql sudah dijalankan dengan benar."; }
    else {
     mysqli_stmt_bind_param($stmt,"s",$username);
     mysqli_stmt_execute($stmt);
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"]==="POST") {
      $_SESSION["username"]=$dbUsername;
      header("Location: dashboard_admin.php"); exit;
     }
-    $error="Username atau password tidak sesuai. Pastikan menggunakan akun Admin2026 yang dibuat oleh installer database.";
+    $error="Username atau password tidak sesuai. Pastikan username dan password sesuai dengan akun pada tabel tb_users.";
    }
   }
  }
