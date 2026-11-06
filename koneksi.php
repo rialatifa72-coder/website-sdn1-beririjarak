@@ -8,14 +8,14 @@ $database = "db_sdn1beririjarak";
 $koneksi = mysqli_connect($host, $user, $password, $database);
 
 if (!$koneksi) {
-    // Jangan tampilkan detail kredensial database kepada pengunjung.
-    error_log("Koneksi database gagal: " . mysqli_connect_error());
-    http_response_code(500);
-    exit("Koneksi database gagal. Periksa konfigurasi database dan pastikan MySQL aktif.");
+    // Simpan pesan kesalahan; jangan hentikan halaman login.
+    $koneksi_error = mysqli_connect_error();
+} else {
+    $koneksi_error = "";
 }
 
 // Mengatur karakter database.
-mysqli_set_charset($koneksi, "utf8mb4");
+if ($koneksi) {\n    mysqli_set_charset($koneksi, "utf8mb4");\n}
 
 // Jangan tambahkan tag penutup PHP agar tidak ada output tak sengaja
 // yang dapat mengganggu header redirect dan session.
