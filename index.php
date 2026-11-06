@@ -781,14 +781,17 @@ body {
     <h2 class="section-title mt-2">Mengenal SDN 1 Beririjarak</h2>
 
     <p class="text-secondary" style="line-height:1.9">
-        SDN 1 Beririjarak merupakan lembaga pendidikan dasar
-        yang berkomitmen mendukung perkembangan pengetahuan,
-        keterampilan, karakter, dan potensi peserta didik.
+        SDN 1 Beririjarak hadir sebagai tempat belajar dan bertumbuh
+        bagi generasi muda. Kami berkomitmen memberikan pendidikan
+        yang mendorong peserta didik untuk meraih prestasi,
+        mengembangkan keterampilan, serta membentuk karakter yang baik.
     </p>
 
     <p class="text-secondary" style="line-height:1.9">
-        Sekolah berupaya menciptakan lingkungan belajar yang aman,
-        nyaman, disiplin, serta mendorong siswa untuk terus berkembang.
+        Melalui lingkungan sekolah yang aman, nyaman, dan kondusif,
+        kami mengajak setiap peserta didik untuk aktif belajar,
+        percaya diri, berperilaku positif, dan mengembangkan potensi
+        diri agar siap menghadapi masa depan.
     </p>
 
     <a href="#visi-misi" class="btn-utama">Lihat Visi dan Misi</a>
