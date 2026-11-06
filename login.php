@@ -1,7 +1,10 @@
 <?php
-session_start();
+// Login administrator SDN 1 Beririjarak.
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
-if (isset($_SESSION["username"]) && $_SESSION["username"] !== "") {
+if (!empty($_SESSION["username"])) {
     header("Location: dashboard_admin.php");
     exit;
 }
@@ -10,9 +13,9 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim((string)($_POST["username"] ?? ""));
-    $password = (string)($_POST["password"] ?? "");
+    $passwordInput = (string)($_POST["password"] ?? "");
 
-    if ($username === "" || $password === "") {
+    if ($username === "" || $passwordInput === "") {
         $error = "Username dan password wajib diisi.";
     } else {
         require_once __DIR__ . "/koneksi.php";
@@ -20,60 +23,76 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (!$koneksi) {
             $error = "Database tidak dapat dihubungkan. Pastikan MySQL aktif.";
         } else {
-            $stmt = mysqli_prepare(
-                $koneksi,
-                "SELECT id, username, password FROM tb_users WHERE username = ? LIMIT 1"
-            );
+            $sql = "SELECT id, username, password, nama_lengkap
+                    FROM tb_users
+                    WHERE username = ?
+                    LIMIT 1";
+            $stmt = mysqli_prepare($koneksi, $sql);
 
             if (!$stmt) {
-                $error = "Pemeriksaan akun gagal. Periksa struktur tabel tb_users.";
+                error_log("Login SDN: prepare query gagal: " . mysqli_error($koneksi));
+                $error = "Sistem login mengalami kendala saat memeriksa akun.";
             } else {
                 mysqli_stmt_bind_param($stmt, "s", $username);
-                $executed = mysqli_stmt_execute($stmt);
 
-                if (!$executed) {
-                    $error = "Data akun tidak dapat dibaca dari database.";
+                if (!mysqli_stmt_execute($stmt)) {
+                    error_log("Login SDN: execute query gagal: " . mysqli_stmt_error($stmt));
+                    $error = "Sistem tidak dapat membaca data akun. Silakan coba kembali.";
                     mysqli_stmt_close($stmt);
                 } else {
-                    mysqli_stmt_bind_result($stmt, $userId, $dbUsername, $dbPassword);
-                    $found = mysqli_stmt_fetch($stmt);
-                    $valid = false;
+                    mysqli_stmt_store_result($stmt);
 
-                    // Proses nilai hasil query SEBELUM statement ditutup.
-                    if ($found === true) {
-                        $stored = (string)$dbPassword;
+                    if (mysqli_stmt_num_rows($stmt) !== 1) {
+                        $error = "Username atau password tidak sesuai. Periksa kembali data akun administrator.";
+                        mysqli_stmt_close($stmt);
+                    } else {
+                        mysqli_stmt_bind_result($stmt, $userId, $dbUsername, $storedPassword, $namaLengkap);
+                        $fetched = mysqli_stmt_fetch($stmt);
+                        mysqli_stmt_close($stmt);
 
-                        // Mendukung password hash dan password awal dari database.
-                        if (password_verify($password, $stored)) {
-                            $valid = true;
-                        } elseif (hash_equals($stored, $password)) {
-                            $valid = true;
+                        $storedPassword = (string)$storedPassword;
+                        $passwordValid = ($fetched === true) && (
+                            password_verify($passwordInput, $storedPassword) ||
+                            hash_equals($storedPassword, $passwordInput)
+                        );
 
-                            // Ubah password awal menjadi hash setelah kecocokan terverifikasi.
-                            $hash = password_hash($password, PASSWORD_DEFAULT);
-                            $update = mysqli_prepare(
-                                $koneksi,
-                                "UPDATE tb_users SET password = ? WHERE id = ?"
-                            );
+                        if (!$passwordValid) {
+                            $error = "Username atau password tidak sesuai. Periksa kembali data akun administrator.";
+                        } else {
+                            // Migrasikan password teks biasa menjadi hash setelah autentikasi berhasil.
+                            if (!password_get_info($storedPassword)["algo"]) {
+                                $newHash = password_hash($passwordInput, PASSWORD_DEFAULT);
+                                $update = mysqli_prepare(
+                                    $koneksi,
+                                    "UPDATE tb_users SET password = ? WHERE id = ?"
+                                );
 
-                            if ($update) {
-                                mysqli_stmt_bind_param($update, "si", $hash, $userId);
-                                mysqli_stmt_execute($update);
-                                mysqli_stmt_close($update);
+                                if ($update) {
+                                    mysqli_stmt_bind_param($update, "si", $newHash, $userId);
+                                    if (!mysqli_stmt_execute($update)) {
+                                        error_log("Login SDN: pembaruan hash password gagal: " . mysqli_stmt_error($update));
+                                    }
+                                    mysqli_stmt_close($update);
+                                } else {
+                                    error_log("Login SDN: prepare pembaruan hash gagal: " . mysqli_error($koneksi));
+                                }
                             }
+
+                            // Perbarui ID session sebelum menetapkan status login.
+                            if (!session_regenerate_id(false)) {
+                                error_log("Login SDN: session_regenerate_id gagal.");
+                            }
+
+                            $_SESSION["user_id"] = (int)$userId;
+                            $_SESSION["username"] = (string)$dbUsername;
+                            $_SESSION["nama_lengkap"] = (string)($namaLengkap ?? "");
+                            $_SESSION["login_time"] = time();
+
+                            session_write_close();
+                            header("Location: dashboard_admin.php");
+                            exit;
                         }
                     }
-
-                    mysqli_stmt_close($stmt);
-
-                    if ($valid) {
-                        session_regenerate_id(true);
-                        $_SESSION["username"] = (string)$dbUsername;
-                        header("Location: dashboard_admin.php");
-                        exit;
-                    }
-
-                    $error = "Username atau password tidak sesuai. Pastikan username dan password sesuai dengan akun pada tabel tb_users.";
                 }
             }
         }
