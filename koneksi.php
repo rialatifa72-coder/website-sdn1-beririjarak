@@ -7,13 +7,19 @@ $database = "db_sdn1beririjarak";
 // Nonaktifkan exception mysqli agar kegagalan koneksi dapat ditangani oleh halaman.
 mysqli_report(MYSQLI_REPORT_OFF);
 
+// Membatasi waktu tunggu koneksi agar halaman login tidak terus loading.
+$mysqli = mysqli_init();
+mysqli_options($mysqli, MYSQLI_OPT_CONNECT_TIMEOUT, 3);
+
 // Membuat koneksi ke database.
-$koneksi = mysqli_connect($host, $user, $password, $database);
+$koneksi = @mysqli_real_connect($mysqli, $host, $user, $password, $database);
 
 if (!$koneksi) {
     // Simpan pesan kesalahan; jangan hentikan halaman login.
-    $koneksi_error = mysqli_connect_error();
+    $koneksi_error = mysqli_connect_error() ?: mysqli_error($mysqli);
+    $koneksi = false;
 } else {
+    $koneksi = $mysqli;
     $koneksi_error = "";
 }
 
