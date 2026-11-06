@@ -17,7 +17,7 @@ function jumlahData($koneksi, $table) {
     if (!$koneksi) return null;
     $allowed = ["tb_users", "tb_guru", "tb_siswa", "tb_berita", "tb_galeri", "tb_media"];
     if (!in_array($table, $allowed, true)) return 0;
-    $result = @mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM " . $table);
+    $result = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM " . $table);
     if (!$result) return null;
     $row = mysqli_fetch_assoc($result);
     return (int) ($row["total"] ?? 0);
@@ -81,7 +81,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <div><i class="bi bi-person-circle me-2"></i>Halo, <strong><?= htmlspecialchars($namaAdmin, ENT_QUOTES, "UTF-8") ?></strong></div>
     </header>
     <main class="main-container">
-        <?php if (!$koneksi): ?><div class="alert alert-warning"><strong>Database belum terhubung.</strong> Periksa MySQL dan database db_sdn1beririjarak di phpMyAdmin.</div><?php endif; ?>
+        <?php if (!$koneksi): ?><div class="alert alert-warning"><strong>Database belum terhubung.</strong> Periksa MySQL dan pastikan database <code>db_sdn1beririjarak_baru</code> sudah dibuat melalui installer.</div><?php endif; ?>
         <div class="breadcrumb-text"><a href="dashboard_admin.php?page=beranda">Dashboard</a> / <?= htmlspecialchars(ucfirst($page), ENT_QUOTES, "UTF-8") ?></div>
         <?php if ($page === "beranda"): ?>
             <div class="mb-4"><h2 class="h4 fw-bold text-primary mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
@@ -98,7 +98,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
             $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Berita Sekolah","galeri"=>"Galeri Foto","media"=>"Media Pembelajaran"];
             $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola berita, kegiatan, dan pengumuman sekolah.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
             ?>
-            <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard. Fitur tambah, ubah, hapus, dan penyimpanan database akan kita aktifkan pada tahap pengembangan berikutnya.</div></div>
+            <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard. Fitur tambah, ubah, hapus, dan penyimpanan database akan diaktifkan pada tahap pengembangan berikutnya.</div></div>
         <?php endif; ?>
     </main>
 </div>
