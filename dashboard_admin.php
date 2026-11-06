@@ -81,7 +81,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <div><i class="bi bi-person-circle me-2"></i>Halo, <strong><?= htmlspecialchars($namaAdmin, ENT_QUOTES, "UTF-8") ?></strong></div>
     </header>
     <main class="main-container">
-        <?php if (!$koneksi): ?><div class="alert alert-warning"><strong>Database belum terhubung.</strong> Periksa MySQL dan pastikan database <code>db_sdn1beririjarak_baru</code> sudah dibuat melalui installer.</div><?php endif; ?>
+        <?php if (!$koneksi): ?><div class="alert alert-warning"><strong>Database belum terhubung.</strong> Periksa MySQL dan pastikan database <code>db_sdn1beririjarak_baru</code> sudah dibuat dan diisi melalui database.sql.</div><?php endif; ?>
         <div class="breadcrumb-text"><a href="dashboard_admin.php?page=beranda">Dashboard</a> / <?= htmlspecialchars(ucfirst($page), ENT_QUOTES, "UTF-8") ?></div>
         <?php if ($page === "beranda"): ?>
             <div class="mb-4"><h2 class="h4 fw-bold text-primary mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
