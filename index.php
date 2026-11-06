@@ -146,6 +146,41 @@ body {
     max-width: 750px;
 }
 
+/* ANIMASI JUDUL UTAMA BERANDA */
+.hero-title-animate {
+    background-image: linear-gradient(100deg, #ffffff 0%, #ffffff 35%, #bde8ff 50%, #ffffff 65%, #ffffff 100%);
+    background-size: 220% 100%;
+    background-position: 100% 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation:
+        heroTitleEntrance 1.1s cubic-bezier(.2,.75,.25,1) both,
+        heroTitleShimmer 6s ease-in-out 1.1s infinite;
+    will-change: transform, opacity, background-position;
+}
+
+@keyframes heroTitleEntrance {
+    from { opacity: 0; transform: translateY(35px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heroTitleShimmer {
+    0%, 100% { background-position: 100% 50%; }
+    50% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-title-animate {
+        animation: none;
+        background: none;
+        color: #fff;
+        -webkit-text-fill-color: #fff;
+        transform: none;
+    }
+}
+
 .hero p {
     max-width: 650px;
     line-height: 1.8;
@@ -653,7 +688,7 @@ body {
     Website Resmi Sekolah
 </span>
 
-<h1>MASA DEPAN CERDAS DIMULAI DI SINI</h1>
+<h1 class="hero-title-animate">MASA DEPAN CERDAS DIMULAI DI SINI</h1>
 
 <p class="mt-4 mb-4">
     Selamat datang di website resmi SDN 1 Beririjarak.
