@@ -1,3 +1,22 @@
+<?php
+require_once __DIR__ . "/koneksi.php";
+
+$daftarGuru = false;
+if (isset($koneksi) && $koneksi) {
+    $queryGuru = mysqli_query(
+        $koneksi,
+        "SELECT nama_guru, jabatan, pendidikan, foto
+         FROM tb_guru
+         ORDER BY id ASC"
+    );
+    if ($queryGuru) {
+        $daftarGuru = $queryGuru;
+    }
+}
+function aman($nilai) {
+    return htmlspecialchars((string)($nilai ?? ""), ENT_QUOTES, "UTF-8");
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -358,6 +377,20 @@ body {
 .guru-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(20,83,45,.15);
+}
+
+.guru-foto-placeholder {
+    width: 100%;
+    height: 290px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 3px solid #ffc107;
+    background: var(--muda);
+    color: #1c2c7c;
+    font-size: 5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
 
 .guru-item img {
@@ -997,6 +1030,7 @@ body {
     </p>
 </div>
 
+<?php if ($daftarGuru && mysqli_num_rows($daftarGuru) > 0): ?>
 <div class="guru-slider">
 
 <button type="button" class="guru-arrow guru-prev" id="guruPrev" onclick="geserGuru(-1)" aria-label="Guru sebelumnya">
@@ -1005,103 +1039,24 @@ body {
 
 <div class="guru-track-wrapper">
 <div class="guru-track" id="guruTrack">
-
-    <!-- Guru 1 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Ihal&background=eaf3ff&color=082b59&size=400" alt="Foto Kepala Sekolah">
-        <h5>Bapak Ihal</h5>
-        <div class="jabatan-guru">Kepala Sekolah</div>
-        <p class="quote-guru">"Berdiri di Atas Ilmu, Prestasi Sebagai Hasilmu."</p>
-    </div>
-
-    <!-- Guru 2 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Meivirly+Triani+Hanum&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Meivirly Triani Hanum, S.Pd</h5>
-        <div class="jabatan-guru">Guru Kelas 1-A</div>
-        <p class="quote-guru">"Setiap anak itu hebat dengan caranya sendiri."</p>
-    </div>
-
-    <!-- Guru 3 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Rugun&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Ibu Rugun</h5>
-        <div class="jabatan-guru">Guru Kelas 2-A</div>
-        <p class="quote-guru">"Kelas: tempat huruf jadi kata dan tawa jadi semangat."</p>
-    </div>
-
-    <!-- Guru 4 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Hartini&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Ibu Hartini</h5>
-        <div class="jabatan-guru">Guru Kelas 3-B</div>
-        <p class="quote-guru">"Belajar hari ini untuk prestasi di masa depan."</p>
-    </div>
-
-    <!-- Guru 5 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Risma+Dewi+Kirana&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Ibu Risma Dewi Kirana, S.Pd</h5>
-        <div class="jabatan-guru">Guru Kelas 2-B</div>
-        <p class="quote-guru">"Kecil langkahnya, besar mimpinya."</p>
-    </div>
-
-    <!-- Guru 6 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+6&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 6</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Semangat mendidik generasi bangsa."</p>
-    </div>
-
-    <!-- Guru 7 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+7&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 7</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Pendidikan adalah kunci kesuksesan."</p>
-    </div>
-
-    <!-- Guru 8 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+8&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 8</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Berkarya dengan hati dan ketulusan."</p>
-    </div>
-
-    <!-- Guru 9 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+9&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 9</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Membentuk karakter siswa yang unggul."</p>
-    </div>
-
-    <!-- Guru 10 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+10&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 10</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Belajar sepanjang hayat."</p>
-    </div>
-
-    <!-- Guru 11 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+11&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 11</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Selalu memberikan yang terbaik."</p>
-    </div>
-
-    <!-- Guru 12 -->
-    <div class="guru-item">
-        <img src="https://ui-avatars.com/api/?name=Guru+12&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
-        <h5>Nama Guru 12</h5>
-        <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
-        <p class="quote-guru">"Meraih mimpi bersama anak-anak hebat."</p>
-    </div>
-
+    <?php while ($guru = mysqli_fetch_assoc($daftarGuru)): ?>
+    <article class="guru-item">
+        <?php if (!empty($guru["foto"]) && is_file(__DIR__ . "/" . $guru["foto"])): ?>
+            <img src="<?= aman($guru["foto"]) ?>" alt="Foto <?= aman($guru["nama_guru"]) ?>" loading="lazy">
+        <?php else: ?>
+            <div class="guru-foto-placeholder" role="img" aria-label="Foto belum tersedia">
+                <i class="bi bi-person-fill"></i>
+            </div>
+        <?php endif; ?>
+        <h5><?= aman($guru["nama_guru"]) ?></h5>
+        <?php if (!empty($guru["jabatan"])): ?>
+            <div class="jabatan-guru"><?= aman($guru["jabatan"]) ?></div>
+        <?php endif; ?>
+        <?php if (!empty($guru["pendidikan"])): ?>
+            <p class="quote-guru"><?= aman($guru["pendidikan"]) ?></p>
+        <?php endif; ?>
+    </article>
+    <?php endwhile; ?>
 </div>
 </div>
 
@@ -1110,10 +1065,16 @@ body {
 </button>
 
 </div>
-
 <div class="text-center mt-4">
     <span class="text-secondary small" id="guruCounter"></span>
 </div>
+<?php else: ?>
+<div class="text-center py-5 px-3 rounded-4 bg-light">
+    <i class="bi bi-people text-primary" style="font-size:3rem"></i>
+    <h5 class="mt-3 fw-bold">Data guru belum tersedia</h5>
+    <p class="text-secondary mb-0">Informasi guru dan tenaga kependidikan akan ditampilkan setelah admin menambahkan data melalui dashboard.</p>
+</div>
+<?php endif; ?>
 
 </div>
 </section>
@@ -1357,10 +1318,14 @@ function jumlahGuruTerlihat() {
 }
 
 function geserGuru(arah) {
+    if (!guruTrack || !guruCounter || !guruPrev || !guruNext) return;
+
     const semuaGuru = guruTrack.querySelectorAll(".guru-item");
     const terlihat = jumlahGuruTerlihat();
-    const maksimal = Math.max(0, semuaGuru.length - terlihat);
 
+    if (semuaGuru.length === 0) return;
+
+    const maksimal = Math.max(0, semuaGuru.length - terlihat);
     posisiGuru += arah;
     posisiGuru = Math.max(0, Math.min(posisiGuru, maksimal));
 
@@ -1368,9 +1333,7 @@ function geserGuru(arah) {
     const gayaTrack = window.getComputedStyle(guruTrack);
     const jarak = parseFloat(gayaTrack.columnGap) || 0;
 
-    guruTrack.style.transform =
-        `translateX(-${posisiGuru * (lebarItem + jarak)}px)`;
-
+    guruTrack.style.transform = `translateX(-${posisiGuru * (lebarItem + jarak)}px)`;
     guruCounter.textContent =
         `${posisiGuru + 1}–${Math.min(posisiGuru + terlihat, semuaGuru.length)} dari ${semuaGuru.length} guru`;
 
