@@ -24,11 +24,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "s", $username);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $dbUsername, $dbPassword);
-            $found = mysqli_stmt_fetch($stmt);
-            $admin = $found ? ["username" => $dbUsername, "password" => $dbPassword] : null;
-            mysqli_stmt_close($stmt);
+            $executed = mysqli_stmt_execute($stmt);
+
+            if (!$executed) {
+                $error = "Pemeriksaan login gagal. Periksa tabel tb_users pada database.";
+                mysqli_stmt_close($stmt);
+                $admin = null;
+            } else {
+                mysqli_stmt_bind_result($stmt, $dbUsername, $dbPassword);
+                $found = mysqli_stmt_fetch($stmt);
+                $admin = $found ? ["username" => $dbUsername, "password" => $dbPassword] : null;
+                mysqli_stmt_close($stmt);
+            }
 
             $valid = false;
             if ($admin) {
@@ -54,7 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 exit;
             }
 
-            $error = "Username atau password tidak sesuai.";
+            if ($error === "") {
+                $error = "Username atau password tidak sesuai.";
+            }
         } else {
             $error = "Tidak dapat memproses login. Pastikan tabel tb_users sudah dibuat.";
         }
