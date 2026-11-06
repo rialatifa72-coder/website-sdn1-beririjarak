@@ -7,7 +7,6 @@ if (isset($_SESSION['username'])) {
     exit;
 }
 
-require_once __DIR__ . "/koneksi.php";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -17,6 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($username === "" || $password === "") {
         $error = "Username dan password wajib diisi.";
     } else {
+        require_once __DIR__ . "/koneksi.php";
+        if (!$koneksi) {
+            $error = "Database belum dapat dihubungkan. Pastikan MySQL aktif dan database db_sdn1beririjarak sudah dibuat melalui phpMyAdmin.";
+        } else {
         $stmt = mysqli_prepare($koneksi, "SELECT username, password FROM tb_users WHERE username = ? LIMIT 1");
 
         if ($stmt) {
@@ -53,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $error = "Username atau password tidak sesuai.";
         } else {
             $error = "Tidak dapat memproses login. Pastikan tabel tb_users sudah dibuat.";
+        }
         }
     }
 }
