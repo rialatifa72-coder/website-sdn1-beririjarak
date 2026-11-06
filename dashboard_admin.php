@@ -67,7 +67,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
     <ul class="sidebar-menu">
         <li class="<?= $page === "beranda" ? "active" : "" ?>"><a href="dashboard_admin.php?page=beranda"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
         <li class="<?= $page === "profil" ? "active" : "" ?>"><a href="dashboard_admin.php?page=profil"><i class="bi bi-building"></i>Profil Sekolah</a></li>
-        <li class="<?= $page === "guru" ? "active" : "" ?>"><a href="dashboard_admin.php?page=guru"><i class="bi bi-person-workspace"></i>Data Guru</a></li>
+        <li class="<?= $page === "guru" ? "active" : "" ?>"><a href="admin/data_guru.php"><i class="bi bi-person-workspace"></i>Data Guru</a></li>
         <li class="<?= $page === "siswa" ? "active" : "" ?>"><a href="dashboard_admin.php?page=siswa"><i class="bi bi-people-fill"></i>Data Siswa</a></li>
         <li class="<?= $page === "berita" ? "active" : "" ?>"><a href="dashboard_admin.php?page=berita"><i class="bi bi-newspaper"></i>Berita Sekolah</a></li>
         <li class="<?= $page === "galeri" ? "active" : "" ?>"><a href="dashboard_admin.php?page=galeri"><i class="bi bi-images"></i>Galeri Foto</a></li>
