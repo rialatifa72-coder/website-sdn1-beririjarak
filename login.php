@@ -25,8 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "s", $username);
             mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            $admin = mysqli_fetch_assoc($result);
+            mysqli_stmt_bind_result($stmt, $dbUsername, $dbPassword);
+            $found = mysqli_stmt_fetch($stmt);
+            $admin = $found ? ["username" => $dbUsername, "password" => $dbPassword] : null;
             mysqli_stmt_close($stmt);
 
             $valid = false;
