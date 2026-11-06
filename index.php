@@ -1008,7 +1008,7 @@ body {
 
     <!-- Guru 1 -->
     <div class="guru-item">
-        <img src="foto-guru/guru1.jpg" alt="Foto Kepala Sekolah">
+        <img src="https://ui-avatars.com/api/?name=Ihal&background=eaf3ff&color=082b59&size=400" alt="Foto Kepala Sekolah">
         <h5>Bapak Ihal</h5>
         <div class="jabatan-guru">Kepala Sekolah</div>
         <p class="quote-guru">"Berdiri di Atas Ilmu, Prestasi Sebagai Hasilmu."</p>
@@ -1016,7 +1016,7 @@ body {
 
     <!-- Guru 2 -->
     <div class="guru-item">
-        <img src="foto-guru/guru2.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Meivirly+Triani+Hanum&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Meivirly Triani Hanum, S.Pd</h5>
         <div class="jabatan-guru">Guru Kelas 1-A</div>
         <p class="quote-guru">"Setiap anak itu hebat dengan caranya sendiri."</p>
@@ -1024,7 +1024,7 @@ body {
 
     <!-- Guru 3 -->
     <div class="guru-item">
-        <img src="foto-guru/guru3.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Rugun&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Ibu Rugun</h5>
         <div class="jabatan-guru">Guru Kelas 2-A</div>
         <p class="quote-guru">"Kelas: tempat huruf jadi kata dan tawa jadi semangat."</p>
@@ -1032,7 +1032,7 @@ body {
 
     <!-- Guru 4 -->
     <div class="guru-item">
-        <img src="foto-guru/guru4.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Hartini&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Ibu Hartini</h5>
         <div class="jabatan-guru">Guru Kelas 3-B</div>
         <p class="quote-guru">"Belajar hari ini untuk prestasi di masa depan."</p>
@@ -1040,7 +1040,7 @@ body {
 
     <!-- Guru 5 -->
     <div class="guru-item">
-        <img src="foto-guru/guru5.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Risma+Dewi+Kirana&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Ibu Risma Dewi Kirana, S.Pd</h5>
         <div class="jabatan-guru">Guru Kelas 2-B</div>
         <p class="quote-guru">"Kecil langkahnya, besar mimpinya."</p>
@@ -1048,7 +1048,7 @@ body {
 
     <!-- Guru 6 -->
     <div class="guru-item">
-        <img src="foto-guru/guru6.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+6&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 6</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Semangat mendidik generasi bangsa."</p>
@@ -1056,7 +1056,7 @@ body {
 
     <!-- Guru 7 -->
     <div class="guru-item">
-        <img src="foto-guru/guru7.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+7&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 7</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Pendidikan adalah kunci kesuksesan."</p>
@@ -1064,7 +1064,7 @@ body {
 
     <!-- Guru 8 -->
     <div class="guru-item">
-        <img src="foto-guru/guru8.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+8&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 8</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Berkarya dengan hati dan ketulusan."</p>
@@ -1072,7 +1072,7 @@ body {
 
     <!-- Guru 9 -->
     <div class="guru-item">
-        <img src="foto-guru/guru9.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+9&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 9</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Membentuk karakter siswa yang unggul."</p>
@@ -1080,7 +1080,7 @@ body {
 
     <!-- Guru 10 -->
     <div class="guru-item">
-        <img src="foto-guru/guru10.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+10&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 10</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Belajar sepanjang hayat."</p>
@@ -1088,7 +1088,7 @@ body {
 
     <!-- Guru 11 -->
     <div class="guru-item">
-        <img src="foto-guru/guru11.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+11&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 11</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Selalu memberikan yang terbaik."</p>
@@ -1096,7 +1096,7 @@ body {
 
     <!-- Guru 12 -->
     <div class="guru-item">
-        <img src="foto-guru/guru12.jpg" alt="Foto Guru">
+        <img src="https://ui-avatars.com/api/?name=Guru+12&background=eaf3ff&color=082b59&size=400" alt="Foto Guru">
         <h5>Nama Guru 12</h5>
         <div class="jabatan-guru">Guru SDN 1 Beririjarak</div>
         <p class="quote-guru">"Meraih mimpi bersama anak-anak hebat."</p>
