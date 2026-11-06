@@ -1,8 +1,4 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", "", "db_sekolah"); // sesuaikan nama database
-if ($koneksi) {
-    echo "Koneksi Berhasil!";
-} else {
-    echo "Koneksi Gagal: " . mysqli_connect_error();
-}
+require_once __DIR__ . "/koneksi.php";
+echo "Koneksi ke database db_sdn1beririjarak berhasil!";
 ?>
