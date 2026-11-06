@@ -85,8 +85,8 @@ CREATE TABLE IF NOT EXISTS tb_profil (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO tb_users (username,password,nama_lengkap)
-SELECT 'admin','12345','Administrator Sekolah'
-WHERE NOT EXISTS (SELECT 1 FROM tb_users WHERE username='admin');
+SELECT 'Admin2026','AdminIPA','Administrator Sekolah'
+WHERE NOT EXISTS (SELECT 1 FROM tb_users WHERE username='Admin2026');
 
 INSERT INTO tb_profil (nama_sekolah)
 SELECT 'SDN 1 Beririjarak'
