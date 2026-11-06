@@ -91,9 +91,9 @@ foreach ($queries as $q) {
 }
 
 // Reset akun admin ke kredensial awal hanya pada proses instalasi pertama.
-$adminHash = password_hash("12345", PASSWORD_DEFAULT);
+$adminHash = password_hash("AdminIPA", PASSWORD_DEFAULT);
 $stmt = $conn->prepare("INSERT INTO tb_users (username, password, nama_lengkap)
- VALUES ('admin', ?, 'Administrator Sekolah')
+ VALUES ('Admin2026', ?, 'Administrator Sekolah')
  ON DUPLICATE KEY UPDATE password = VALUES(password), nama_lengkap = VALUES(nama_lengkap)");
 if (!$stmt) {
     http_response_code(500);
@@ -133,7 +133,7 @@ if (file_put_contents($lockFile, "Database setup completed at " . date("c")) ===
 <body style="font-family:Arial,sans-serif;max-width:700px;margin:50px auto;padding:20px;line-height:1.6">
 <h2>Database berhasil disiapkan</h2>
 <p>Database <b>db_sdn1beririjarak_baru</b> dan tujuh tabel pendukung telah dibuat serta diverifikasi.</p>
-<p>Akun administrator awal: <b>admin</b> / <b>12345</b></p>
+<p>Akun administrator awal: <b>Admin2026</b> / <b>AdminIPA</b></p>
 <p><a href="test_db.php">Jalankan pemeriksaan database</a> · <a href="login.php">Buka halaman login</a></p>
 <p>Untuk keamanan, installer ini hanya berjalan satu kali. Hapus file setup_database.php dari repositori setelah instalasi selesai.</p>
 </body></html>
