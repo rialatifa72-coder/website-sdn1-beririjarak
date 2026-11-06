@@ -1,81 +1,44 @@
 <?php
 session_start();
-
-if (isset($_SESSION["username"])) {
-    header("Location: dashboard_admin.php");
-    exit;
-}
-
-$error = "";
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = trim($_POST["username"] ?? "");
-    $password = (string) ($_POST["password"] ?? "");
-
-    if ($username === "" || $password === "") {
-        $error = "Username dan password wajib diisi.";
-    } else {
-        require_once __DIR__ . "/koneksi.php";
-
-        if (!$koneksi) {
-            $error = "Database belum dapat dihubungkan. Pastikan MySQL aktif dan buka installer database untuk menyiapkan db_sdn1beririjarak_baru.";
-        } else {
-            // Migrasi kompatibilitas akun awal ke kredensial baru yang diminta pemilik.
-            if ($username === "Admin2026" && $password === "AdminIPA") {
-                $checkNew = mysqli_query($koneksi, "SELECT id FROM tb_users WHERE username = 'Admin2026' LIMIT 1");
-                if ($checkNew && mysqli_num_rows($checkNew) === 0) {
-                    $newHash = password_hash("AdminIPA", PASSWORD_DEFAULT);
-                    $migrate = mysqli_prepare($koneksi, "UPDATE tb_users SET username = 'Admin2026', password = ?, nama_lengkap = 'Administrator Sekolah' WHERE username = 'admin'");
-                    if ($migrate) {
-                        mysqli_stmt_bind_param($migrate, "s", $newHash);
-                        mysqli_stmt_execute($migrate);
-                        mysqli_stmt_close($migrate);
-                    }
-                }
-            }
-
-            $stmt = mysqli_prepare($koneksi, "SELECT username, password FROM tb_users WHERE username = ? LIMIT 1");
-
-            if (!$stmt) {
-                $error = "Tabel akun belum siap. Silakan jalankan installer database terlebih dahulu.";
-            } else {
-                mysqli_stmt_bind_param($stmt, "s", $username);
-                if (!mysqli_stmt_execute($stmt)) {
-                    $error = "Pemeriksaan akun gagal. Silakan jalankan pemeriksaan database.";
-                    $admin = null;
-                } else {
-                    mysqli_stmt_bind_result($stmt, $dbUsername, $dbPassword);
-                    $admin = mysqli_stmt_fetch($stmt) ? ["username" => $dbUsername, "password" => $dbPassword] : null;
-                }
-                mysqli_stmt_close($stmt);
-
-                $valid = false;
-                if ($admin) {
-                    $storedPassword = (string) $admin["password"];
-                    $valid = password_verify($password, $storedPassword) || hash_equals($storedPassword, $password);
-
-                    if ($valid && empty(password_get_info($storedPassword)["algo"])) {
-                        $newHash = password_hash($password, PASSWORD_DEFAULT);
-                        $update = mysqli_prepare($koneksi, "UPDATE tb_users SET password = ? WHERE username = ?");
-                        if ($update) {
-                            mysqli_stmt_bind_param($update, "ss", $newHash, $username);
-                            mysqli_stmt_execute($update);
-                            mysqli_stmt_close($update);
-                        }
-                    }
-                }
-
-                if ($valid) {
-                    session_regenerate_id(true);
-                    $_SESSION["username"] = $admin["username"];
-                    header("Location: dashboard_admin.php");
-                    exit;
-                }
-                if ($error === "") {
-                    $error = "Username atau password tidak sesuai. Periksa akun pada database db_sdn1beririjarak_baru.";
-                }
-            }
-        }
+if (isset($_SESSION["username"])) { header("Location: dashboard_admin.php"); exit; }
+$error="";
+if ($_SERVER["REQUEST_METHOD"]==="POST") {
+ $username=trim($_POST["username"] ?? "");
+ $password=(string)($_POST["password"] ?? "");
+ if($username==="" || $password==="") { $error="Username dan password wajib diisi."; }
+ else {
+  require_once __DIR__."/koneksi.php";
+  if(!$koneksi) { $error="Database tidak dapat dihubungkan. Pastikan MySQL aktif dan database baru sudah disiapkan."; }
+  else {
+   $stmt=mysqli_prepare($koneksi,"SELECT id,username,password FROM tb_users WHERE username=? LIMIT 1");
+   if(!$stmt) { $error="Tabel akun belum siap. Jalankan setup_database.php."; }
+   else {
+    mysqli_stmt_bind_param($stmt,"s",$username);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt,$userId,$dbUsername,$dbPassword);
+    $found=mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
+    $valid=false;
+    if($found) {
+     $stored=(string)$dbPassword;
+     $valid=password_verify($password,$stored);
+     // Kompatibilitas dengan kata sandi teks biasa dari database lama; segera ubah menjadi hash.
+     if(!$valid && hash_equals($stored,$password)) {
+      $valid=true;
+      $hash=password_hash($password,PASSWORD_DEFAULT);
+      $update=mysqli_prepare($koneksi,"UPDATE tb_users SET password=? WHERE id=?");
+      if($update) { mysqli_stmt_bind_param($update,"si",$hash,$userId); mysqli_stmt_execute($update); mysqli_stmt_close($update); }
+     }
     }
+    if($valid) {
+     session_regenerate_id(true);
+     $_SESSION["username"]=$dbUsername;
+     header("Location: dashboard_admin.php"); exit;
+    }
+    $error="Username atau password tidak sesuai. Pastikan menggunakan akun Admin2026 yang dibuat oleh installer database.";
+   }
+  }
+ }
 }
 ?>
 <!DOCTYPE html>
