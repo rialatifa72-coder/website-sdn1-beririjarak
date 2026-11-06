@@ -1,7 +1,18 @@
 <?php
-// Installer aman dan idempoten: membuat database/tabel jika belum ada,
-// tidak menghapus atau mengosongkan data yang sudah tersimpan.
+// Installer satu kali untuk database SDN 1 Beririjarak.
+// Membuat database/tabel tanpa menghapus tabel atau data lain.
 mysqli_report(MYSQLI_REPORT_OFF);
+
+if (!in_array($_SERVER["REMOTE_ADDR"] ?? "", ["127.0.0.1", "::1"], true)) {
+    http_response_code(403);
+    exit("Installer hanya boleh dijalankan dari komputer lokal (localhost).");
+}
+
+$lockFile = __DIR__ . DIRECTORY_SEPARATOR . ".database_setup_complete";
+if (is_file($lockFile)) {
+    exit("Installer sudah pernah dijalankan. Untuk keamanan, hapus file setup_database.php dari folder website. Jika perlu memperbaiki database, gunakan database.sql setelah membuat cadangan.");
+}
+
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -13,6 +24,7 @@ if ($conn->connect_error) {
     exit("Koneksi MySQL gagal: " . htmlspecialchars($conn->connect_error, ENT_QUOTES, "UTF-8"));
 }
 $conn->set_charset("utf8mb4");
+
 if (!$conn->query("CREATE DATABASE IF NOT EXISTS `" . $db . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")) {
     http_response_code(500);
     exit("Database tidak dapat dibuat: " . htmlspecialchars($conn->error, ENT_QUOTES, "UTF-8"));
@@ -70,25 +82,58 @@ $queries = [
  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
 ];
+
 foreach ($queries as $q) {
     if (!$conn->query($q)) {
         http_response_code(500);
         exit("Pembuatan tabel gagal: " . htmlspecialchars($conn->error, ENT_QUOTES, "UTF-8"));
     }
 }
-$conn->query("INSERT INTO tb_users (username,password,nama_lengkap)
- SELECT 'admin','12345','Administrator Sekolah'
- WHERE NOT EXISTS (SELECT 1 FROM tb_users WHERE username='admin')");
-$conn->query("INSERT INTO tb_profil (nama_sekolah)
- SELECT 'SDN 1 Beririjarak' WHERE NOT EXISTS (SELECT 1 FROM tb_profil)");
+
+// Reset akun admin ke kredensial awal hanya pada proses instalasi pertama.
+$adminHash = password_hash("12345", PASSWORD_DEFAULT);
+$stmt = $conn->prepare("INSERT INTO tb_users (username, password, nama_lengkap)
+ VALUES ('admin', ?, 'Administrator Sekolah')
+ ON DUPLICATE KEY UPDATE password = VALUES(password), nama_lengkap = VALUES(nama_lengkap)");
+if (!$stmt) {
+    http_response_code(500);
+    exit("Akun administrator gagal disiapkan: " . htmlspecialchars($conn->error, ENT_QUOTES, "UTF-8"));
+}
+$stmt->bind_param("s", $adminHash);
+if (!$stmt->execute()) {
+    http_response_code(500);
+    exit("Akun administrator gagal disimpan: " . htmlspecialchars($stmt->error, ENT_QUOTES, "UTF-8"));
+}
+$stmt->close();
+
+if (!$conn->query("INSERT INTO tb_profil (nama_sekolah)
+ SELECT 'SDN 1 Beririjarak' WHERE NOT EXISTS (SELECT 1 FROM tb_profil)")) {
+    http_response_code(500);
+    exit("Profil sekolah gagal disiapkan: " . htmlspecialchars($conn->error, ENT_QUOTES, "UTF-8"));
+}
+
+$tables = ["tb_users", "tb_guru", "tb_siswa", "tb_berita", "tb_galeri", "tb_media", "tb_profil"];
+foreach ($tables as $table) {
+    $check = $conn->query("SHOW TABLES LIKE '" . $conn->real_escape_string($table) . "'");
+    if (!$check || $check->num_rows !== 1) {
+        http_response_code(500);
+        exit("Verifikasi gagal: tabel " . htmlspecialchars($table, ENT_QUOTES, "UTF-8") . " belum tersedia.");
+    }
+}
+
 $conn->close();
+if (file_put_contents($lockFile, "Database setup completed at " . date("c")) === false) {
+    http_response_code(500);
+    exit("Database sudah dibuat, tetapi penanda instalasi gagal disimpan. Hapus file installer setelah memastikan database tersedia.");
+}
 ?>
 <!doctype html>
-<html lang="id"><meta charset="utf-8"><title>Setup Database SDN 1 Beririjarak</title>
-<body style="font-family:Arial,sans-serif;max-width:700px;margin:50px auto;padding:20px">
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Setup Database SDN 1 Beririjarak</title></head>
+<body style="font-family:Arial,sans-serif;max-width:700px;margin:50px auto;padding:20px;line-height:1.6">
 <h2>Database berhasil disiapkan</h2>
-<p>Database <b>db_sdn1beririjarak_baru</b> dan tabel pendukung telah dibuat atau diperiksa.</p>
-<p>Akun awal: <b>admin</b> / <b>12345</b></p>
-<p>Silakan buka <a href="login.php">halaman login administrator</a>.</p>
-<p>Untuk keamanan, hapus file setup_database.php dari repositori setelah instalasi selesai.</p>
+<p>Database <b>db_sdn1beririjarak_baru</b> dan tujuh tabel pendukung telah dibuat serta diverifikasi.</p>
+<p>Akun administrator awal: <b>admin</b> / <b>12345</b></p>
+<p><a href="test_db.php">Jalankan pemeriksaan database</a> · <a href="login.php">Buka halaman login</a></p>
+<p>Untuk keamanan, installer ini hanya berjalan satu kali. Hapus file setup_database.php dari repositori setelah instalasi selesai.</p>
 </body></html>
