@@ -1150,51 +1150,46 @@ body {
 </div>
 </section>
 
+<?php
+$daftarBerita = false;
+if (isset($koneksi) && $koneksi) {
+    $queryBerita = mysqli_query($koneksi, "SELECT judul, isi, gambar, tanggal_publikasi FROM tb_berita WHERE status='Terbit' AND tanggal_publikasi <= NOW() ORDER BY tanggal_publikasi DESC, id DESC LIMIT 6");
+    if ($queryBerita) $daftarBerita = $queryBerita;
+}
+?>
 <!-- BERITA -->
 <section class="section" id="berita">
 <div class="container">
-
 <div class="text-center mb-5">
     <span class="section-label">Informasi Terbaru</span>
     <h2 class="section-title">Berita dan Kegiatan Sekolah</h2>
     <p class="section-subtitle">Informasi kegiatan dan pengumuman sekolah.</p>
 </div>
-
 <div class="row g-4">
-
-<div class="col-md-4">
-<div class="card news-card h-100 border-0 shadow-sm">
-    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Pembelajaran">
-    <div class="card-body">
-        <small class="text-primary">Kegiatan Sekolah</small>
-        <h5 class="fw-bold mt-2">Kegiatan Pembelajaran Siswa</h5>
-        <p class="text-secondary">Dokumentasi kegiatan pembelajaran di sekolah.</p>
+<?php if ($daftarBerita && mysqli_num_rows($daftarBerita) > 0): ?>
+    <?php while ($berita = mysqli_fetch_assoc($daftarBerita)): ?>
+    <div class="col-md-4">
+        <article class="card news-card h-100 border-0 shadow-sm">
+            <?php if (!empty($berita["gambar"]) && is_file(__DIR__ . "/" . $berita["gambar"])): ?>
+                <img src="<?= aman($berita["gambar"]) ?>" alt="<?= aman($berita["judul"]) ?>" style="width:100%;height:220px;object-fit:cover">
+            <?php else: ?>
+                <div class="d-flex align-items-center justify-content-center bg-light text-primary" style="height:220px"><i class="bi bi-newspaper" style="font-size:3rem"></i></div>
+            <?php endif; ?>
+            <div class="card-body">
+                <small class="text-primary"><?= aman(date("d F Y", strtotime($berita["tanggal_publikasi"]))) ?></small>
+                <h5 class="fw-bold mt-2"><?= aman($berita["judul"]) ?></h5>
+                <p class="text-secondary mb-0" style="white-space:pre-line"><?= aman(mb_strimwidth($berita["isi"], 0, 180, "...", "UTF-8")) ?></p>
+            </div>
+        </article>
     </div>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="card news-card h-100 border-0 shadow-sm">
-    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=80" alt="Kegiatan siswa">
-    <div class="card-body">
-        <small class="text-primary">Pengembangan Siswa</small>
-        <h5 class="fw-bold mt-2">Aktivitas dan Kreativitas Siswa</h5>
-        <p class="text-secondary">Aktivitas untuk mendukung potensi peserta didik.</p>
-    </div>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="card news-card h-100 border-0 shadow-sm">
-    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" alt="Lingkungan pendidikan">
-    <div class="card-body">
-        <small class="text-primary">Informasi Sekolah</small>
-        <h5 class="fw-bold mt-2">Informasi dan Pengumuman</h5>
-        <p class="text-secondary">Bagian untuk menyampaikan informasi sekolah.</p>
-    </div>
-</div>
-</div>
-
+    <?php endwhile; ?>
+<?php else: ?>
+    <div class="col-12"><div class="text-center py-5 px-3 rounded-4 bg-light">
+        <i class="bi bi-newspaper text-primary" style="font-size:3rem"></i>
+        <h5 class="mt-3 fw-bold">Belum ada berita yang diterbitkan</h5>
+        <p class="text-secondary mb-0">Berita sekolah akan ditampilkan di sini setelah admin menerbitkannya.</p>
+    </div></div>
+<?php endif; ?>
 </div>
 </div>
 </section>
