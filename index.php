@@ -13,6 +13,20 @@ if (isset($koneksi) && $koneksi) {
         $daftarGuru = $queryGuru;
     }
 }
+
+$daftarGaleri = false;
+if (isset($koneksi) && $koneksi) {
+    $queryGaleri = mysqli_query(
+        $koneksi,
+        "SELECT judul, deskripsi, nama_file, tanggal_kegiatan
+         FROM tb_galeri
+         ORDER BY tanggal_kegiatan DESC, id DESC
+         LIMIT 12"
+    );
+    if ($queryGaleri) {
+        $daftarGaleri = $queryGaleri;
+    }
+}
 function aman($nilai) {
     return htmlspecialchars((string)($nilai ?? ""), ENT_QUOTES, "UTF-8");
 }
@@ -1120,33 +1134,37 @@ body {
 <!-- GALERI -->
 <section class="section section-light" id="galeri">
 <div class="container">
-
 <div class="text-center mb-5">
     <span class="section-label">Dokumentasi</span>
     <h2 class="section-title">Galeri Sekolah</h2>
     <p class="section-subtitle">Dokumentasi kegiatan belajar dan aktivitas sekolah.</p>
 </div>
-
 <div class="row g-4">
-
-<div class="col-md-4">
-    <img class="gallery-image" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Kegiatan belajar">
+<?php if ($daftarGaleri && mysqli_num_rows($daftarGaleri) > 0): ?>
+    <?php while ($galeri = mysqli_fetch_assoc($daftarGaleri)): ?>
+    <div class="col-md-4">
+        <article class="info-card h-100 p-3">
+            <img class="gallery-image" src="<?= aman($galeri["nama_file"]) ?>" alt="<?= aman($galeri["judul"]) ?>" loading="lazy">
+            <h5 class="fw-bold mt-3 mb-1"><?= aman($galeri["judul"]) ?></h5>
+            <?php if (!empty($galeri["tanggal_kegiatan"])): ?>
+                <small class="text-primary"><?= aman(date("d F Y", strtotime($galeri["tanggal_kegiatan"]))) ?></small>
+            <?php endif; ?>
+            <?php if (!empty($galeri["deskripsi"])): ?>
+                <p class="text-secondary mt-2 mb-0"><?= aman($galeri["deskripsi"]) ?></p>
+            <?php endif; ?>
+        </article>
+    </div>
+    <?php endwhile; ?>
+<?php else: ?>
+    <div class="col-12">
+        <div class="text-center py-5 px-3 rounded-4 bg-white">
+            <i class="bi bi-images text-primary" style="font-size:3rem"></i>
+            <h5 class="mt-3 fw-bold">Belum ada foto galeri</h5>
+            <p class="text-secondary mb-0">Dokumentasi kegiatan sekolah akan ditampilkan di sini setelah admin menambahkan foto.</p>
+        </div>
+    </div>
+<?php endif; ?>
 </div>
-
-<div class="col-md-4">
-    <img class="gallery-image" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" alt="Aktivitas pendidikan">
-</div>
-
-<div class="col-md-4">
-    <img class="gallery-image" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80" alt="Gedung sekolah">
-</div>
-
-</div>
-
-<p class="text-center text-muted small mt-4">
-    Foto ilustrasi. Ganti dengan dokumentasi asli sekolah.
-</p>
-
 </div>
 </section>
 
