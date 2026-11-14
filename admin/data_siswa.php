@@ -95,25 +95,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             mysqli_stmt_close($stmt);
             $pesan = "Data siswa berhasil dihapus.";
         } elseif ($aksi === "simpan" || $aksi === "ubah") {
-            $values = [];
+            // Hanya kolom yang memiliki nilai yang dikirim ke database.
+            // Kolom kosong dilewati; nomor NIK tidak termasuk daftar field CRUD.
+            $dataIsi = [];
             foreach ($fieldKeys as $key) {
                 $v = trim((string)($_POST[$key] ?? ""));
                 if ($key === "nama_siswa" && $v === "") throw new RuntimeException("Nama siswa wajib diisi.");
-                if ($key === "jenis_kelamin" && !in_array($v, ["", "Laki-laki", "Perempuan"], true)) throw new RuntimeException("Jenis kelamin tidak valid.");
+                if ($key === "jenis_kelamin" && !in_array($v, ["", "L", "P", "Laki-laki", "Perempuan"], true)) throw new RuntimeException("Jenis kelamin tidak valid.");
                 if ($key === "status" && !in_array($v, ["Aktif", "Lulus", "Pindah"], true)) throw new RuntimeException("Status tidak valid.");
                 if ($key === "tanggal_lahir" && $v !== "" && !preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $v)) throw new RuntimeException("Tanggal lahir tidak valid.");
-                $values[] = $v === "" ? null : $v;
+                if ($v !== "") $dataIsi[$key] = $v;
             }
             if ($aksi === "simpan") {
-                $columns = implode(",", $fieldKeys);
-                $marks = implode(",", array_fill(0, count($fieldKeys), "?"));
+                $columns = implode(",", array_keys($dataIsi));
+                $marks = implode(",", array_fill(0, count($dataIsi), "?"));
+                $values = array_values($dataIsi);
                 $stmt = mysqli_prepare($koneksi, "INSERT INTO tb_siswa ($columns) VALUES ($marks)");
             } else {
                 $id = (int)($_POST["id"] ?? 0);
                 if ($id < 1) throw new RuntimeException("ID siswa tidak valid.");
-                $sets = implode(",", array_map(fn($k) => "$k=?", $fieldKeys));
-                $stmt = mysqli_prepare($koneksi, "UPDATE tb_siswa SET $sets WHERE id=?");
+                if (!$dataIsi) throw new RuntimeException("Tidak ada perubahan: semua kolom kosong.");
+                $sets = implode(",", array_map(fn($k) => "$k=?", array_keys($dataIsi)));
+                $values = array_values($dataIsi);
                 $values[] = $id;
+                $stmt = mysqli_prepare($koneksi, "UPDATE tb_siswa SET $sets WHERE id=?");
             }
             if (!$stmt) throw new RuntimeException("Gagal menyiapkan perintah database: " . mysqli_error($koneksi));
             $types = str_repeat("s", count($values));
@@ -121,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             bindDynamic($stmt, $types, $values);
             if (!mysqli_stmt_execute($stmt)) throw new RuntimeException("Gagal menyimpan data: " . mysqli_stmt_error($stmt));
             mysqli_stmt_close($stmt);
-            $pesan = $aksi === "simpan" ? "Data siswa berhasil ditambahkan." : "Data siswa berhasil diperbarui.";
+            $pesan = $aksi === "simpan" ? "Data siswa berhasil ditambahkan. Kolom kosong tidak disimpan." : "Data siswa berhasil diperbarui. Kolom yang dikosongkan tidak menimpa data lama.";
         }
     } catch (Throwable $err) { $pesan = $err->getMessage(); $jenisPesan = "danger"; }
 }
@@ -148,12 +153,12 @@ if ($q !== "") {
 }
 if (!$daftar) die("Gagal mengambil data siswa: " . e(mysqli_error($koneksi)));
 $grup = [
- "Identitas Peserta Didik" => ["nis","nama_siswa","jenis_kelamin","nisn","tempat_lahir","tanggal_lahir","nik","agama"],
+ "Identitas Peserta Didik" => ["nis","nama_siswa","jenis_kelamin","nisn","tempat_lahir","tanggal_lahir","agama"],
  "Alamat dan Kontak" => ["alamat","rt","rw","dusun","kelurahan","kecamatan","kode_pos","jenis_tinggal","alat_transportasi","telepon","hp","email"],
  "Data Administrasi" => ["skhun","penerima_kps","no_kps","kelas","no_peserta_ujian_nasional","no_seri_ijazah","tahun_ajaran","status"],
- "Data Ayah" => ["nama_ayah","tahun_lahir_ayah","pendidikan_ayah","pekerjaan_ayah","penghasilan_ayah","nik_ayah"],
- "Data Ibu" => ["nama_ibu","tahun_lahir_ibu","pendidikan_ibu","pekerjaan_ibu","penghasilan_ibu","nik_ibu"],
- "Data Wali" => ["nama_wali","tahun_lahir_wali","pendidikan_wali","pekerjaan_wali","penghasilan_wali","nik_wali"],
+ "Data Ayah" => ["nama_ayah","tahun_lahir_ayah","pendidikan_ayah","pekerjaan_ayah","penghasilan_ayah"],
+ "Data Ibu" => ["nama_ibu","tahun_lahir_ibu","pendidikan_ibu","pekerjaan_ibu","penghasilan_ibu"],
+ "Data Wali" => ["nama_wali","tahun_lahir_wali","pendidikan_wali","pekerjaan_wali","penghasilan_wali"],
  "Data Bantuan dan Lainnya" => ["penerima_kip","nomor_kip","nama_di_kip","nomor_kks","no_registrasi_akta_lahir","bank","nomor_rekening_bank","rekening_atas_nama","layak_pip","alasan_layak_pip","kebutuhan_khusus","sekolah_asal","anak_ke","lintang","bujur","no_kk","berat_badan","tinggi_badan","lingkar_kepala","jumlah_saudara_kandung","jarak_rumah_ke_sekolah"]
 ];
 $labelMap = [];
@@ -181,7 +186,7 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 <?php foreach ($keys as $key): if (!isset($labelMap[$key])) continue; [$label,$type] = $labelMap[$key]; $value = $editData[$key] ?? ""; ?>
 <div class="<?= $type === "textarea" ? "col-md-12" : "col-md-4" ?>"><label class="form-label"><?= e($label) ?><?= $key === "nama_siswa" ? ' <span class="text-danger">*</span>' : "" ?></label>
 <?php if ($type === "textarea"): ?><textarea class="form-control" name="<?= e($key) ?>" rows="2"><?= e($value) ?></textarea>
-<?php elseif ($type === "select" && $key === "jenis_kelamin"): ?><select class="form-select" name="<?= e($key) ?>"><option value="">-- Pilih --</option><?php foreach (["Laki-laki","Perempuan"] as $opt): ?><option <?= $value === $opt ? "selected" : "" ?>><?= e($opt) ?></option><?php endforeach; ?></select>
+<?php elseif ($type === "select" && $key === "jenis_kelamin"): ?><select class="form-select" name="<?= e($key) ?>"><option value="">-- Pilih --</option><?php foreach (["L"=>"Laki-laki","P"=>"Perempuan"] as $optValue=>$optLabel): ?><option value="<?= e($optValue) ?>" <?= ($value === $optValue || $value === $optLabel) ? "selected" : "" ?>><?= e($optLabel) ?></option><?php endforeach; ?></select>
 <?php elseif ($type === "select" && $key === "status"): ?><select class="form-select" name="<?= e($key) ?>"><?php foreach (["Aktif","Lulus","Pindah"] as $opt): ?><option <?= ($value ?: "Aktif") === $opt ? "selected" : "" ?>><?= e($opt) ?></option><?php endforeach; ?></select>
 <?php else: ?><input class="form-control" type="<?= e($type) ?>" name="<?= e($key) ?>" <?= $key === "nama_siswa" ? "required" : "" ?> value="<?= e($value) ?>"><?php endif; ?>
 </div><?php endforeach; ?></div><?php endforeach; ?>
