@@ -5,6 +5,15 @@ require_once __DIR__ . "/../koneksi.php";
 if (!$koneksi) die("Koneksi database gagal. Periksa koneksi.php.");
 
 function e($v) { return htmlspecialchars((string)($v ?? ""), ENT_QUOTES, "UTF-8"); }
+// Bersihkan spasi biasa, tab, baris baru, dan spasi khusus (NBSP) dari hasil salin Excel.
+// Nilai placeholder "(tidak diisi)" juga dianggap kosong. Angka 0 tetap dianggap data sah.
+function normalisasiNilai($v) {
+    $v = (string)($v ?? "");
+    $v = str_replace(["\\xC2\\xA0", "\\xE2\\x80\\x8B", "\\xEF\\xBB\\xBF"], " ", $v);
+    $v = trim(preg_replace('/\\s+/u', ' ', $v));
+    if ($v === "" || mb_strtolower($v, "UTF-8") === "(tidak diisi)") return "";
+    return $v;
+}
 function bindDynamic($stmt, $types, &$values) {
     $args = [$types];
     foreach ($values as $i => &$value) $args[] = &$value;
@@ -99,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Kolom kosong dilewati; nomor NIK tidak termasuk daftar field CRUD.
             $dataIsi = [];
             foreach ($fieldKeys as $key) {
-                $v = trim((string)($_POST[$key] ?? ""));
+                $v = normalisasiNilai($_POST[$key] ?? "");
                 if ($key === "nama_siswa" && $v === "") throw new RuntimeException("Nama siswa wajib diisi.");
                 if ($key === "jenis_kelamin" && !in_array($v, ["", "L", "P", "Laki-laki", "Perempuan"], true)) throw new RuntimeException("Jenis kelamin tidak valid.");
                 if ($key === "status" && !in_array($v, ["Aktif", "Lulus", "Pindah"], true)) throw new RuntimeException("Status tidak valid.");
