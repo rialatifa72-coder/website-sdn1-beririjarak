@@ -139,8 +139,8 @@ body {
     isolation: isolate;
     overflow: hidden;
     background:
-        linear-gradient(90deg, rgba(5, 31, 67, .94) 0%, rgba(8, 53, 105, .78) 48%, rgba(8, 53, 105, .34) 100%),
-        linear-gradient(0deg, rgba(4, 25, 55, .28), rgba(4, 25, 55, .08)),
+        linear-gradient(90deg, rgba(5, 31, 67, .62) 0%, rgba(8, 53, 105, .32) 48%, rgba(8, 53, 105, .12) 100%),
+        linear-gradient(0deg, rgba(4, 25, 55, .08), rgba(4, 25, 55, .02)),
         url("guru.jpeg")
         center 42%/cover no-repeat;
 }
