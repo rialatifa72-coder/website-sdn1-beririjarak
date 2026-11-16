@@ -51,11 +51,6 @@ $fields = [
     ["pendidikan_ibu", "Pendidikan Ibu", "text"],
     ["pekerjaan_ibu", "Pekerjaan Ibu", "text"],
     ["penghasilan_ibu", "Penghasilan Ibu", "text"],
-    ["nama_wali", "Nama Wali", "text"],
-    ["tahun_lahir_wali", "Tahun Lahir Wali", "text"],
-    ["pendidikan_wali", "Pendidikan Wali", "text"],
-    ["pekerjaan_wali", "Pekerjaan Wali", "text"],
-    ["penghasilan_wali", "Penghasilan Wali", "text"],
     ["kelas", "Rombel Saat Ini / Kelas", "text"],
 
     ["penerima_kip", "Penerima KIP", "text"],
@@ -109,8 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 "pekerjaan_ayah"=>27, "penghasilan_ayah"=>28,
                 "nama_ibu"=>30, "tahun_lahir_ibu"=>31, "pendidikan_ibu"=>32,
                 "pekerjaan_ibu"=>33, "penghasilan_ibu"=>34,
-                "nama_wali"=>36, "tahun_lahir_wali"=>37, "pendidikan_wali"=>38,
-                "pekerjaan_wali"=>39, "penghasilan_wali"=>40,
                 "kelas"=>42, "penerima_kip"=>45, "no_registrasi_akta_lahir"=>49,
                 "layak_pip"=>53, "alasan_layak_pip"=>54, "kebutuhan_khusus"=>55,
                 "sekolah_asal"=>56, "anak_ke"=>57, "lintang"=>58, "bujur"=>59,
@@ -241,7 +234,6 @@ $grup = [
  "Data Administrasi" => ["penerima_kps","kelas","tahun_ajaran","status"],
  "Data Ayah" => ["nama_ayah","tahun_lahir_ayah","pendidikan_ayah","pekerjaan_ayah","penghasilan_ayah"],
  "Data Ibu" => ["nama_ibu","tahun_lahir_ibu","pendidikan_ibu","pekerjaan_ibu","penghasilan_ibu"],
- "Data Wali" => ["nama_wali","tahun_lahir_wali","pendidikan_wali","pekerjaan_wali","penghasilan_wali"],
  "Data Bantuan dan Lainnya" => ["penerima_kip","no_registrasi_akta_lahir","layak_pip","alasan_layak_pip","kebutuhan_khusus","sekolah_asal","anak_ke","lintang","bujur","no_kk","berat_badan","tinggi_badan","lingkar_kepala","jumlah_saudara_kandung","jarak_rumah_ke_sekolah"]
 ];
 $labelMap = [];
