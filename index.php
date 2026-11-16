@@ -341,11 +341,86 @@ body {
     font-size: 12px;
 }
 
+.profile-visual {
+    position: relative;
+    padding: 0 18px 22px 0;
+}
+.profile-visual::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    width: 46%;
+    height: 42%;
+    border-top: 5px solid #0d6efd;
+    border-left: 5px solid #0d6efd;
+    border-radius: 18px 0 0 0;
+    opacity: .65;
+}
 .profile-image {
+    position: relative;
+    z-index: 1;
+    display: block;
     width: 100%;
-    height: 380px;
+    height: 410px;
     object-fit: cover;
-    border-radius: 16px;
+    border-radius: 22px;
+    box-shadow: 0 18px 42px rgba(8,43,89,.16);
+}
+.profile-photo-caption {
+    position: absolute;
+    z-index: 2;
+    left: 34px;
+    bottom: 42px;
+    max-width: calc(100% - 68px);
+    padding: 14px 18px;
+    border-radius: 14px;
+    color: #fff;
+    background: rgba(8,43,89,.88);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.16);
+}
+.profile-photo-caption strong { display:block; font-size:15px; }
+.profile-photo-caption span { font-size:12px; color:#dceaff; }
+.profile-intro {
+    color:#5e6d80;
+    line-height:1.9;
+    font-size:15px;
+}
+.profile-points {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    margin:22px 0 26px;
+}
+.profile-point {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    border:1px solid #e5edf8;
+    border-radius:13px;
+    background:#f8fbff;
+    color:#193b65;
+    font-size:13px;
+    font-weight:700;
+}
+.profile-point i {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;
+    height:34px;
+    min-width:34px;
+    border-radius:10px;
+    background:#e5f0ff;
+    color:#0d6efd;
+    font-size:17px;
+}
+@media (max-width:575px) {
+    .profile-image { height:280px; }
+    .profile-points { grid-template-columns:1fr; }
+    .profile-photo-caption { left:24px; bottom:34px; }
 }
 
 .info-card, .learning-card {
@@ -877,35 +952,48 @@ body {
 </section>
 
 <!-- PROFIL SEKOLAH -->
-<section class="section" id="profil">
+<section class="section section-light" id="profil">
 <div class="container">
 <div class="row align-items-center g-5">
 
 <div class="col-lg-6">
-    <img class="profile-image"
-         src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1000&q=85"
-         alt="Ilustrasi lingkungan sekolah">
+    <div class="profile-visual">
+        <img class="profile-image"
+             src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1000&q=85"
+             alt="Ilustrasi lingkungan belajar di sekolah">
+        <div class="profile-photo-caption">
+            <strong><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 Beririjarak</strong>
+            <span>Tempat tumbuh, belajar, dan meraih cita-cita</span>
+        </div>
+    </div>
 </div>
 
 <div class="col-lg-6">
-    <span class="section-label">Profil Sekolah</span>
-    <h2 class="section-title mt-2">Mengenal SDN 1 Beririjarak</h2>
+    <span class="section-label"><i class="bi bi-buildings me-1"></i> Profil Sekolah</span>
+    <h2 class="section-title mt-2 mb-3">Mengenal Lebih Dekat SDN 1 Beririjarak</h2>
 
-    <p class="text-secondary" style="line-height:1.9">
-        SDN 1 Beririjarak hadir sebagai tempat belajar dan bertumbuh
-        bagi generasi muda. Kami berkomitmen memberikan pendidikan
-        yang mendorong peserta didik untuk meraih prestasi,
-        mengembangkan keterampilan, serta membentuk karakter yang baik.
+    <p class="profile-intro">
+        SDN 1 Beririjarak merupakan lembaga pendidikan dasar yang
+        berkomitmen mendukung perkembangan pengetahuan, keterampilan,
+        karakter, dan potensi setiap peserta didik.
     </p>
 
-    <p class="text-secondary" style="line-height:1.9">
-        Melalui lingkungan sekolah yang aman, nyaman, dan kondusif,
-        kami mengajak setiap peserta didik untuk aktif belajar,
-        percaya diri, berperilaku positif, dan mengembangkan potensi
-        diri agar siap menghadapi masa depan.
+    <p class="profile-intro">
+        Melalui lingkungan belajar yang aman, nyaman, dan menyenangkan,
+        sekolah mendorong siswa untuk aktif, percaya diri, berprestasi,
+        serta memiliki akhlak mulia dan kepedulian terhadap lingkungan.
     </p>
 
-    <a href="#visi-misi" class="btn-utama">Lihat Visi dan Misi</a>
+    <div class="profile-points">
+        <div class="profile-point"><i class="bi bi-book-half"></i><span>Pembelajaran Berkualitas</span></div>
+        <div class="profile-point"><i class="bi bi-award-fill"></i><span>Pengembangan Prestasi</span></div>
+        <div class="profile-point"><i class="bi bi-heart-fill"></i><span>Pembentukan Karakter</span></div>
+        <div class="profile-point"><i class="bi bi-tree-fill"></i><span>Peduli Lingkungan</span></div>
+    </div>
+
+    <a href="#visi-misi" class="btn-utama">
+        Jelajahi Visi dan Misi <i class="bi bi-arrow-right ms-2"></i>
+    </a>
 </div>
 
 </div>
