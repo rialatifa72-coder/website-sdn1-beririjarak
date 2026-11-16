@@ -169,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
     </div>
 </main>
-<footer>&copy; <?= date("Y") ?> SDN 1 Beririjarak. Semua hak dilindungi.</footer>
+<footer>&copy; 2026 KKN Desa Beririjarak 28 Universitas Hamzanwadi. Semua hak dilindungi.</footer>
 <script>
 document.getElementById("togglePassword").addEventListener("click", function () {
     const field = document.getElementById("password");
