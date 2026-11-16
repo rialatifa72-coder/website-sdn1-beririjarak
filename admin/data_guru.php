@@ -128,10 +128,14 @@ $daftarGuru = mysqli_query($koneksi, "SELECT id,nip,nama_guru,jenis_kelamin,jaba
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <style>
 body{background:#f4f7fb;color:#26364a;font-family:'Segoe UI',Tahoma,sans-serif}.topbar{background:#082b59;color:#fff;padding:18px 24px}.wrap{max-width:1200px;margin:28px auto;padding:0 16px}.panel{background:#fff;border:0;border-radius:14px;box-shadow:0 3px 16px rgba(20,50,90,.07);padding:24px}.table th{background:#edf4fc;color:#294665;white-space:nowrap}.foto{width:48px;height:48px;object-fit:cover;border-radius:8px}.judul{color:#082b59;font-weight:700}
+.admin-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.admin-brand-logo{width:44px;height:44px;min-width:44px;object-fit:contain;background:#fff;border-radius:10px;padding:3px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.admin-brand strong{font-size:15px;letter-spacing:.2px}
+@media(max-width:575px){.topbar{padding:12px 14px}.admin-brand-logo{width:38px;height:38px;min-width:38px}.admin-brand strong{font-size:12px}}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="container-fluid d-flex justify-content-between align-items-center"><strong><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 BERIRIJARAK — ADMIN</strong><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
+<header class="topbar"><div class="container-fluid d-flex justify-content-between align-items-center"><div class="admin-brand"><img src="../logo.jpeg" alt="Logo SDN 1 Beririjarak" class="admin-brand-logo"><strong>SDN 1 BERIRIJARAK — ADMIN</strong></div><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
 <main class="wrap">
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
  <div><h1 class="h3 judul mb-1">Pengelolaan Data Guru</h1><p class="text-secondary mb-0">Tambah, lihat, ubah, dan hapus data guru.</p></div>
