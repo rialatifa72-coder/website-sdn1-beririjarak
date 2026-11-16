@@ -36,12 +36,11 @@ $fields = [
     ["kode_pos", "Kode Pos", "text"],
     ["jenis_tinggal", "Jenis Tinggal", "text"],
     ["alat_transportasi", "Alat Transportasi", "text"],
-    ["telepon", "Telepon", "text"],
+
     ["hp", "HP", "text"],
-    ["email", "E-Mail", "email"],
-    ["skhun", "SKHUN", "text"],
+
     ["penerima_kps", "Penerima KPS", "text"],
-    ["no_kps", "Nomor KPS", "text"],
+
     ["nama_ayah", "Nama Ayah", "text"],
     ["tahun_lahir_ayah", "Tahun Lahir Ayah", "text"],
     ["pendidikan_ayah", "Pendidikan Ayah", "text"],
@@ -58,16 +57,11 @@ $fields = [
     ["pekerjaan_wali", "Pekerjaan Wali", "text"],
     ["penghasilan_wali", "Penghasilan Wali", "text"],
     ["kelas", "Rombel Saat Ini / Kelas", "text"],
-    ["no_peserta_ujian_nasional", "Nomor Peserta Ujian Nasional", "text"],
-    ["no_seri_ijazah", "Nomor Seri Ijazah", "text"],
+
     ["penerima_kip", "Penerima KIP", "text"],
-    ["nomor_kip", "Nomor KIP", "text"],
-    ["nama_di_kip", "Nama di KIP", "text"],
-    ["nomor_kks", "Nomor KKS", "text"],
+
     ["no_registrasi_akta_lahir", "Nomor Registrasi Akta Lahir", "text"],
-    ["bank", "Bank", "text"],
-    ["nomor_rekening_bank", "Nomor Rekening Bank", "text"],
-    ["rekening_atas_nama", "Rekening Atas Nama", "text"],
+
     ["layak_pip", "Layak PIP", "text"],
     ["alasan_layak_pip", "Alasan Layak PIP", "textarea"],
     ["kebutuhan_khusus", "Kebutuhan Khusus", "text"],
@@ -163,12 +157,12 @@ if ($q !== "") {
 if (!$daftar) die("Gagal mengambil data siswa: " . e(mysqli_error($koneksi)));
 $grup = [
  "Identitas Peserta Didik" => ["nis","nama_siswa","jenis_kelamin","nisn","tempat_lahir","tanggal_lahir","agama"],
- "Alamat dan Kontak" => ["alamat","rt","rw","dusun","kelurahan","kecamatan","kode_pos","jenis_tinggal","alat_transportasi","telepon","hp","email"],
- "Data Administrasi" => ["skhun","penerima_kps","no_kps","kelas","no_peserta_ujian_nasional","no_seri_ijazah","tahun_ajaran","status"],
+ "Alamat dan Kontak" => ["alamat","rt","rw","dusun","kelurahan","kecamatan","kode_pos","jenis_tinggal","alat_transportasi","hp",],
+ "Data Administrasi" => ["penerima_kps","kelas","tahun_ajaran","status"],
  "Data Ayah" => ["nama_ayah","tahun_lahir_ayah","pendidikan_ayah","pekerjaan_ayah","penghasilan_ayah"],
  "Data Ibu" => ["nama_ibu","tahun_lahir_ibu","pendidikan_ibu","pekerjaan_ibu","penghasilan_ibu"],
  "Data Wali" => ["nama_wali","tahun_lahir_wali","pendidikan_wali","pekerjaan_wali","penghasilan_wali"],
- "Data Bantuan dan Lainnya" => ["penerima_kip","nomor_kip","nama_di_kip","nomor_kks","no_registrasi_akta_lahir","bank","nomor_rekening_bank","rekening_atas_nama","layak_pip","alasan_layak_pip","kebutuhan_khusus","sekolah_asal","anak_ke","lintang","bujur","no_kk","berat_badan","tinggi_badan","lingkar_kepala","jumlah_saudara_kandung","jarak_rumah_ke_sekolah"]
+ "Data Bantuan dan Lainnya" => ["penerima_kip","no_registrasi_akta_lahir","layak_pip","alasan_layak_pip","kebutuhan_khusus","sekolah_asal","anak_ke","lintang","bujur","no_kk","berat_badan","tinggi_badan","lingkar_kepala","jumlah_saudara_kandung","jarak_rumah_ke_sekolah"]
 ];
 $labelMap = [];
 foreach ($fields as $f) $labelMap[$f[0]] = [$f[1], $f[2]];
