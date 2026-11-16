@@ -220,12 +220,12 @@ if (isset($_GET["edit"])) {
 $q = trim($_GET["q"] ?? "");
 if ($q !== "") {
     $like = "%".$q."%";
-    $stmt = mysqli_prepare($koneksi, "SELECT id,nis,nisn,nama_siswa,jenis_kelamin,kelas,status FROM tb_siswa WHERE nama_siswa LIKE ? OR nis LIKE ? OR nisn LIKE ? OR kelas LIKE ? ORDER BY nama_siswa ASC");
+    $stmt = mysqli_prepare($koneksi, "SELECT * FROM tb_siswa WHERE nama_siswa LIKE ? OR nis LIKE ? OR nisn LIKE ? OR kelas LIKE ? ORDER BY nama_siswa ASC");
     mysqli_stmt_bind_param($stmt, "ssss", $like, $like, $like, $like);
     mysqli_stmt_execute($stmt);
     $daftar = mysqli_stmt_get_result($stmt);
 } else {
-    $daftar = mysqli_query($koneksi, "SELECT id,nis,nisn,nama_siswa,jenis_kelamin,kelas,status FROM tb_siswa ORDER BY nama_siswa ASC");
+    $daftar = mysqli_query($koneksi, "SELECT * FROM tb_siswa ORDER BY nama_siswa ASC");
 }
 if (!$daftar) die("Gagal mengambil data siswa: " . e(mysqli_error($koneksi)));
 $grup = [
@@ -246,7 +246,7 @@ foreach ($fields as $f) $labelMap[$f[0]] = [$f[1], $f[2]];
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <style>
-body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.topbar{background:#082b59;color:#fff;padding:17px 24px}.wrap{max-width:1450px;margin:28px auto;padding:0 16px}.panel{background:#fff;border:0;border-radius:14px;box-shadow:0 3px 16px rgba(20,50,90,.07);padding:24px}.judul{color:#082b59;font-weight:700}.group-title{color:#174b82;font-weight:700;border-bottom:1px solid #e5edf6;padding-bottom:9px;margin:22px 0 15px}.table th{background:#edf4fc;white-space:nowrap}.table td{vertical-align:middle}
+body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.topbar{background:#082b59;color:#fff;padding:17px 24px}.wrap{max-width:1450px;margin:28px auto;padding:0 16px}.panel{background:#fff;border:0;border-radius:14px;box-shadow:0 3px 16px rgba(20,50,90,.07);padding:24px}.judul{color:#082b59;font-weight:700}.group-title{color:#174b82;font-weight:700;border-bottom:1px solid #e5edf6;padding-bottom:9px;margin:22px 0 15px}.table th{background:#edf4fc;white-space:nowrap}.table td{vertical-align:middle}.table-siswa{min-width:2200px}.table-siswa td{max-width:260px;white-space:normal;overflow-wrap:anywhere}
 </style></head><body>
 <header class="topbar"><div class="container-fluid d-flex justify-content-between"><strong><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 BERIRIJARAK — ADMIN</strong><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
 <main class="wrap">
@@ -278,8 +278,8 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 </form>
 </section>
 <section class="panel"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Siswa</h2><form class="d-flex gap-2" method="get"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama, NIS, NISN, kelas"><button class="btn btn-outline-primary"><i class="bi bi-search"></i></button></form></div>
-<div class="table-responsive"><table class="table table-hover"><thead><tr><th>No</th><th>NIS</th><th>NISN</th><th>Nama Siswa</th><th>JK</th><th>Kelas</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
-<?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="8" class="text-center text-muted py-4">Belum ada data siswa.</td></tr><?php else: $no=1; while ($s=mysqli_fetch_assoc($daftar)): ?><tr><td><?= $no++ ?></td><td><?= e($s["nis"]) ?></td><td><?= e($s["nisn"]) ?></td><td class="fw-semibold"><?= e($s["nama_siswa"]) ?></td><td><?= e($s["jenis_kelamin"]) ?></td><td><?= e($s["kelas"]) ?></td><td><?= e($s["status"]) ?></td><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_siswa.php?edit=<?= (int)$s["id"] ?>"><i class="bi bi-pencil"></i> Ubah</a> <form method="post" class="d-inline" onsubmit="return confirm('Hapus biodata siswa ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$s["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr><?php endwhile; endif; ?>
+<div class="table-responsive"><table class="table table-hover table-bordered align-middle table-siswa"><thead><tr><th>No</th><?php foreach ($fields as $f): ?><th><?= e($f[1]) ?></th><?php endforeach; ?><th>Aksi</th></tr></thead><tbody>
+<?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="<?= count($fields) + 2 ?>" class="text-center text-muted py-4">Belum ada data siswa.</td></tr><?php else: $no=1; while ($s=mysqli_fetch_assoc($daftar)): ?><tr><td><?= $no++ ?></td><?php foreach ($fields as $f): $kolom = $f[0]; ?><td><?= e($s[$kolom] ?? "") ?></td><?php endforeach; ?><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_siswa.php?edit=<?= (int)$s["id"] ?>"><i class="bi bi-pencil"></i> Ubah</a> <form method="post" class="d-inline" onsubmit="return confirm('Hapus biodata siswa ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$s["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr><?php endwhile; endif; ?>
 </tbody></table></div></section>
 <p class="small text-muted mt-3"><i class="bi bi-shield-lock me-1"></i>Data pribadi siswa, orang tua, dan wali disimpan pada database lokal sekolah. Jangan unggah file data peserta didik ke repositori publik.</p>
 </main></body></html>
