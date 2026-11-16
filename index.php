@@ -171,10 +171,10 @@ body {
 }
 
 .hero h1 {
-    font-size: clamp(36px, 5vw, 58px);
+    font-size: clamp(26px, 3.2vw, 40px);
     font-weight: 800;
     line-height: 1.2;
-    max-width: 750px;
+    max-width: 620px;
 }
 
 /* ANIMASI JUDUL UTAMA BERANDA */
