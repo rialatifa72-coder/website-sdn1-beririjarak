@@ -112,7 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         body{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#eaf3ff,#d8f3f0)}
         .navbar-sekolah,footer{background:#082b59;color:#fff}
         .navbar-sekolah{padding:15px 0}
-        .brand{color:#fff;text-decoration:none;font-size:18px;font-weight:700}
+        .brand{color:#fff;text-decoration:none;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+        .brand-logo{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:50%;padding:3px;flex-shrink:0}
+        .brand-text{display:flex;flex-direction:column;line-height:1.25}
         .brand small{display:block;font-size:11px;font-weight:400}
         .btn-home{color:#fff;text-decoration:none;border:1px solid #fff;border-radius:7px;padding:8px 14px}
         .btn-home:hover{background:#fff;color:#082b59}
@@ -136,7 +138,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 <nav class="navbar-sekolah">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="index.php" class="brand"><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 BERIRIJARAK<small>Sekolah Dasar Negeri</small></a>
+        <a href="index.php" class="brand">
+            <img src="logo.jpeg" alt="Logo SDN 1 Beririjarak" class="brand-logo">
+            <span class="brand-text">SDN 1 BERIRIJARAK<small>Sekolah Dasar Negeri</small></span>
+        </a>
         <a href="index.php" class="btn-home"><i class="bi bi-house-door me-1"></i> Beranda</a>
     </div>
 </nav>
