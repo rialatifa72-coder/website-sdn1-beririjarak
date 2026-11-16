@@ -1523,7 +1523,7 @@ if (isset($koneksi) && $koneksi) {
 </div>
 
 <div class="footer-bottom text-center">
-    &copy; KKN Desa Beririjarak 28 Universitas Hamzanwadi. Semua hak cipta dilindungi.
+    &copy; 2026 KKN Desa Beririjarak 28 Universitas Hamzanwadi. Semua hak dilindungi.
 </div>
 
 </div>
