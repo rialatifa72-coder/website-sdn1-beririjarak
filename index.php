@@ -719,7 +719,7 @@ body {
     Website Resmi Sekolah
 </span>
 
-<h1 class="hero-title-animate">MASA DEPAN CERDAS DIMULAI DI SINI</h1>
+<h1 class="hero-title-animate">MENCETAK GENERASI CIKAL, CERDAS, BERIMAN, KREATIF, AMANAH, DAN PEDULI LINGKUNGAN</h1>
 
 <p class="mt-4 mb-4">
     Selamat datang di website resmi SDN 1 Beririjarak.
