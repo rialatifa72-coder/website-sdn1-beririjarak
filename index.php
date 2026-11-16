@@ -410,6 +410,86 @@ body {
     font-weight: 800;
 }
 
+/* DESAIN BARU VISI DAN MISI */
+.vm-vision {
+    position: relative;
+    overflow: hidden;
+    padding: 42px;
+    border-radius: 26px;
+    color: #fff;
+    background: linear-gradient(120deg, #082b59 0%, #0d6efd 62%, #3b91f5 100%);
+    box-shadow: 0 18px 45px rgba(8, 43, 89, .18);
+}
+.vm-vision::after {
+    content: "CIKAL";
+    position: absolute;
+    right: 22px;
+    bottom: -32px;
+    font-size: clamp(70px, 12vw, 150px);
+    line-height: 1;
+    font-weight: 900;
+    color: rgba(255,255,255,.08);
+    pointer-events: none;
+}
+.vm-vision-content { position: relative; z-index: 1; max-width: 850px; }
+.vm-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+.vm-vision h3 { font-size: 30px; font-weight: 800; margin: 18px 0 12px; }
+.vm-vision p { max-width: 760px; font-size: 18px; line-height: 1.8; color: #edf5ff; margin: 0; }
+.vm-values { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.vm-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-radius: 30px;
+    color: #fff;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.24);
+    font-size: 13px;
+    font-weight: 600;
+}
+.vm-mission-heading { display:flex; align-items:center; justify-content:center; gap:12px; margin: 46px 0 24px; }
+.vm-mission-heading .line { width: 42px; height: 2px; background: #0d6efd; opacity: .35; }
+.vm-mission-heading h3 { margin:0; font-weight:800; color:#082b59; }
+.vm-mission-card {
+    display:flex;
+    gap:18px;
+    height:100%;
+    padding:24px;
+    border:1px solid #e5edf8;
+    border-radius:20px;
+    background:#fff;
+    box-shadow:0 8px 25px rgba(8,43,89,.055);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.vm-mission-card:hover { transform:translateY(-6px); border-color:#b9d5ff; box-shadow:0 16px 32px rgba(8,43,89,.11); }
+.vm-mission-icon {
+    width:52px; height:52px; min-width:52px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:16px;
+    color:#0d6efd; background:#eaf3ff; font-size:23px;
+}
+.vm-mission-card h5 { color:#082b59; font-weight:800; font-size:17px; margin:2px 0 9px; }
+.vm-mission-card p { color:#68788d; line-height:1.75; margin:0; font-size:14px; }
+@media (max-width:575px) {
+    .vm-vision { padding:30px 22px; border-radius:20px; }
+    .vm-vision h3 { font-size:25px; }
+    .vm-vision p { font-size:16px; }
+    .vm-mission-card { padding:20px; }
+}
+ 
 /* SLIDER GURU */
 .guru-slider {
     position: relative;
@@ -890,73 +970,66 @@ body {
     </p>
 </div>
 
-<div class="visi-card mb-5 text-center">
-    <i class="bi bi-eye-fill fs-1"></i>
-    <h3 class="mt-3 mb-4">Visi Sekolah</h3>
-    <p class="fs-5 mb-0">
-        Menjadi sekolah yang menghasilkan lulusan
-        <strong>CIKAL</strong>: Cerdas, Iman dan Taqwa,
-        Kreatif, Amanah, dan peduli Lingkungan.
-    </p>
+<div class="vm-vision mb-4">
+    <div class="vm-vision-content">
+        <span class="vm-eyebrow"><i class="bi bi-eye-fill"></i> Visi Sekolah</span>
+        <h3>Mewujudkan Generasi CIKAL</h3>
+        <p>Menjadi sekolah yang menghasilkan lulusan <strong>CIKAL</strong>:
+        Cerdas, Iman dan Taqwa, Kreatif, Amanah, dan peduli Lingkungan.</p>
+        <div class="vm-values">
+            <span class="vm-value"><i class="bi bi-lightbulb-fill"></i> Cerdas</span>
+            <span class="vm-value"><i class="bi bi-heart-fill"></i> Iman dan Taqwa</span>
+            <span class="vm-value"><i class="bi bi-palette-fill"></i> Kreatif</span>
+            <span class="vm-value"><i class="bi bi-shield-check"></i> Amanah</span>
+            <span class="vm-value"><i class="bi bi-tree-fill"></i> Peduli Lingkungan</span>
+        </div>
+    </div>
 </div>
 
-<div class="text-center mb-4">
-    <h3 class="section-title">Misi Sekolah</h3>
+<div class="vm-mission-heading">
+    <span class="line"></span>
+    <h3><i class="bi bi-bullseye me-2 text-primary"></i>Misi Sekolah</h3>
+    <span class="line"></span>
 </div>
 
 <div class="row g-4">
-
-<div class="col-md-6">
-<div class="info-card d-flex gap-3">
-    <div class="misi-number">1</div>
-    <div>
-        <h5>Meningkatkan Iman dan Taqwa</h5>
-        <p>Membina warga sekolah dalam peningkatan imtaq dan akhlak mulia.</p>
+    <div class="col-md-6">
+        <div class="vm-mission-card">
+            <div class="vm-mission-icon"><i class="bi bi-moon-stars-fill"></i></div>
+            <div><h5>01. Meningkatkan Iman dan Taqwa</h5>
+            <p>Membina warga sekolah dalam peningkatan imtaq dan akhlak mulia.</p></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="vm-mission-card">
+            <div class="vm-mission-icon"><i class="bi bi-trophy-fill"></i></div>
+            <div><h5>02. Mengembangkan Prestasi</h5>
+            <p>Mendukung prestasi siswa sesuai bakat dan minat akademik maupun nonakademik.</p></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="vm-mission-card">
+            <div class="vm-mission-icon"><i class="bi bi-lightbulb-fill"></i></div>
+            <div><h5>03. Mendorong Kreativitas</h5>
+            <p>Mendorong siswa agar kreatif, aktif, dan berani berkarya.</p></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="vm-mission-card">
+            <div class="vm-mission-icon"><i class="bi bi-people-fill"></i></div>
+            <div><h5>04. Membentuk Karakter Positif</h5>
+            <p>Menumbuhkan disiplin, kesantunan, dan sikap saling menghargai.</p></div>
+        </div>
+    </div>
+    <div class="col-md-6 mx-auto">
+        <div class="vm-mission-card">
+            <div class="vm-mission-icon"><i class="bi bi-tree-fill"></i></div>
+            <div><h5>05. Peduli Lingkungan</h5>
+            <p>Melatih siswa agar peduli terhadap kebersihan dan kelestarian lingkungan.</p></div>
+        </div>
     </div>
 </div>
-</div>
 
-<div class="col-md-6">
-<div class="info-card d-flex gap-3">
-    <div class="misi-number">2</div>
-    <div>
-        <h5>Mengembangkan Prestasi</h5>
-        <p>Mendukung prestasi siswa sesuai bakat dan minat akademik maupun nonakademik.</p>
-    </div>
-</div>
-</div>
-
-<div class="col-md-6">
-<div class="info-card d-flex gap-3">
-    <div class="misi-number">3</div>
-    <div>
-        <h5>Mendorong Kreativitas</h5>
-        <p>Mendorong siswa agar kreatif, aktif, dan berani berkarya.</p>
-    </div>
-</div>
-</div>
-
-<div class="col-md-6">
-<div class="info-card d-flex gap-3">
-    <div class="misi-number">4</div>
-    <div>
-        <h5>Membentuk Karakter Positif</h5>
-        <p>Menumbuhkan disiplin, kesantunan, dan sikap saling menghargai.</p>
-    </div>
-</div>
-</div>
-
-<div class="col-md-6 mx-auto">
-<div class="info-card d-flex gap-3">
-    <div class="misi-number">5</div>
-    <div>
-        <h5>Peduli Lingkungan</h5>
-        <p>Melatih siswa agar peduli terhadap kebersihan dan kelestarian lingkungan.</p>
-    </div>
-</div>
-</div>
-
-</div>
 </div>
 </section>
 
