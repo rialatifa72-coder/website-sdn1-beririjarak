@@ -141,7 +141,7 @@ body {
     background:
         linear-gradient(90deg, rgba(5, 31, 67, .94) 0%, rgba(8, 53, 105, .78) 48%, rgba(8, 53, 105, .34) 100%),
         linear-gradient(0deg, rgba(4, 25, 55, .28), rgba(4, 25, 55, .08)),
-        url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=2000&q=90")
+        url("guru.jpeg")
         center 42%/cover no-repeat;
 }
 .hero::before {
