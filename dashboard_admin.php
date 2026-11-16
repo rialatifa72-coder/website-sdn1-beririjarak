@@ -38,7 +38,11 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
 .wrapper{display:flex;min-height:100vh}
 #sidebar{width:250px;min-width:250px;background:var(--sidebar);color:#fff;transition:.25s}
 #sidebar.collapsed{margin-left:-250px}
-.sidebar-header{padding:20px 18px;background:var(--navy);font-size:17px;font-weight:700}
+.sidebar-header{padding:18px 16px;background:var(--navy);font-size:15px;font-weight:700}
+.sidebar-brand{display:flex;align-items:center;gap:12px;min-height:54px}
+.sidebar-brand-logo{width:48px;height:48px;min-width:48px;object-fit:contain;background:#fff;border-radius:12px;padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.16)}
+.sidebar-brand-text{display:block;line-height:1.3;letter-spacing:.35px}
+.sidebar-brand-text small{display:block;margin-top:4px;font-size:10px;font-weight:500;letter-spacing:1px;color:#cfe2ff}
 .sidebar-menu{list-style:none;padding:12px 0;margin:0}
 .sidebar-menu a{display:flex;align-items:center;gap:12px;padding:13px 20px;color:#e5efff;text-decoration:none;font-size:14px}
 .sidebar-menu a:hover,.sidebar-menu li.active a{background:#0d3765;color:#fff}
@@ -63,7 +67,12 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
 <body>
 <div class="wrapper">
 <nav id="sidebar">
-    <div class="sidebar-header"><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 BERIRIJARAK</div>
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <img src="logo.jpeg" alt="Logo SDN 1 Beririjarak" class="sidebar-brand-logo">
+            <span class="sidebar-brand-text">SDN 1 BERIRIJARAK<small>PANEL ADMINISTRATOR</small></span>
+        </div>
+    </div>
     <ul class="sidebar-menu">
         <li class="<?= $page === "beranda" ? "active" : "" ?>"><a href="dashboard_admin.php?page=beranda"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
         <li class="<?= $page === "profil" ? "active" : "" ?>"><a href="dashboard_admin.php?page=profil"><i class="bi bi-building"></i>Profil Sekolah</a></li>
