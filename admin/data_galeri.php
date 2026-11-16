@@ -120,8 +120,12 @@ if (!$daftar) die("Gagal mengambil data galeri: " . e(mysqli_error($koneksi)));
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <style>
 body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.topbar{background:#082b59;color:#fff;padding:17px 24px}.wrap{max-width:1250px;margin:28px auto;padding:0 16px}.panel{background:#fff;border:0;border-radius:14px;box-shadow:0 3px 16px rgba(20,50,90,.07);padding:24px}.judul{color:#082b59;font-weight:700}.table th{background:#edf4fc;white-space:nowrap}.thumb{width:105px;height:72px;object-fit:cover;border-radius:8px}
+.admin-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.admin-brand-logo{width:44px;height:44px;min-width:44px;object-fit:contain;background:#fff;border-radius:10px;padding:3px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.admin-brand strong{font-size:15px;letter-spacing:.2px}
+@media(max-width:575px){.topbar{padding:12px 14px}.admin-brand-logo{width:38px;height:38px;min-width:38px}.admin-brand strong{font-size:12px}}
 </style></head><body>
-<header class="topbar"><div class="container-fluid d-flex justify-content-between"><strong><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 BERIRIJARAK — ADMIN</strong><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
+<header class="topbar"><div class="container-fluid d-flex justify-content-between"><div class="admin-brand"><img src="../logo.jpeg" alt="Logo SDN 1 Beririjarak" class="admin-brand-logo"><strong>SDN 1 BERIRIJARAK — ADMIN</strong></div><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
 <main class="wrap">
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><div><h1 class="h3 judul mb-1">Pengelolaan Galeri Foto</h1><p class="text-secondary mb-0">Kelola dokumentasi foto kegiatan SDN 1 Beririjarak.</p></div><a href="../dashboard_admin.php?page=beranda" class="btn btn-outline-primary"><i class="bi bi-arrow-left me-1"></i>Dashboard</a></div>
 <?php if ($pesan): ?><div class="alert alert-<?= e($jenisPesan) ?> alert-dismissible fade show"><?= e($pesan) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div><?php endif; ?>
