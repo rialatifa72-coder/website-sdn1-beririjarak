@@ -183,6 +183,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $v = normalisasiNilai($_POST[$key] ?? "");
                 if ($key === "nama_siswa" && $v === "") throw new RuntimeException("Nama siswa wajib diisi.");
                 if ($key === "jenis_kelamin" && !in_array($v, ["", "L", "P", "Laki-laki", "Perempuan"], true)) throw new RuntimeException("Jenis kelamin tidak valid.");
+                if ($key === "jenis_kelamin" && $v === "L") $v = "Laki-laki";
+                if ($key === "jenis_kelamin" && $v === "P") $v = "Perempuan";
                 if ($key === "status" && !in_array($v, ["Aktif", "Lulus", "Pindah"], true)) throw new RuntimeException("Status tidak valid.");
                 if ($key === "tanggal_lahir" && $v !== "" && !preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $v)) throw new RuntimeException("Tanggal lahir tidak valid.");
                 if ($v !== "") $dataIsi[$key] = $v;
