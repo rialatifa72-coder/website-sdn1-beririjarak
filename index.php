@@ -85,12 +85,13 @@ body {
 }
 
 .logo-sekolah {
-    width: 50px;
-    height: 50px;
+    width: 58px;
+    height: 58px;
     object-fit: contain;
     background: white;
+    border: 2px solid rgba(255,255,255,.85);
     border-radius: 50%;
-    padding: 4px;
+    padding: 3px;
     flex-shrink: 0;
 }
 
