@@ -88,7 +88,85 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         if (!hash_equals($_SESSION[$csrfName], $_POST["csrf"] ?? "")) throw new RuntimeException("Sesi formulir tidak valid. Muat ulang halaman.");
         $aksi = $_POST["aksi"] ?? "";
-        if ($aksi === "hapus") {
+        if ($aksi === "importir") {
+            if (!isset($_FILES["file_data_siswa"]) || $_FILES["file_data_siswa"]["error"] !== UPLOAD_ERR_OK) {
+                throw new RuntimeException("Pilih file daftar peserta didik TXT/CSV terlebih dahulu.");
+            }
+            $namaFile = $_FILES["file_data_siswa"]["name"] ?? "";
+            $ekstensi = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
+            if (!in_array($ekstensi, ["txt", "csv"], true)) throw new RuntimeException("Format file harus TXT atau CSV hasil ekspor tab-delimited.");
+            $handle = fopen($_FILES["file_data_siswa"]["tmp_name"], "r");
+            if (!$handle) throw new RuntimeException("File tidak dapat dibaca.");
+            // Indeks kolom mengikuti format Daftar Peserta Didik yang diberikan.
+            // Seluruh kolom NIK dan kolom yang diminta dihilangkan tidak dipetakan.
+            $petaKolom = [
+                "nama_siswa"=>1, "nis"=>2, "jenis_kelamin"=>3, "nisn"=>4,
+                "tempat_lahir"=>5, "tanggal_lahir"=>6, "agama"=>8, "alamat"=>9,
+                "rt"=>10, "rw"=>11, "dusun"=>12, "kelurahan"=>13, "kecamatan"=>14,
+                "kode_pos"=>15, "jenis_tinggal"=>16, "alat_transportasi"=>17, "hp"=>19,
+                "penerima_kps"=>22,
+                "nama_ayah"=>24, "tahun_lahir_ayah"=>25, "pendidikan_ayah"=>26,
+                "pekerjaan_ayah"=>27, "penghasilan_ayah"=>28,
+                "nama_ibu"=>30, "tahun_lahir_ibu"=>31, "pendidikan_ibu"=>32,
+                "pekerjaan_ibu"=>33, "penghasilan_ibu"=>34,
+                "nama_wali"=>36, "tahun_lahir_wali"=>37, "pendidikan_wali"=>38,
+                "pekerjaan_wali"=>39, "penghasilan_wali"=>40,
+                "kelas"=>42, "penerima_kip"=>45, "no_registrasi_akta_lahir"=>49,
+                "layak_pip"=>53, "alasan_layak_pip"=>54, "kebutuhan_khusus"=>55,
+                "sekolah_asal"=>56, "anak_ke"=>57, "lintang"=>58, "bujur"=>59,
+                "no_kk"=>60, "berat_badan"=>61, "tinggi_badan"=>62,
+                "lingkar_kepala"=>63, "jumlah_saudara_kandung"=>64,
+                "jarak_rumah_ke_sekolah"=>65
+            ];
+            $barisKe = 0; $jumlahMasuk = 0; $jumlahLewat = 0;
+            mysqli_begin_transaction($koneksi);
+            try {
+                while (($row = fgetcsv($handle, 0, "\t", '"', "\\")) !== false) {
+                    if ($barisKe++ < 6 || !is_array($row)) continue;
+                    $nama = normalisasiNilai($row[1] ?? "");
+                    if ($nama === "") { $jumlahLewat++; continue; }
+                    $dataIsi = [];
+                    foreach ($petaKolom as $key=>$index) {
+                        $v = normalisasiNilai($row[$index] ?? "");
+                        if ($key === "jenis_kelamin") {
+                            if ($v === "L") $v = "Laki-laki";
+                            elseif ($v === "P") $v = "Perempuan";
+                            elseif (!in_array($v, ["Laki-laki", "Perempuan"], true)) $v = "";
+                        }
+                        if ($key === "tanggal_lahir" && $v !== "" && !preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $v)) $v = "";
+                        if ($v !== "") $dataIsi[$key] = $v;
+                    }
+                    $nisCek = $dataIsi["nis"] ?? "";
+                    $nisnCek = $dataIsi["nisn"] ?? "";
+                    $cek = mysqli_prepare($koneksi, "SELECT id FROM tb_siswa WHERE (nis <> '' AND nis = ?) OR (nisn <> '' AND nisn = ?) LIMIT 1");
+                    mysqli_stmt_bind_param($cek, "ss", $nisCek, $nisnCek);
+                    mysqli_stmt_execute($cek);
+                    $sudahAda = mysqli_fetch_assoc(mysqli_stmt_get_result($cek));
+                    mysqli_stmt_close($cek);
+                    if ($sudahAda) { $jumlahLewat++; continue; }
+                    $columns = implode(",", array_keys($dataIsi));
+                    $marks = implode(",", array_fill(0, count($dataIsi), "?"));
+                    $values = array_values($dataIsi);
+                    $stmtImport = mysqli_prepare($koneksi, "INSERT INTO tb_siswa ($columns) VALUES ($marks)");
+                    if (!$stmtImport) throw new RuntimeException("Gagal menyiapkan impor: " . mysqli_error($koneksi));
+                    bindDynamic($stmtImport, str_repeat("s", count($values)), $values);
+                    if (!mysqli_stmt_execute($stmtImport)) {
+                        $errImport = mysqli_stmt_error($stmtImport);
+                        mysqli_stmt_close($stmtImport);
+                        throw new RuntimeException("Impor dihentikan: " . $errImport);
+                    }
+                    mysqli_stmt_close($stmtImport);
+                    $jumlahMasuk++;
+                }
+                fclose($handle);
+                mysqli_commit($koneksi);
+                $pesan = "Impor selesai: " . $jumlahMasuk . " siswa ditambahkan, " . $jumlahLewat . " baris kosong/duplikat dilewati. Kolom kosong tidak disimpan.";
+            } catch (Throwable $errImport) {
+                mysqli_rollback($koneksi);
+                if (is_resource($handle)) fclose($handle);
+                throw $errImport;
+            }
+        } elseif ($aksi === "hapus") {
             $id = (int)($_POST["id"] ?? 0);
             if ($id < 1) throw new RuntimeException("ID siswa tidak valid.");
             $stmt = mysqli_prepare($koneksi, "DELETE FROM tb_siswa WHERE id=?");
@@ -195,6 +273,16 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 </div><?php endforeach; ?></div><?php endforeach; ?>
 <div class="mt-4 d-flex gap-2"><button class="btn btn-primary"><i class="bi bi-save me-1"></i><?= $editData ? "Simpan Perubahan" : "Tambah Siswa" ?></button><?php if ($editData): ?><a href="data_siswa.php" class="btn btn-light">Batal</a><?php endif; ?></div>
 </form></section>
+<section class="panel mb-4">
+<h2 class="h5 judul">Impor Daftar Peserta Didik</h2>
+<p class="small text-secondary mb-3">Unggah file TXT/CSV hasil ekspor Dapodik (dipisahkan tab). Data yang kosong, baris kosong, dan siswa yang sudah terdaftar akan dilewati. Kolom NIK serta kolom yang tidak digunakan tidak diimpor.</p>
+<form method="post" enctype="multipart/form-data" class="row g-2 align-items-end">
+<input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>">
+<input type="hidden" name="aksi" value="importir">
+<div class="col-md-8"><label class="form-label" for="file_data_siswa">File daftar peserta didik (.txt atau .csv)</label><input class="form-control" type="file" id="file_data_siswa" name="file_data_siswa" accept=".txt,.csv" required></div>
+<div class="col-md-4"><button class="btn btn-success w-100" onclick="return confirm('Impor data dari file ini ke database siswa? Data kosong dan data ganda akan dilewati.')"><i class="bi bi-upload me-1"></i>Impor Data Siswa</button></div>
+</form>
+</section>
 <section class="panel"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Siswa</h2><form class="d-flex gap-2" method="get"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama, NIS, NISN, kelas"><button class="btn btn-outline-primary"><i class="bi bi-search"></i></button></form></div>
 <div class="table-responsive"><table class="table table-hover"><thead><tr><th>No</th><th>NIS</th><th>NISN</th><th>Nama Siswa</th><th>JK</th><th>Kelas</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
 <?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="8" class="text-center text-muted py-4">Belum ada data siswa.</td></tr><?php else: $no=1; while ($s=mysqli_fetch_assoc($daftar)): ?><tr><td><?= $no++ ?></td><td><?= e($s["nis"]) ?></td><td><?= e($s["nisn"]) ?></td><td class="fw-semibold"><?= e($s["nama_siswa"]) ?></td><td><?= e($s["jenis_kelamin"]) ?></td><td><?= e($s["kelas"]) ?></td><td><?= e($s["status"]) ?></td><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_siswa.php?edit=<?= (int)$s["id"] ?>"><i class="bi bi-pencil"></i> Ubah</a> <form method="post" class="d-inline" onsubmit="return confirm('Hapus biodata siswa ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$s["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr><?php endwhile; endif; ?>
