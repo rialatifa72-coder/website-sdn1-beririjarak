@@ -53,12 +53,21 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
 .main-container{padding:28px}
 .breadcrumb-text{font-size:14px;color:#718096;margin-bottom:22px}
 .breadcrumb-text a{color:var(--blue);text-decoration:none}
-.card-custom{background:#fff;border:0;border-radius:12px;padding:24px;box-shadow:0 3px 15px rgba(20,50,90,.06);height:100%}
-.card-title-custom{font-size:19px;font-weight:700;color:var(--navy);margin-bottom:18px}
-.stat-card{display:flex;align-items:center;gap:16px}
-.stat-icon{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:#eaf3ff;color:var(--blue);font-size:24px}
-.stat-number{font-size:25px;font-weight:700;color:var(--navy)}
-.stat-label{font-size:13px;color:#718096}
+.card-custom{background:#fff;border:1px solid #e3ebf5;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(8,43,89,.06);height:100%}
+.card-title-custom{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px}
+.stat-card{position:relative;display:flex;align-items:center;gap:16px;min-height:116px;padding:20px 18px;border-left:4px solid var(--sidebar);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 9px 22px rgba(8,43,89,.11)}
+.stat-icon{width:54px;height:54px;min-width:54px;border-radius:14px;display:grid;place-items:center;background:#eaf2fb;color:var(--sidebar);font-size:24px}
+.stat-number{font-size:29px;line-height:1.1;font-weight:750;color:var(--navy);font-variant-numeric:tabular-nums}
+.stat-label{font-size:13px;font-weight:600;color:#65758b;margin-top:6px}
+.dashboard-heading{display:flex;align-items:flex-start;gap:13px;margin-bottom:22px}
+.dashboard-heading-icon{width:44px;height:44px;min-width:44px;border-radius:12px;display:grid;place-items:center;background:#e3edf8;color:var(--sidebar);font-size:21px}
+.dashboard-heading h2{color:var(--navy)!important}
+.info-card{padding:0;overflow:hidden;border-top:3px solid var(--sidebar)}
+.info-card-heading{display:flex;align-items:center;gap:10px;padding:18px 22px 14px;border-bottom:1px solid #edf1f6}
+.info-card-heading .bi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#eaf2fb;color:var(--sidebar);font-size:17px}
+.info-card-body{padding:18px 22px 22px;color:#65758b;line-height:1.7}
+.stat-card::after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-35px;top:-42px;background:rgba(23,75,130,.045);pointer-events:none}
 .table-custom th{font-size:13px;color:#526174;background:#f6f9fd}
 .table-custom td{font-size:14px;vertical-align:middle}
 @media(max-width:768px){#sidebar{width:220px;min-width:220px}#sidebar.collapsed{margin-left:-220px}.main-container{padding:16px}.topbar{padding:0 15px}}
@@ -94,13 +103,19 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <?php if (!$koneksi): ?><div class="alert alert-warning"><strong>Database belum terhubung.</strong> Periksa MySQL dan pastikan database <code>db_sdn1beririjarak_baru</code> sudah dibuat dan diisi melalui database.sql.</div><?php endif; ?>
         <div class="breadcrumb-text"><a href="dashboard_admin.php?page=beranda">Dashboard</a> / <?= htmlspecialchars(ucfirst($page), ENT_QUOTES, "UTF-8") ?></div>
         <?php if ($page === "beranda"): ?>
-            <div class="mb-4"><h2 class="h4 fw-bold text-primary mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
+            <div class="dashboard-heading">
+                <div class="dashboard-heading-icon"><i class="bi bi-speedometer2"></i></div>
+                <div><h2 class="h4 fw-bold mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
+            </div>
             <div class="row g-3">
                 <?php foreach ([["bi-people","Data Guru","tb_guru"],["bi-mortarboard","Data Siswa","tb_siswa"],["bi-newspaper","Berita Sekolah","tb_berita"],["bi-images","Galeri Foto","tb_galeri"]] as $item): $total=jumlahData($koneksi,$item[2]); ?>
                 <div class="col-sm-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi <?= $item[0] ?>"></i></div><div><div class="stat-number"><?= $total === null ? "—" : $total ?></div><div class="stat-label"><?= $item[1] ?></div></div></div></div>
                 <?php endforeach; ?>
             </div>
-            <div class="card-custom mt-4"><h5 class="card-title-custom">Informasi Sistem</h5><p class="text-muted mb-0">Gunakan menu di sebelah kiri untuk mengelola profil sekolah, data guru dan siswa, berita, galeri, serta media pembelajaran. Angka ringkasan akan muncul setelah tabel terkait tersedia di database.</p></div>
+            <div class="card-custom info-card mt-4">
+                <div class="info-card-heading"><i class="bi bi-info-lg"></i><h5 class="card-title-custom mb-0">Informasi Sistem</h5></div>
+                <div class="info-card-body">Gunakan menu di sebelah kiri untuk mengelola profil sekolah, data guru dan siswa, berita, galeri, serta media pembelajaran. Angka ringkasan akan muncul setelah tabel terkait tersedia di database.</div>
+            </div>
         <?php elseif ($page === "profil"): ?>
             <div class="card-custom"><h5 class="card-title-custom">Pengelolaan Profil Sekolah</h5><p class="text-muted mb-0">Bagian ini disiapkan untuk pengelolaan informasi umum, sambutan kepala sekolah, visi dan misi, serta fasilitas SDN 1 Beririjarak.</p></div>
         <?php else: ?>
