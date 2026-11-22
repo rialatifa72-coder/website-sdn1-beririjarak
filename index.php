@@ -559,6 +559,66 @@ body {
 }
 .vm-mission-card h5 { color:#082b59; font-weight:800; font-size:17px; margin:2px 0 9px; }
 .vm-mission-card p { color:#68788d; line-height:1.75; margin:0; font-size:14px; }
+
+/* TAMPILAN VISI MISI + ANIMASI MUNCUL BERURUTAN */
+.vm-vision {
+    background:
+        radial-gradient(circle at 88% 18%, rgba(255,255,255,.18), transparent 26%),
+        linear-gradient(130deg, #071f46 0%, #0b56ad 58%, #1684dc 100%);
+    border: 1px solid rgba(255,255,255,.2);
+}
+.vm-vision-content { max-width: 100%; }
+.vm-vision h3 { font-size: clamp(27px, 4vw, 38px); letter-spacing: -.6px; }
+.vm-vision p { max-width: 850px; }
+.vm-values { gap: 12px; }
+.vm-value {
+    padding: 11px 16px;
+    background: rgba(255,255,255,.13);
+    backdrop-filter: blur(5px);
+    transition: background .25s ease, transform .25s ease;
+}
+.vm-value:hover { background: rgba(255,255,255,.25); transform: translateY(-4px); }
+.vm-mission-heading { margin-top: 54px; }
+.vm-mission-heading .line { width: clamp(35px, 8vw, 90px); background: linear-gradient(90deg, transparent, #0d6efd); }
+.vm-mission-heading .line:last-child { transform: scaleX(-1); }
+.vm-mission-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e2ebf8;
+    box-shadow: 0 12px 30px rgba(8,43,89,.07);
+}
+.vm-mission-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: linear-gradient(180deg, #0d6efd, #59b5ff);
+}
+.vm-mission-icon {
+    border-radius: 17px;
+    background: linear-gradient(145deg, #eaf3ff, #d5e8ff);
+    box-shadow: inset 0 0 0 1px rgba(13,110,253,.06);
+}
+.vm-mission-card h5 { line-height: 1.45; }
+.vm-reveal {
+    opacity: 0;
+    transform: translateY(32px) scale(.98);
+    filter: blur(4px);
+    transition: opacity .75s ease, transform .75s cubic-bezier(.2,.75,.25,1), filter .75s ease;
+}
+.vm-reveal.muncul {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+.vm-values .vm-reveal:nth-child(2), .row .vm-reveal:nth-child(2) { transition-delay: .12s; }
+.vm-values .vm-reveal:nth-child(3), .row .vm-reveal:nth-child(3) { transition-delay: .24s; }
+.vm-values .vm-reveal:nth-child(4), .row .vm-reveal:nth-child(4) { transition-delay: .36s; }
+.vm-values .vm-reveal:nth-child(5), .row .vm-reveal:nth-child(5) { transition-delay: .48s; }
+.vm-values .vm-reveal:nth-child(6) { transition-delay: .60s; }
+@media (prefers-reduced-motion: reduce) {
+    .vm-reveal { opacity: 1; transform: none; filter: none; transition: none; }
+}
 @media (max-width:575px) {
     .vm-vision { padding:30px 22px; border-radius:20px; }
     .vm-vision h3 { font-size:25px; }
@@ -1108,61 +1168,61 @@ body {
 
 <div class="vm-vision mb-4">
     <div class="vm-vision-content">
-        <span class="vm-eyebrow"><i class="bi bi-eye-fill"></i> Visi Sekolah</span>
-        <h3>Mewujudkan Generasi CIKAL</h3>
-        <p>Menjadi sekolah yang menghasilkan lulusan <strong>CIKAL</strong>:
+        <span class="vm-eyebrow vm-reveal"><i class="bi bi-eye-fill"></i> Visi Sekolah</span>
+        <h3 class="vm-reveal">Mewujudkan Generasi CIKAL</h3>
+        <p class="vm-reveal">Menjadi sekolah yang menghasilkan lulusan <strong>CIKAL</strong>:
         Cerdas, Iman dan Taqwa, Kreatif, Amanah, dan peduli Lingkungan.</p>
         <div class="vm-values">
-            <span class="vm-value"><i class="bi bi-lightbulb-fill"></i> Cerdas</span>
-            <span class="vm-value"><i class="bi bi-heart-fill"></i> Iman dan Taqwa</span>
-            <span class="vm-value"><i class="bi bi-palette-fill"></i> Kreatif</span>
-            <span class="vm-value"><i class="bi bi-shield-check"></i> Amanah</span>
-            <span class="vm-value"><i class="bi bi-tree-fill"></i> Peduli Lingkungan</span>
+            <span class="vm-value vm-reveal"><i class="bi bi-lightbulb-fill"></i> Cerdas</span>
+            <span class="vm-value vm-reveal"><i class="bi bi-heart-fill"></i> Iman dan Taqwa</span>
+            <span class="vm-value vm-reveal"><i class="bi bi-palette-fill"></i> Kreatif</span>
+            <span class="vm-value vm-reveal"><i class="bi bi-shield-check"></i> Amanah</span>
+            <span class="vm-value vm-reveal"><i class="bi bi-tree-fill"></i> Peduli Lingkungan</span>
         </div>
     </div>
 </div>
 
 <div class="vm-mission-heading">
     <span class="line"></span>
-    <h3><i class="bi bi-bullseye me-2 text-primary"></i>B. Misi</h3>
+    <h3 class="vm-reveal"><i class="bi bi-bullseye me-2 text-primary"></i>B. Misi</h3>
     <span class="line"></span>
 </div>
 
-<p class="text-center text-secondary mb-4" style="line-height:1.8">
+<p class="text-center text-secondary mb-4 vm-reveal" style="line-height:1.8">
     Dalam upaya mengimplementasikan visi sekolah, SDN 1 Beririjarak menjabarkan misi sekolah sebagai berikut:
 </p>
 
 <div class="row g-4">
     <div class="col-md-6">
-        <div class="vm-mission-card">
+        <div class="vm-mission-card vm-reveal">
             <div class="vm-mission-icon"><i class="bi bi-moon-stars-fill"></i></div>
             <div><h5>01. Membina Imtaq dan Akhlak Mulia</h5>
             <p>Membina warga sekolah dalam kegiatan-kegiatan peningkatan Imtaq dan berakhlak mulia.</p></div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="vm-mission-card">
+        <div class="vm-mission-card vm-reveal">
             <div class="vm-mission-icon"><i class="bi bi-trophy-fill"></i></div>
             <div><h5>02. Memfasilitasi Peningkatan Prestasi</h5>
             <p>Memfasilitasi peningkatan prestasi siswa sesuai bakat dan minat pada bidang akademik dan nonakademik.</p></div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="vm-mission-card">
+        <div class="vm-mission-card vm-reveal">
             <div class="vm-mission-icon"><i class="bi bi-lightbulb-fill"></i></div>
             <div><h5>03. Mendorong Siswa Kreatif Berkarya</h5>
             <p>Merancang dan melaksanakan pembelajaran yang mendorong siswa kreatif berkarya.</p></div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="vm-mission-card">
+        <div class="vm-mission-card vm-reveal">
             <div class="vm-mission-icon"><i class="bi bi-people-fill"></i></div>
             <div><h5>04. Menumbuhkan Perilaku Positif</h5>
             <p>Menumbuhkan perilaku disiplin, santun dan saling menghargai dalam berbagai situasi baik di sekolah maupun di rumah.</p></div>
         </div>
     </div>
     <div class="col-md-6 mx-auto">
-        <div class="vm-mission-card">
+        <div class="vm-mission-card vm-reveal">
             <div class="vm-mission-icon"><i class="bi bi-tree-fill"></i></div>
             <div><h5>05. Melatih Kepedulian Lingkungan</h5>
             <p>Melatih siswa peduli lingkungan.</p></div>
@@ -1669,6 +1729,11 @@ document.querySelectorAll('.stat-card-animate').forEach(card => {
 
 document.querySelectorAll('.sambutan-photo-animate').forEach(photo => {
     observer.observe(photo);
+});
+
+// Animasi visi dan misi: setiap bagian muncul satu per satu saat digulir.
+document.querySelectorAll('#visi-misi .vm-reveal').forEach(item => {
+    observer.observe(item);
 });
 
 geserGuru(0);
