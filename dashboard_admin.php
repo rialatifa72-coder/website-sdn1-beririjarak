@@ -15,7 +15,7 @@ if (!in_array($page, $allowedPages, true)) {
 
 function jumlahData($koneksi, $table) {
     if (!$koneksi) return null;
-    $allowed = ["tb_users", "tb_guru", "tb_siswa", "tb_berita", "tb_galeri", "tb_media"];
+    $allowed = ["tb_users", "tb_guru", "tb_siswa", "tb_berita", "tb_galeri", "tb_media", "tb_ekstrakurikuler"];
     if (!in_array($table, $allowed, true)) return 0;
     $result = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM " . $table);
     if (!$result) return null;
@@ -108,7 +108,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                 <div><h2 class="h4 fw-bold mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
             </div>
             <div class="row g-3">
-                <?php foreach ([["bi-people","Data Guru","tb_guru"],["bi-mortarboard","Data Siswa","tb_siswa"],["bi-newspaper","Berita Sekolah","tb_berita"],["bi-images","Galeri Foto","tb_galeri"]] as $item): $total=jumlahData($koneksi,$item[2]); ?>
+                <?php foreach ([["bi-people","Data Guru","tb_guru"],["bi-mortarboard","Data Siswa","tb_siswa"],["bi-newspaper","Berita Sekolah","tb_berita"],["bi-images","Galeri Foto","tb_galeri"],["bi-trophy","Ekstrakurikuler","tb_ekstrakurikuler"]] as $item): $total=jumlahData($koneksi,$item[2]); ?>
                 <div class="col-sm-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi <?= $item[0] ?>"></i></div><div><div class="stat-number"><?= $total === null ? "—" : $total ?></div><div class="stat-label"><?= $item[1] ?></div></div></div></div>
                 <?php endforeach; ?>
             </div>
