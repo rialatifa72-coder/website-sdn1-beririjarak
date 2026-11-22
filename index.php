@@ -843,14 +843,19 @@ body {
 /* KATA PENGANTAR KEPALA SEKOLAH */
 .sambutan-section{position:relative;overflow:hidden;background:linear-gradient(145deg,#f3f7ff,#fff 70%)}
 .sambutan-section .section-subtitle{max-width:650px;margin:12px auto 0;color:#718096;line-height:1.8}
-.sambutan-card{position:relative;display:flex;gap:22px;padding:42px 45px;background:#fff;border:1px solid #e4edf9;border-radius:22px;box-shadow:0 18px 50px rgba(16,45,80,.08)}
-.sambutan-mark{width:54px;height:54px;min-width:54px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#e8f1ff;color:#1265d8;font-size:35px}
-.sambutan-body{flex:1;color:#5c6e83;font-size:15px;line-height:1.95}
+.sambutan-card{position:relative;display:grid;grid-template-columns:280px minmax(0,1fr);align-items:start;gap:32px;padding:34px;background:#fff;border:1px solid #e4edf9;border-radius:22px;box-shadow:0 18px 50px rgba(16,45,80,.08)}
+.sambutan-photo-column{text-align:center}
+.sambutan-photo{display:block;width:100%;height:350px;object-fit:cover;object-position:center 18%;border-radius:17px;border:4px solid #e8f1ff;box-shadow:0 10px 28px rgba(16,45,80,.12)}
+.sambutan-photo-caption{margin-top:15px;color:#718096;font-size:13px;line-height:1.5}
+.sambutan-photo-caption strong{display:block;color:#123d76;font-size:16px}
+.sambutan-content{min-width:0}
+.sambutan-mark{width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin-bottom:15px;border-radius:14px;background:#e8f1ff;color:#1265d8;font-size:31px}
+.sambutan-body{color:#5c6e83;font-size:15px;line-height:1.95}
 .sambutan-body p{margin-bottom:17px;text-align:justify}
 .sambutan-body .sambutan-greeting{color:#123d76;font-weight:800}
-.sambutan-signature{display:flex;flex-direction:column;gap:4px;margin-top:28px;padding-top:20px;border-top:1px solid #e8eef7;color:#718096;font-size:14px}
+.sambutan-signature{display:flex;flex-direction:column;gap:4px;margin-top:24px;padding-top:18px;border-top:1px solid #e8eef7;color:#718096;font-size:14px}
 .sambutan-signature strong{color:#123d76;font-size:15px}
-@media(max-width:575px){.sambutan-card{display:block;padding:25px 20px;border-radius:17px}.sambutan-mark{margin-bottom:20px}.sambutan-body{font-size:14px}}
+@media(max-width:767px){.sambutan-card{grid-template-columns:1fr;padding:24px 20px;gap:22px}.sambutan-photo-column{max-width:280px;margin:0 auto}.sambutan-photo{height:330px}.sambutan-body{font-size:14px}}
 
 </style>
 </head>
@@ -1087,14 +1092,23 @@ body {
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="sambutan-card">
-                <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
-                <div class="sambutan-body">                    <p>Dengan penuh rasa syukur, website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas. Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah. Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi. Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
+                <div class="sambutan-photo-column">
+                    <img src="kepala-sekolah.jpg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo">
+                    <div class="sambutan-photo-caption">
+                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
+                        Pimpinan dan penggerak pendidikan sekolah
+                    </div>
+                </div>
+                <div class="sambutan-content">
+                    <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
+                    <div class="sambutan-body">                    <p>Dengan penuh rasa syukur, website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas. Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah. Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi. Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
 
                     <p class="sambutan-greeting mb-0">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
 
                     <div class="sambutan-signature">
                         <span>Hormat kami,</span>
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
+                    </div>
                     </div>
                 </div>
             </div>
