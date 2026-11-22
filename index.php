@@ -1088,14 +1088,7 @@ body {
         <div class="col-lg-10">
             <div class="sambutan-card">
                 <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
-                <div class="sambutan-body">
-                    <p>Dengan penuh rasa syukur, website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas.</p>
-
-                    <p>Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah.</p>
-
-                    <p>Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi.</p>
-
-                    <p>Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
+                <div class="sambutan-body">                    <p>Dengan penuh rasa syukur, website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas. Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah. Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi. Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
 
                     <p class="sambutan-greeting mb-0">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
 
