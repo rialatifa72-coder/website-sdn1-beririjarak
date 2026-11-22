@@ -7,7 +7,7 @@ if (!isset($_SESSION["username"])) {
 require_once __DIR__ . "/koneksi.php";
 
 $namaAdmin = $_SESSION["username"];
-$allowedPages = ["beranda", "profil", "guru", "siswa", "berita", "galeri", "media"];
+$allowedPages = ["beranda", "profil", "guru", "siswa", "berita", "galeri", "ekstrakurikuler", "media"];
 $page = $_GET["page"] ?? "beranda";
 if (!in_array($page, $allowedPages, true)) {
     $page = "beranda";
@@ -80,6 +80,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <li class="<?= $page === "siswa" ? "active" : "" ?>"><a href="admin/data_siswa.php"><i class="bi bi-people-fill"></i>Data Siswa</a></li>
         <li class="<?= $page === "berita" ? "active" : "" ?>"><a href="admin/data_berita.php"><i class="bi bi-newspaper"></i>Berita Sekolah</a></li>
         <li class="<?= $page === "galeri" ? "active" : "" ?>"><a href="admin/data_galeri.php"><i class="bi bi-images"></i>Galeri Foto</a></li>
+        <li class="<?= $page === "ekstrakurikuler" ? "active" : "" ?>"><a href="dashboard_admin.php?page=ekstrakurikuler"><i class="bi bi-trophy"></i>Ekstrakurikuler</a></li>
         <li class="<?= $page === "media" ? "active" : "" ?>"><a href="dashboard_admin.php?page=media"><i class="bi bi-journal-bookmark-fill"></i>Media Pembelajaran</a></li>
         <li class="mt-3 pt-2 border-top border-light border-opacity-25"><a href="logout.php"><i class="bi bi-box-arrow-left"></i>Logout</a></li>
     </ul>
@@ -104,8 +105,8 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
             <div class="card-custom"><h5 class="card-title-custom">Pengelolaan Profil Sekolah</h5><p class="text-muted mb-0">Bagian ini disiapkan untuk pengelolaan informasi umum, sambutan kepala sekolah, visi dan misi, serta fasilitas SDN 1 Beririjarak.</p></div>
         <?php else: ?>
             <?php
-            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Berita Sekolah","galeri"=>"Galeri Foto","media"=>"Media Pembelajaran"];
-            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola berita, kegiatan, dan pengumuman sekolah.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
+            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Berita Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","media"=>"Media Pembelajaran"];
+            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola berita, kegiatan, dan pengumuman sekolah.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
             ?>
             <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard. Fitur tambah, ubah, hapus, dan penyimpanan database akan diaktifkan pada tahap pengembangan berikutnya.</div></div>
         <?php endif; ?>
