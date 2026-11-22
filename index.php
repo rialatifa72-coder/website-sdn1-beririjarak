@@ -1042,6 +1042,20 @@ body {
 .sambutan-signature strong{color:#123d76;font-size:15px}
 @media(max-width:767px){.sambutan-card{grid-template-columns:1fr;padding:24px 20px;gap:22px}.sambutan-photo-column{max-width:280px;margin:0 auto}.sambutan-photo{height:330px}.sambutan-body{font-size:14px}}
 
+
+/* ===== LATAR HALAMAN LEBIH LEMBUT DAN SERASI ===== */
+body {
+    background-color: #f1f5fb;
+}
+.section {
+    background-color: #f1f5fb;
+}
+.section-light {
+    background: linear-gradient(135deg, #e8eff9 0%, #f0f4fa 52%, #e9f1fb 100%);
+}
+.profil-modern {
+    background: linear-gradient(135deg, #eaf1fb 0%, #f2f6fc 68%, #e7effa 100%);
+}
 </style>
 </head>
 
