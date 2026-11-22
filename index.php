@@ -846,6 +846,9 @@ body {
 .sambutan-card{position:relative;display:grid;grid-template-columns:280px minmax(0,1fr);align-items:start;gap:32px;padding:34px;background:#fff;border:1px solid #e4edf9;border-radius:22px;box-shadow:0 18px 50px rgba(16,45,80,.08)}
 .sambutan-photo-column{text-align:center}
 .sambutan-photo{display:block;width:100%;height:350px;object-fit:cover;object-position:center 18%;border-radius:17px;border:4px solid #e8f1ff;box-shadow:0 10px 28px rgba(16,45,80,.12)}
+.sambutan-photo-animate{opacity:0;transform:translateY(45px) scale(.94);filter:blur(3px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.75,.25,1),filter .9s ease;will-change:opacity,transform}
+.sambutan-photo-animate.muncul{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+@media(prefers-reduced-motion:reduce){.sambutan-photo-animate,.sambutan-photo-animate.muncul{transition:none;transform:none;filter:none;opacity:1}}
 .sambutan-photo-caption{margin-top:15px;color:#718096;font-size:13px;line-height:1.5}
 .sambutan-photo-caption strong{display:block;color:#123d76;font-size:16px}
 .sambutan-content{min-width:0}
@@ -1064,7 +1067,7 @@ body {
         <div class="col-lg-10">
             <div class="sambutan-card">
                 <div class="sambutan-photo-column">
-                    <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo">
+                    <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo sambutan-photo-animate">
                     <div class="sambutan-photo-caption">
                         <span>Hormat kami,</span>
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
@@ -1652,6 +1655,10 @@ const observer = new IntersectionObserver((entries, observer) => {
 
 document.querySelectorAll('.stat-card-animate').forEach(card => {
     observer.observe(card);
+});
+
+document.querySelectorAll('.sambutan-photo-animate').forEach(photo => {
+    observer.observe(photo);
 });
 
 geserGuru(0);
