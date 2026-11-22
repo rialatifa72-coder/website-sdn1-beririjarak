@@ -1080,8 +1080,8 @@ body {
 <div class="container">
     <div class="text-center mb-5">
         <span class="section-label">Sambutan</span>
-        <h2 class="section-title">Kata Pengantar Kepala Sekolah</h2>
-        <p class="section-subtitle">Pesan dan harapan untuk seluruh warga sekolah dan masyarakat.</p>
+        <h2 class="section-title">Sambutan Kepala Sekolah</h2>
+        <p class="section-subtitle">Pesan dan harapan Kepala Sekolah untuk seluruh warga sekolah.</p>
     </div>
 
     <div class="row justify-content-center">
@@ -1089,21 +1089,13 @@ body {
             <div class="sambutan-card">
                 <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
                 <div class="sambutan-body">
-                    <p class="sambutan-greeting">Assalamu'alaikum Warahmatullahi Wabarakatuh,</p>
+                    <p>Selamat datang di website resmi SDN 1 Beririjarak. Website ini diharapkan menjadi sarana informasi mengenai kegiatan sekolah, program pendidikan, prestasi siswa, dan berbagai informasi lainnya.</p>
 
-                    <p>Puji syukur ke hadirat Allah SWT atas limpahan rahmat dan karunia-Nya, sehingga website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas.</p>
-
-                    <p>Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah.</p>
-
-                    <p>Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi.</p>
-
-                    <p>Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
-
-                    <p class="sambutan-greeting mb-0">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
+                    <p>Mari bekerja sama menciptakan pendidikan berkualitas serta membentuk peserta didik yang berkarakter, mandiri, dan berprestasi.</p>
 
                     <div class="sambutan-signature">
-                        <span>Hormat kami,</span>
-                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
+                        <strong>Kepala SDN 1 Beririjarak</strong>
+                        <span>Nama kepala sekolah dapat ditambahkan di sini</span>
                     </div>
                 </div>
             </div>
