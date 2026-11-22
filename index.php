@@ -578,6 +578,53 @@ body {
     transition: background .25s ease, transform .25s ease;
 }
 .vm-value:hover { background: rgba(255,255,255,.25); transform: translateY(-4px); }
+.vm-value-button {
+    border: 1px solid rgba(255,255,255,.24);
+    font: inherit;
+    cursor: pointer;
+}
+.vm-value-button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+}
+.vm-value-button.active {
+    color: #082b59;
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 7px 20px rgba(0,0,0,.16);
+}
+.vm-value-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 850px;
+    margin-top: 22px;
+    padding: 20px 22px;
+    color: #17365e;
+    background: rgba(255,255,255,.96);
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.13);
+    animation: vmDetailIn .35s ease both;
+}
+.vm-value-detail[hidden] { display: none !important; }
+.vm-value-detail-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    color: #0d6efd;
+    background: #eaf3ff;
+    border-radius: 14px;
+    font-size: 21px;
+}
+.vm-value-detail h4 { margin: 1px 0 6px; font-size: 18px; font-weight: 800; color: #082b59; }
+.vm-value-detail p { margin: 0; color: #53677f; font-size: 14px; line-height: 1.75; }
+@keyframes vmDetailIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 .vm-mission-heading { margin-top: 54px; }
 .vm-mission-heading .line { width: clamp(35px, 8vw, 90px); background: linear-gradient(90deg, transparent, #0d6efd); }
 .vm-mission-heading .line:last-child { transform: scaleX(-1); }
@@ -1172,12 +1219,19 @@ body {
         <h3 class="vm-reveal">Mewujudkan Generasi CIKAL</h3>
         <p class="vm-reveal">Menjadi sekolah yang menghasilkan lulusan <strong>CIKAL</strong>:
         Cerdas, Iman dan Taqwa, Kreatif, Amanah, dan peduli Lingkungan.</p>
-        <div class="vm-values">
-            <span class="vm-value vm-reveal"><i class="bi bi-lightbulb-fill"></i> Cerdas</span>
-            <span class="vm-value vm-reveal"><i class="bi bi-heart-fill"></i> Iman dan Taqwa</span>
-            <span class="vm-value vm-reveal"><i class="bi bi-palette-fill"></i> Kreatif</span>
-            <span class="vm-value vm-reveal"><i class="bi bi-shield-check"></i> Amanah</span>
-            <span class="vm-value vm-reveal"><i class="bi bi-tree-fill"></i> Peduli Lingkungan</span>
+        <div class="vm-values" aria-label="Pilih nilai CIKAL untuk melihat penjelasan">
+            <button type="button" class="vm-value vm-reveal vm-value-button" data-title="Cerdas" data-icon="bi-lightbulb-fill" data-description="Mengembangkan kemampuan berpikir, menambah pengetahuan, serta membiasakan siswa untuk belajar aktif, kritis, dan mampu memecahkan masalah."><i class="bi bi-lightbulb-fill"></i> Cerdas</button>
+            <button type="button" class="vm-value vm-reveal vm-value-button" data-title="Iman dan Taqwa" data-icon="bi-heart-fill" data-description="Menanamkan keimanan dan ketakwaan kepada Tuhan Yang Maha Esa melalui pembiasaan beribadah, berakhlak mulia, serta menghormati sesama."><i class="bi bi-heart-fill"></i> Iman dan Taqwa</button>
+            <button type="button" class="vm-value vm-reveal vm-value-button" data-title="Kreatif" data-icon="bi-palette-fill" data-description="Mendorong siswa untuk mengembangkan bakat, imajinasi, dan ide-ide baru serta berani menghasilkan karya yang positif dan bermanfaat."><i class="bi bi-palette-fill"></i> Kreatif</button>
+            <button type="button" class="vm-value vm-reveal vm-value-button" data-title="Amanah" data-icon="bi-shield-check" data-description="Membentuk pribadi yang jujur, disiplin, bertanggung jawab, dapat dipercaya, dan konsisten melaksanakan tugas serta kewajibannya."><i class="bi bi-shield-check"></i> Amanah</button>
+            <button type="button" class="vm-value vm-reveal vm-value-button" data-title="Peduli Lingkungan" data-icon="bi-tree-fill" data-description="Membiasakan siswa menjaga kebersihan, merawat lingkungan sekolah, menghemat sumber daya, dan ikut menciptakan lingkungan yang sehat dan nyaman."><i class="bi bi-tree-fill"></i> Peduli Lingkungan</button>
+        </div>
+        <div class="vm-value-detail" id="vmValueDetail" aria-live="polite" hidden>
+            <div class="vm-value-detail-icon"><i class="bi bi-stars" id="vmValueDetailIcon"></i></div>
+            <div>
+                <h4 id="vmValueDetailTitle"></h4>
+                <p id="vmValueDetailText"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -1734,6 +1788,33 @@ document.querySelectorAll('.sambutan-photo-animate').forEach(photo => {
 // Animasi visi dan misi: setiap bagian muncul satu per satu saat digulir.
 document.querySelectorAll('#visi-misi .vm-reveal').forEach(item => {
     observer.observe(item);
+});
+
+// Klik setiap nilai CIKAL untuk menampilkan penjelasannya.
+const vmValueButtons = document.querySelectorAll('.vm-value-button');
+const vmValueDetail = document.getElementById('vmValueDetail');
+const vmValueDetailTitle = document.getElementById('vmValueDetailTitle');
+const vmValueDetailText = document.getElementById('vmValueDetailText');
+const vmValueDetailIcon = document.getElementById('vmValueDetailIcon');
+
+vmValueButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        vmValueButtons.forEach(item => {
+            item.classList.remove('active');
+            item.setAttribute('aria-pressed', 'false');
+        });
+
+        button.classList.add('active');
+        button.setAttribute('aria-pressed', 'true');
+        vmValueDetailTitle.textContent = button.dataset.title;
+        vmValueDetailText.textContent = button.dataset.description;
+        vmValueDetailIcon.className = 'bi ' + button.dataset.icon;
+
+        // Ulangi animasi panel setiap nilai dipilih.
+        vmValueDetail.hidden = true;
+        void vmValueDetail.offsetWidth;
+        vmValueDetail.hidden = false;
+    });
 });
 
 geserGuru(0);
