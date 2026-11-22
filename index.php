@@ -28,17 +28,32 @@ if (isset($koneksi) && $koneksi) {
     }
 }
 
-$daftarEkstrakurikuler = false;
+$daftarEkstrakurikuler = [];
 if (isset($koneksi) && $koneksi) {
-    // Data ini berasal dari formulir Ekstrakurikuler pada halaman admin.
+    // Kelompokkan beberapa foto berdasarkan nama kegiatan agar satu ekskul menjadi satu kartu.
     $queryEkstrakurikuler = mysqli_query(
         $koneksi,
         "SELECT nama_kegiatan, deskripsi, foto
          FROM tb_ekstrakurikuler
-         ORDER BY id ASC"
+         ORDER BY nama_kegiatan ASC, id ASC"
     );
     if ($queryEkstrakurikuler) {
-        $daftarEkstrakurikuler = $queryEkstrakurikuler;
+        while ($barisEkskul = mysqli_fetch_assoc($queryEkstrakurikuler)) {
+            $kunciEkskul = function_exists("mb_strtolower")
+                ? mb_strtolower(trim($barisEkskul["nama_kegiatan"]), "UTF-8")
+                : strtolower(trim($barisEkskul["nama_kegiatan"]));
+            if (!isset($daftarEkstrakurikuler[$kunciEkskul])) {
+                $daftarEkstrakurikuler[$kunciEkskul] = [
+                    "nama_kegiatan" => $barisEkskul["nama_kegiatan"],
+                    "deskripsi" => $barisEkskul["deskripsi"],
+                    "foto" => []
+                ];
+            }
+            $daftarEkstrakurikuler[$kunciEkskul]["foto"][] = $barisEkskul["foto"];
+            if (empty($daftarEkstrakurikuler[$kunciEkskul]["deskripsi"]) && !empty($barisEkskul["deskripsi"])) {
+                $daftarEkstrakurikuler[$kunciEkskul]["deskripsi"] = $barisEkskul["deskripsi"];
+            }
+        }
     }
 }
 function aman($nilai) {
@@ -805,6 +820,11 @@ body {
     right: 0;
 }
 
+/* KARTU EKSTRAKURIKULER YANG DAPAT DIKLIK */
+.ekskul-card { cursor:pointer; color:inherit; text-align:center; font:inherit; transition:transform .25s ease, box-shadow .25s ease; }
+.ekskul-card:hover, .ekskul-card:focus-visible { transform:translateY(-6px); box-shadow:0 16px 34px rgba(8,43,89,.14); outline:2px solid rgba(13,110,253,.25); outline-offset:3px; }
+.ekskul-card-icon { display:inline-flex; align-items:center; justify-content:center; width:76px; height:76px; border-radius:22px; color:#0d6efd; background:#eaf3ff; font-size:34px; }
+
 /* GALERI */
 .gallery-image {
     width: 100%;
@@ -1400,37 +1420,55 @@ body {
 
 <div class="row g-4">
 
-<?php if ($daftarEkstrakurikuler && mysqli_num_rows($daftarEkstrakurikuler) > 0): ?>
-    <?php while ($ekskul = mysqli_fetch_assoc($daftarEkstrakurikuler)): ?>
-    <div class="col-md-4">
-        <article class="info-card text-center h-100">
-            <?php if (!empty($ekskul["foto"]) && is_file(__DIR__ . "/" . $ekskul["foto"])): ?>
-                <img
-                    src="<?= aman($ekskul["foto"]) ?>"
-                    alt="Foto kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>"
-                    class="img-fluid rounded-3 mb-3"
-                    style="width:100%;height:230px;object-fit:cover"
-                    loading="lazy">
-            <?php else: ?>
-                <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-light text-primary" style="height:230px">
-                    <i class="bi bi-image" style="font-size:3rem"></i>
-                </div>
-            <?php endif; ?>
-            <h5 class="fw-bold"><?= aman($ekskul["nama_kegiatan"]) ?></h5>
+<?php if (!empty($daftarEkstrakurikuler)): ?>
+    <?php $nomorEkskul = 0; foreach ($daftarEkstrakurikuler as $ekskul): $nomorEkskul++; $modalEkskulId = "modalEkskul" . $nomorEkskul; ?>
+    <div class="col-md-6 col-lg-4">
+        <button type="button" class="info-card ekskul-card text-center w-100 border-0"
+            data-bs-toggle="modal" data-bs-target="#<?= aman($modalEkskulId) ?>"
+            aria-label="Lihat foto kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>">
+            <span class="ekskul-card-icon"><i class="bi bi-images"></i></span>
+            <h5 class="fw-bold mt-3"><?= aman($ekskul["nama_kegiatan"]) ?></h5>
             <?php if (!empty($ekskul["deskripsi"])): ?>
-                <p class="mb-0"><?= nl2br(aman($ekskul["deskripsi"])) ?></p>
+                <p><?= nl2br(aman($ekskul["deskripsi"])) ?></p>
+            <?php else: ?>
+                <p class="mb-2">Dokumentasi kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>.</p>
             <?php endif; ?>
-        </article>
+            <span class="btn btn-outline-primary btn-sm mt-2"><i class="bi bi-camera-fill me-1"></i> Lihat Foto Kegiatan</span>
+            <small class="d-block text-secondary mt-2"><?= count($ekskul["foto"]) ?> foto tersedia</small>
+        </button>
     </div>
-    <?php endwhile; ?>
-<?php else: ?>
-    <div class="col-12">
-        <div class="text-center py-5 px-3 rounded-4 bg-white border">
-            <i class="bi bi-images text-primary" style="font-size:2.5rem"></i>
-            <h5 class="fw-bold mt-3">Belum ada kegiatan ekstrakurikuler</h5>
-            <p class="text-secondary mb-0">Informasi dan foto kegiatan akan ditampilkan setelah admin menambahkannya.</p>
+
+    <div class="modal fade" id="<?= aman($modalEkskulId) ?>" tabindex="-1" aria-labelledby="<?= aman($modalEkskulId) ?>Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header text-white" style="background:var(--gelap)">
+                    <div><h5 class="modal-title fw-bold" id="<?= aman($modalEkskulId) ?>Label"><?= aman($ekskul["nama_kegiatan"]) ?></h5>
+                    <small class="text-white-50">Dokumentasi kegiatan ekstrakurikuler</small></div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <?php if (!empty($ekskul["deskripsi"])): ?><p class="text-secondary mb-4"><?= nl2br(aman($ekskul["deskripsi"])) ?></p><?php endif; ?>
+                    <div class="row g-3">
+                        <?php foreach ($ekskul["foto"] as $fotoEkskul): ?>
+                            <?php if (!empty($fotoEkskul) && is_file(__DIR__ . "/" . $fotoEkskul)): ?>
+                            <div class="col-sm-6 col-lg-4">
+                                <img src="<?= aman($fotoEkskul) ?>" alt="Dokumentasi <?= aman($ekskul["nama_kegiatan"]) ?>"
+                                    class="w-100 rounded-3 shadow-sm" style="height:230px;object-fit:cover" loading="lazy">
+                            </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <div class="col-12"><div class="text-center py-5 px-3 rounded-4 bg-white border">
+        <i class="bi bi-images text-primary" style="font-size:2.5rem"></i>
+        <h5 class="fw-bold mt-3">Belum ada kegiatan ekstrakurikuler</h5>
+        <p class="text-secondary mb-0">Informasi dan foto kegiatan akan ditampilkan setelah admin menambahkannya.</p>
+    </div></div>
 <?php endif; ?>
 
 </div>
