@@ -820,10 +820,32 @@ body {
     right: 0;
 }
 
-/* KARTU EKSTRAKURIKULER YANG DAPAT DIKLIK */
-.ekskul-card { cursor:pointer; color:inherit; text-align:center; font:inherit; transition:transform .25s ease, box-shadow .25s ease; }
-.ekskul-card:hover, .ekskul-card:focus-visible { transform:translateY(-6px); box-shadow:0 16px 34px rgba(8,43,89,.14); outline:2px solid rgba(13,110,253,.25); outline-offset:3px; }
-.ekskul-card-icon { display:inline-flex; align-items:center; justify-content:center; width:76px; height:76px; border-radius:22px; color:#0d6efd; background:#eaf3ff; font-size:34px; }
+/* DESAIN SAMPUL KARTU EKSTRAKURIKULER */
+.ekskul-card {
+    display:block; overflow:hidden; border-radius:20px; background:#fff;
+    color:var(--teks); cursor:pointer; font:inherit;
+    box-shadow:0 8px 25px rgba(16,42,85,.09);
+    transition:transform .3s ease, box-shadow .3s ease;
+}
+.ekskul-card:hover, .ekskul-card:focus-visible {
+    transform:translateY(-8px); box-shadow:0 18px 38px rgba(16,42,85,.18);
+    outline:3px solid rgba(35,44,172,.18); outline-offset:3px;
+}
+.ekskul-cover { height:235px; position:relative; overflow:hidden; background:linear-gradient(135deg,#1c2c7c,#2674d9 58%,#5bc0eb); }
+.ekskul-cover img { width:100%; height:100%; display:block; object-fit:cover; transition:transform .6s ease; }
+.ekskul-card:hover .ekskul-cover img { transform:scale(1.09); }
+.ekskul-cover-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.9); }
+.ekskul-cover-placeholder i { font-size:76px; filter:drop-shadow(0 5px 10px rgba(0,0,0,.18)); }
+.ekskul-cover-shade { position:absolute; inset:0; background:linear-gradient(180deg,rgba(5,20,55,.08) 15%,rgba(5,20,55,.82) 100%); }
+.ekskul-photo-count { position:absolute; top:15px; right:15px; padding:7px 12px; border-radius:30px; color:#fff; background:rgba(8,25,65,.65); border:1px solid rgba(255,255,255,.35); font-size:12px; font-weight:700; backdrop-filter:blur(8px); }
+.ekskul-cover-title { position:absolute; left:22px; right:18px; bottom:19px; color:#fff; }
+.ekskul-kicker { display:inline-block; font-size:10px; letter-spacing:2px; font-weight:800; color:#d7edff; margin-bottom:7px; }
+.ekskul-cover-title h3 { font-size:25px; font-weight:800; margin:0; text-shadow:0 2px 8px rgba(0,0,0,.25); }
+.ekskul-card-body { padding:20px 22px 22px; }
+.ekskul-card-body p { color:#667085; font-size:14px; line-height:1.7; min-height:48px; margin:0 0 15px; }
+.ekskul-open-link { display:flex; align-items:center; justify-content:space-between; color:#232cac; font-size:13px; font-weight:800; }
+.ekskul-open-link i { font-size:19px; transition:transform .25s ease; }
+.ekskul-card:hover .ekskul-open-link i { transform:translateX(5px); }
 
 /* GALERI */
 .gallery-image {
@@ -1423,18 +1445,27 @@ body {
 <?php if (!empty($daftarEkstrakurikuler)): ?>
     <?php $nomorEkskul = 0; foreach ($daftarEkstrakurikuler as $ekskul): $nomorEkskul++; $modalEkskulId = "modalEkskul" . $nomorEkskul; ?>
     <div class="col-md-6 col-lg-4">
-        <button type="button" class="info-card ekskul-card text-center w-100 border-0"
+        <button type="button" class="ekskul-card w-100 p-0 border-0 text-start"
             data-bs-toggle="modal" data-bs-target="#<?= aman($modalEkskulId) ?>"
             aria-label="Lihat foto kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>">
-            <span class="ekskul-card-icon"><i class="bi bi-images"></i></span>
-            <h5 class="fw-bold mt-3"><?= aman($ekskul["nama_kegiatan"]) ?></h5>
-            <?php if (!empty($ekskul["deskripsi"])): ?>
-                <p><?= nl2br(aman($ekskul["deskripsi"])) ?></p>
-            <?php else: ?>
-                <p class="mb-2">Dokumentasi kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>.</p>
-            <?php endif; ?>
-            <span class="btn btn-outline-primary btn-sm mt-2"><i class="bi bi-camera-fill me-1"></i> Lihat Foto Kegiatan</span>
-            <small class="d-block text-secondary mt-2"><?= count($ekskul["foto"]) ?> foto tersedia</small>
+            <div class="ekskul-cover">
+                <?php $fotoSampulEkskul = !empty($ekskul["foto"][0]) ? $ekskul["foto"][0] : ""; ?>
+                <?php if ($fotoSampulEkskul && is_file(__DIR__ . "/" . $fotoSampulEkskul)): ?>
+                    <img src="<?= aman($fotoSampulEkskul) ?>" alt="Sampul <?= aman($ekskul["nama_kegiatan"]) ?>" loading="lazy">
+                <?php else: ?>
+                    <div class="ekskul-cover-placeholder"><i class="bi bi-trophy-fill"></i></div>
+                <?php endif; ?>
+                <div class="ekskul-cover-shade"></div>
+                <span class="ekskul-photo-count"><i class="bi bi-images me-1"></i><?= count($ekskul["foto"]) ?> Foto</span>
+                <div class="ekskul-cover-title">
+                    <span class="ekskul-kicker">EKSTRAKURIKULER</span>
+                    <h3><?= aman($ekskul["nama_kegiatan"]) ?></h3>
+                </div>
+            </div>
+            <div class="ekskul-card-body">
+                <p><?= !empty($ekskul["deskripsi"]) ? nl2br(aman($ekskul["deskripsi"])) : "Dokumentasi kegiatan " . aman($ekskul["nama_kegiatan"]) . "." ?></p>
+                <span class="ekskul-open-link">Jelajahi kegiatan <i class="bi bi-arrow-right-circle-fill"></i></span>
+            </div>
         </button>
     </div>
 
