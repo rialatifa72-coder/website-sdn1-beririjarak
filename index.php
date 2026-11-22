@@ -1124,44 +1124,48 @@ body {
 
 <div class="vm-mission-heading">
     <span class="line"></span>
-    <h3><i class="bi bi-bullseye me-2 text-primary"></i>Misi Sekolah</h3>
+    <h3><i class="bi bi-bullseye me-2 text-primary"></i>B. Misi</h3>
     <span class="line"></span>
 </div>
+
+<p class="text-center text-secondary mb-4" style="line-height:1.8">
+    Dalam upaya mengimplementasikan visi sekolah, SDN 1 Beririjarak menjabarkan misi sekolah sebagai berikut:
+</p>
 
 <div class="row g-4">
     <div class="col-md-6">
         <div class="vm-mission-card">
             <div class="vm-mission-icon"><i class="bi bi-moon-stars-fill"></i></div>
-            <div><h5>01. Meningkatkan Iman dan Taqwa</h5>
-            <p>Membina warga sekolah dalam peningkatan imtaq dan akhlak mulia.</p></div>
+            <div><h5>01. Membina Imtaq dan Akhlak Mulia</h5>
+            <p>Membina warga sekolah dalam kegiatan-kegiatan peningkatan Imtaq dan berakhlak mulia.</p></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="vm-mission-card">
             <div class="vm-mission-icon"><i class="bi bi-trophy-fill"></i></div>
-            <div><h5>02. Mengembangkan Prestasi</h5>
-            <p>Mendukung prestasi siswa sesuai bakat dan minat akademik maupun nonakademik.</p></div>
+            <div><h5>02. Memfasilitasi Peningkatan Prestasi</h5>
+            <p>Memfasilitasi peningkatan prestasi siswa sesuai bakat dan minat pada bidang akademik dan nonakademik.</p></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="vm-mission-card">
             <div class="vm-mission-icon"><i class="bi bi-lightbulb-fill"></i></div>
-            <div><h5>03. Mendorong Kreativitas</h5>
-            <p>Mendorong siswa agar kreatif, aktif, dan berani berkarya.</p></div>
+            <div><h5>03. Mendorong Siswa Kreatif Berkarya</h5>
+            <p>Merancang dan melaksanakan pembelajaran yang mendorong siswa kreatif berkarya.</p></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="vm-mission-card">
             <div class="vm-mission-icon"><i class="bi bi-people-fill"></i></div>
-            <div><h5>04. Membentuk Karakter Positif</h5>
-            <p>Menumbuhkan disiplin, kesantunan, dan sikap saling menghargai.</p></div>
+            <div><h5>04. Menumbuhkan Perilaku Positif</h5>
+            <p>Menumbuhkan perilaku disiplin, santun dan saling menghargai dalam berbagai situasi baik di sekolah maupun di rumah.</p></div>
         </div>
     </div>
     <div class="col-md-6 mx-auto">
         <div class="vm-mission-card">
             <div class="vm-mission-icon"><i class="bi bi-tree-fill"></i></div>
-            <div><h5>05. Peduli Lingkungan</h5>
-            <p>Melatih siswa agar peduli terhadap kebersihan dan kelestarian lingkungan.</p></div>
+            <div><h5>05. Melatih Kepedulian Lingkungan</h5>
+            <p>Melatih siswa peduli lingkungan.</p></div>
         </div>
     </div>
 </div>
