@@ -56,6 +56,19 @@ if (isset($koneksi) && $koneksi) {
         }
     }
 }
+
+// Kartu Pencak Silat tetap tampil meskipun dokumentasi belum diunggah.
+$kunciPencakSilat = function_exists("mb_strtolower")
+    ? mb_strtolower("Pencak Silat", "UTF-8")
+    : strtolower("Pencak Silat");
+if (!isset($daftarEkstrakurikuler[$kunciPencakSilat])) {
+    $daftarEkstrakurikuler[$kunciPencakSilat] = [
+        "nama_kegiatan" => "Pencak Silat",
+        "deskripsi" => "Melatih kedisiplinan, keberanian, ketangkasan, serta membentuk karakter dan sikap sportif peserta didik.",
+        "foto" => []
+    ];
+}
+
 function aman($nilai) {
     return htmlspecialchars((string)($nilai ?? ""), ENT_QUOTES, "UTF-8");
 }
@@ -1480,14 +1493,22 @@ body {
                 <div class="modal-body p-4">
                     <?php if (!empty($ekskul["deskripsi"])): ?><p class="text-secondary mb-4"><?= nl2br(aman($ekskul["deskripsi"])) ?></p><?php endif; ?>
                     <div class="row g-3">
+                        <?php $jumlahFotoValid = 0; ?>
                         <?php foreach ($ekskul["foto"] as $fotoEkskul): ?>
                             <?php if (!empty($fotoEkskul) && is_file(__DIR__ . "/" . $fotoEkskul)): ?>
+                            <?php $jumlahFotoValid++; ?>
                             <div class="col-sm-6 col-lg-4">
                                 <img src="<?= aman($fotoEkskul) ?>" alt="Dokumentasi <?= aman($ekskul["nama_kegiatan"]) ?>"
                                     class="w-100 rounded-3 shadow-sm" style="height:230px;object-fit:cover" loading="lazy">
                             </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
+                        <?php if ($jumlahFotoValid === 0): ?>
+                            <div class="col-12 text-center py-4">
+                                <i class="bi bi-camera text-primary" style="font-size:2.5rem"></i>
+                                <p class="text-secondary mt-2 mb-0">Foto kegiatan akan ditampilkan di sini setelah admin mengunggah dokumentasinya.</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
