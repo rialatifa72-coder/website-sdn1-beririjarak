@@ -1095,10 +1095,6 @@ body {
                 <div class="sambutan-photo-column">
                     <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo">
                     <div class="sambutan-photo-caption">
-                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
-                        Pimpinan dan penggerak pendidikan sekolah
-                    </div>
-                    <div class="sambutan-signature sambutan-signature-photo">
                         <span>Hormat kami,</span>
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
                     </div>
