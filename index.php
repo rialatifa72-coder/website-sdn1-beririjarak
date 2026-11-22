@@ -1089,13 +1089,19 @@ body {
             <div class="sambutan-card">
                 <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
                 <div class="sambutan-body">
-                    <p>Selamat datang di website resmi SDN 1 Beririjarak. Website ini diharapkan menjadi sarana informasi mengenai kegiatan sekolah, program pendidikan, prestasi siswa, dan berbagai informasi lainnya.</p>
+                    <p>Dengan penuh rasa syukur, website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas.</p>
 
-                    <p>Mari bekerja sama menciptakan pendidikan berkualitas serta membentuk peserta didik yang berkarakter, mandiri, dan berprestasi.</p>
+                    <p>Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah.</p>
+
+                    <p>Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi.</p>
+
+                    <p>Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
+
+                    <p class="sambutan-greeting mb-0">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
 
                     <div class="sambutan-signature">
-                        <strong>Kepala SDN 1 Beririjarak</strong>
-                        <span>Nama kepala sekolah dapat ditambahkan di sini</span>
+                        <span>Hormat kami,</span>
+                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
                     </div>
                 </div>
             </div>
