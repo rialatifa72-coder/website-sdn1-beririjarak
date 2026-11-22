@@ -1409,12 +1409,14 @@ body {
                     src="<?= aman($ekskul["foto"]) ?>"
                     alt="Foto kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>"
                     class="img-fluid rounded-3 mb-3"
-                    style="width:100%;height:220px;object-fit:cover"
+                    style="width:100%;height:230px;object-fit:cover"
                     loading="lazy">
             <?php else: ?>
-                <div class="feature-icon mx-auto"><i class="bi bi-people-fill"></i></div>
+                <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-light text-primary" style="height:230px">
+                    <i class="bi bi-image" style="font-size:3rem"></i>
+                </div>
             <?php endif; ?>
-            <h5><?= aman($ekskul["nama_kegiatan"]) ?></h5>
+            <h5 class="fw-bold"><?= aman($ekskul["nama_kegiatan"]) ?></h5>
             <?php if (!empty($ekskul["deskripsi"])): ?>
                 <p class="mb-0"><?= nl2br(aman($ekskul["deskripsi"])) ?></p>
             <?php endif; ?>
