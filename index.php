@@ -1765,7 +1765,7 @@ if (isset($koneksi) && $koneksi) {
 <div class="col-lg-7">
 <div class="rounded-4 overflow-hidden h-100" style="min-height:320px">
    <iframe 
-    src="https://maps.google.com/maps?q=-8.528704,116.540145&t=&z=17&ie=UTF8&iwloc=&output=embed" 
+    src="https://maps.google.com/maps?q=-8.5266629,116.537504&t=&z=17&ie=UTF8&iwloc=&output=embed" 
     width="100%" 
     height="400" 
     style="border:0;" 
