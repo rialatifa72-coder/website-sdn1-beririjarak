@@ -27,6 +27,20 @@ if (isset($koneksi) && $koneksi) {
         $daftarGaleri = $queryGaleri;
     }
 }
+
+$daftarEkstrakurikuler = false;
+if (isset($koneksi) && $koneksi) {
+    // Data ini berasal dari formulir Ekstrakurikuler pada halaman admin.
+    $queryEkstrakurikuler = mysqli_query(
+        $koneksi,
+        "SELECT nama_kegiatan, deskripsi, foto
+         FROM tb_ekstrakurikuler
+         ORDER BY id ASC"
+    );
+    if ($queryEkstrakurikuler) {
+        $daftarEkstrakurikuler = $queryEkstrakurikuler;
+    }
+}
 function aman($nilai) {
     return htmlspecialchars((string)($nilai ?? ""), ENT_QUOTES, "UTF-8");
 }
@@ -1386,29 +1400,36 @@ body {
 
 <div class="row g-4">
 
-<div class="col-md-4">
-<div class="info-card text-center">
-    <div class="feature-icon mx-auto"><i class="bi bi-flag-fill"></i></div>
-    <h5>Pramuka</h5>
-    <p>Mendukung kedisiplinan, kemandirian, dan kerja sama.</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="info-card text-center">
-    <div class="feature-icon mx-auto"><i class="bi bi-music-note-beamed"></i></div>
-    <h5>Seni dan Kreativitas</h5>
-    <p>Mengembangkan bakat dan kreativitas siswa.</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="info-card text-center">
-    <div class="feature-icon mx-auto"><i class="bi bi-trophy-fill"></i></div>
-    <h5>Olahraga</h5>
-    <p>Mendorong kebugaran, sportivitas, dan kerja sama tim.</p>
-</div>
-</div>
+<?php if ($daftarEkstrakurikuler && mysqli_num_rows($daftarEkstrakurikuler) > 0): ?>
+    <?php while ($ekskul = mysqli_fetch_assoc($daftarEkstrakurikuler)): ?>
+    <div class="col-md-4">
+        <article class="info-card text-center h-100">
+            <?php if (!empty($ekskul["foto"]) && is_file(__DIR__ . "/" . $ekskul["foto"])): ?>
+                <img
+                    src="<?= aman($ekskul["foto"]) ?>"
+                    alt="Foto kegiatan <?= aman($ekskul["nama_kegiatan"]) ?>"
+                    class="img-fluid rounded-3 mb-3"
+                    style="width:100%;height:220px;object-fit:cover"
+                    loading="lazy">
+            <?php else: ?>
+                <div class="feature-icon mx-auto"><i class="bi bi-people-fill"></i></div>
+            <?php endif; ?>
+            <h5><?= aman($ekskul["nama_kegiatan"]) ?></h5>
+            <?php if (!empty($ekskul["deskripsi"])): ?>
+                <p class="mb-0"><?= nl2br(aman($ekskul["deskripsi"])) ?></p>
+            <?php endif; ?>
+        </article>
+    </div>
+    <?php endwhile; ?>
+<?php else: ?>
+    <div class="col-12">
+        <div class="text-center py-5 px-3 rounded-4 bg-white border">
+            <i class="bi bi-images text-primary" style="font-size:2.5rem"></i>
+            <h5 class="fw-bold mt-3">Belum ada kegiatan ekstrakurikuler</h5>
+            <p class="text-secondary mb-0">Informasi dan foto kegiatan akan ditampilkan setelah admin menambahkannya.</p>
+        </div>
+    </div>
+<?php endif; ?>
 
 </div>
 </div>
