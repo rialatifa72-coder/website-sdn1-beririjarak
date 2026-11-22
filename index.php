@@ -1098,6 +1098,10 @@ body {
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
                         Pimpinan dan penggerak pendidikan sekolah
                     </div>
+                    <div class="sambutan-signature sambutan-signature-photo">
+                        <span>Hormat kami,</span>
+                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
+                    </div>
                 </div>
                 <div class="sambutan-content">
                     <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
@@ -1105,10 +1109,6 @@ body {
 
                     <p class="sambutan-greeting mb-0">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
 
-                    <div class="sambutan-signature">
-                        <span>Hormat kami,</span>
-                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
-                    </div>
                     </div>
                 </div>
             </div>
