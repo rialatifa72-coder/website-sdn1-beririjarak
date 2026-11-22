@@ -1048,35 +1048,6 @@ body {
         </div>
     </div>
 
-    <div class="profil-commitment">
-        <div class="commitment-heading">
-            <span>KEUNGGULAN KAMI</span>
-            <h3>Komitmen Membangun Generasi Unggul</h3>
-            <p>Empat komitmen dalam mendukung pendidikan peserta didik.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-3"><div class="commitment-card">
-                <div class="commitment-icon blue"><i class="bi bi-book-half"></i></div>
-                <h4>Pembelajaran Berkualitas</h4>
-                <p>Menghadirkan pembelajaran aktif, kreatif, inovatif, dan menyenangkan.</p>
-            </div></div>
-            <div class="col-md-6 col-lg-3"><div class="commitment-card">
-                <div class="commitment-icon orange"><i class="bi bi-trophy-fill"></i></div>
-                <h4>Pengembangan Prestasi</h4>
-                <p>Mendorong bakat, minat, dan potensi setiap peserta didik.</p>
-            </div></div>
-            <div class="col-md-6 col-lg-3"><div class="commitment-card">
-                <div class="commitment-icon red"><i class="bi bi-heart-fill"></i></div>
-                <h4>Pembentukan Karakter</h4>
-                <p>Menanamkan nilai keimanan, kedisiplinan, dan tanggung jawab.</p>
-            </div></div>
-            <div class="col-md-6 col-lg-3"><div class="commitment-card">
-                <div class="commitment-icon green"><i class="bi bi-tree-fill"></i></div>
-                <h4>Peduli Lingkungan</h4>
-                <p>Membiasakan hidup bersih dan menjaga kelestarian lingkungan.</p>
-            </div></div>
-        </div>
-    </div>
 </div>
 </section>
 
