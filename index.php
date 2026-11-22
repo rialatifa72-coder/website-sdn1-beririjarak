@@ -1093,7 +1093,7 @@ body {
         <div class="col-lg-10">
             <div class="sambutan-card">
                 <div class="sambutan-photo-column">
-                    <img src="kepala-sekolah.jpg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo">
+                    <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo">
                     <div class="sambutan-photo-caption">
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
                         Pimpinan dan penggerak pendidikan sekolah
