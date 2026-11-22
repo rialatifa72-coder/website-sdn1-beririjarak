@@ -845,6 +845,12 @@ body {
 .sambutan-section .section-subtitle{max-width:650px;margin:12px auto 0;color:#718096;line-height:1.8}
 .sambutan-card{position:relative;display:grid;grid-template-columns:280px minmax(0,1fr);align-items:start;gap:32px;padding:34px;background:#fff;border:1px solid #e4edf9;border-radius:22px;box-shadow:0 18px 50px rgba(16,45,80,.08)}
 .sambutan-photo-column{text-align:center}
+.sambutan-photo{cursor:zoom-in;transition:box-shadow .3s ease,border-color .3s ease}
+.sambutan-photo:hover{box-shadow:0 16px 38px rgba(16,45,80,.24);border-color:#9bc4ff}
+.foto-kepsek-modal .modal-content{background:transparent;border:0}
+.foto-kepsek-modal .modal-body{padding:0;text-align:center}
+.foto-kepsek-modal img{max-height:85vh;max-width:100%;object-fit:contain;border-radius:14px;box-shadow:0 18px 55px rgba(0,0,0,.35)}
+.foto-kepsek-modal .btn-close{position:absolute;right:0;top:-42px;filter:invert(1);opacity:1}
 .sambutan-photo{display:block;width:100%;height:350px;object-fit:cover;object-position:center 18%;border-radius:17px;border:4px solid #e8f1ff;box-shadow:0 10px 28px rgba(16,45,80,.12)}
 .sambutan-photo-animate{opacity:0;transform:translateY(45px) scale(.94);filter:blur(3px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.75,.25,1),filter .9s ease;will-change:opacity,transform}
 .sambutan-photo-animate.muncul{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
@@ -1067,7 +1073,7 @@ body {
         <div class="col-lg-10">
             <div class="sambutan-card">
                 <div class="sambutan-photo-column">
-                    <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo sambutan-photo-animate">
+                    <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo sambutan-photo-animate" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#fotoKepsekModal" aria-label="Perbesar foto Kepala Sekolah" title="Klik untuk memperbesar foto">
                     <div class="sambutan-photo-caption">
                         <span>Hormat kami,</span>
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
@@ -1663,6 +1669,18 @@ document.querySelectorAll('.sambutan-photo-animate').forEach(photo => {
 
 geserGuru(0);
 </script>
+
+<!-- MODAL PERBESAR FOTO KEPALA SEKOLAH -->
+<div class="modal fade foto-kepsek-modal" id="fotoKepsekModal" tabindex="-1" aria-labelledby="fotoKepsekModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-body position-relative">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak ukuran besar">
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
