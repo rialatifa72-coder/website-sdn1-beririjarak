@@ -839,6 +839,19 @@ body {
 @media(max-width:991px){.profil-modern{padding:70px 0}.profil-main-image{height:370px}.profil-information{padding:10px 0}.profil-commitment{margin-top:60px}}
 @media(max-width:575px){.profil-modern{padding:55px 0}.profil-visual{padding:12px 8px 15px 0}.profil-main-image{height:290px;border-radius:18px}.profil-photo-overlay{left:10px;right:15px;bottom:28px;padding:13px}.profil-photo-overlay h4{font-size:16px}.profil-floating{top:18px;right:0;font-size:9px}.profil-information h2{font-size:30px}.profil-commitment{margin-top:48px}.commitment-card{min-height:0}}
 
+
+/* KATA PENGANTAR KEPALA SEKOLAH */
+.sambutan-section{position:relative;overflow:hidden;background:linear-gradient(145deg,#f3f7ff,#fff 70%)}
+.sambutan-section .section-subtitle{max-width:650px;margin:12px auto 0;color:#718096;line-height:1.8}
+.sambutan-card{position:relative;display:flex;gap:22px;padding:42px 45px;background:#fff;border:1px solid #e4edf9;border-radius:22px;box-shadow:0 18px 50px rgba(16,45,80,.08)}
+.sambutan-mark{width:54px;height:54px;min-width:54px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#e8f1ff;color:#1265d8;font-size:35px}
+.sambutan-body{flex:1;color:#5c6e83;font-size:15px;line-height:1.95}
+.sambutan-body p{margin-bottom:17px;text-align:justify}
+.sambutan-body .sambutan-greeting{color:#123d76;font-weight:800}
+.sambutan-signature{display:flex;flex-direction:column;gap:4px;margin-top:28px;padding-top:20px;border-top:1px solid #e8eef7;color:#718096;font-size:14px}
+.sambutan-signature strong{color:#123d76;font-size:15px}
+@media(max-width:575px){.sambutan-card{display:block;padding:25px 20px;border-radius:17px}.sambutan-mark{margin-bottom:20px}.sambutan-body{font-size:14px}}
+
 </style>
 </head>
 
@@ -1063,47 +1076,39 @@ body {
 </section>
 
 <!-- SAMBUTAN KEPALA SEKOLAH -->
-<section class="section section-light" id="sambutan">
+<section class="section section-light sambutan-section" id="sambutan">
 <div class="container">
+    <div class="text-center mb-5">
+        <span class="section-label">Sambutan</span>
+        <h2 class="section-title">Kata Pengantar Kepala Sekolah</h2>
+        <p class="section-subtitle">Pesan dan harapan untuk seluruh warga sekolah dan masyarakat.</p>
+    </div>
 
-<div class="text-center mb-5">
-    <span class="section-label">Sambutan</span>
-    <h2 class="section-title">Sambutan Kepala Sekolah</h2>
-</div>
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="sambutan-card">
+                <div class="sambutan-mark"><i class="bi bi-quote"></i></div>
+                <div class="sambutan-body">
+                    <p class="sambutan-greeting">Assalamu'alaikum Warahmatullahi Wabarakatuh,</p>
 
-<div class="row justify-content-center">
-<div class="col-lg-9">
-<div class="info-card text-center">
+                    <p>Puji syukur ke hadirat Allah SWT atas limpahan rahmat dan karunia-Nya, sehingga website resmi SD NEGERI 1 BERIRIJARAK dapat hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas.</p>
 
-<div class="feature-icon mx-auto">
-    <i class="bi bi-chat-quote-fill"></i>
-</div>
+                    <p>Di era digital ini, keberadaan website sekolah bukan lagi sekadar pelengkap, melainkan sebuah kebutuhan. Website ini kami hadirkan sebagai sarana untuk menyampaikan informasi secara transparan, cepat dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah.</p>
 
-<p class="mb-3">
-    Selamat datang di website resmi SDN 1 Beririjarak.
-    Website ini diharapkan menjadi sarana informasi mengenai
-    kegiatan sekolah, program pendidikan, prestasi siswa,
-    dan berbagai informasi lainnya.
-</p>
+                    <p>Kami menyadari bahwa pendidikan adalah tanggung jawab bersama antara sekolah, orang tua, dan masyarakat. Oleh karena itu, melalui website ini kami berharap terjalin komunikasi yang lebih baik, sehingga dapat mendukung terciptanya lingkungan belajar yang kondusif, kreatif, dan berprestasi.</p>
 
-<p class="mb-0">
-    Mari bekerja sama menciptakan pendidikan berkualitas
-    serta membentuk peserta didik yang berkarakter,
-    mandiri, dan berprestasi.
-</p>
+                    <p>Terima kasih kepada seluruh tim yang telah berkontribusi dalam pembuatan website ini. Semoga website ini memberikan manfaat dan menjadi media inspirasi bagi kita semua dalam memajukan dunia pendidikan.</p>
 
-<h6 class="fw-bold text-primary mt-4 mb-0">
-    Kepala SDN 1 Beririjarak
-</h6>
+                    <p class="sambutan-greeting mb-0">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
 
-<small class="text-muted">
-    Nama kepala sekolah dapat ditambahkan di sini
-</small>
-
-</div>
-</div>
-</div>
-
+                    <div class="sambutan-signature">
+                        <span>Hormat kami,</span>
+                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </section>
 
