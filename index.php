@@ -1073,6 +1073,14 @@ body {
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
+        <i class="bi bi-upc-scan"></i>
+        <h3>50203014</h3>
+        <p>NPSN Sekolah</p>
+    </div>
+</div>
+
+<div class="col-6 col-md-4 col-lg-2 stat-card-animate">
+    <div class="stat-card interactive-card" onclick="cardClick(this)">
         <i class="bi bi-patch-check-fill"></i>
         <h3>B</h3>
         <p>Akreditasi</p>
@@ -1092,14 +1100,6 @@ body {
         <i class="bi bi-person-workspace"></i>
         <h3>12</h3>
         <p>Guru & Tenaga</p>
-    </div>
-</div>
-
-<div class="col-6 col-md-4 col-lg-2 stat-card-animate">
-    <div class="stat-card interactive-card" onclick="cardClick(this)">
-        <i class="bi bi-mortarboard-fill"></i>
-        <h3>1000+</h3>
-        <p>Alumni</p>
     </div>
 </div>
 
