@@ -802,6 +802,43 @@ body {
 .btn-primary:hover { background-color: #146c43 !important; border-color: #146c43 !important; }
 .btn-outline-primary { color: #198754 !important; border-color: #198754 !important; }
 .btn-outline-primary:hover { background-color: #198754 !important; border-color: #198754 !important; color: #fff !important; }
+
+/* ===== PROFIL SEKOLAH MODERN ===== */
+.profil-modern{position:relative;padding:95px 0;background:linear-gradient(135deg,#f3f7ff 0%,#fff 68%);overflow:hidden}
+.profil-modern:before{content:"";position:absolute;width:420px;height:420px;right:-170px;top:-210px;border-radius:50%;background:rgba(13,110,253,.055)}
+.profil-modern>.container{position:relative;z-index:1}
+.profil-visual{position:relative;padding:14px 18px 24px 0}
+.profil-decoration{position:absolute;left:-12px;top:-10px;width:48%;height:45%;border-top:5px solid #438cff;border-left:5px solid #438cff;border-radius:22px 0 0;opacity:.8}
+.profil-main-image{position:relative;z-index:1;display:block;width:100%;height:440px;object-fit:cover;border-radius:25px;box-shadow:0 24px 55px rgba(15,47,90,.18)}
+.profil-photo-overlay{position:absolute;z-index:2;left:22px;right:42px;bottom:42px;display:flex;align-items:center;gap:14px;padding:18px;color:#fff;background:rgba(7,43,91,.93);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.16)}
+.profil-overlay-icon{width:48px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.15);border-radius:13px;font-size:22px}
+.profil-photo-overlay h4{margin:0 0 5px;font-size:18px;font-weight:800}
+.profil-photo-overlay p{margin:0;color:#dceaff;font-size:12px}
+.profil-floating{position:absolute;z-index:3;top:30px;right:-3px;display:flex;align-items:center;gap:9px;padding:12px 16px;background:#fff;color:#123d76;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.1);font-size:11px;font-weight:800}
+.profil-floating i{color:#f3a623;font-size:18px}
+.profil-information{padding:10px 0 10px 15px}
+.profil-eyebrow{display:flex;align-items:center;gap:10px;color:#1265d8;font-size:12px;font-weight:800;letter-spacing:2px;margin-bottom:20px}
+.profil-eyebrow span{width:28px;height:3px;background:#1265d8;border-radius:10px}
+.profil-information h2{color:#102d50;font-size:clamp(30px,3.3vw,43px);line-height:1.2;font-weight:850;margin:0 0 22px}
+.profil-information h2 span{display:block;color:#1265d8}
+.profil-intro{color:#455b75;font-size:16px;line-height:1.9;font-weight:600;margin-bottom:14px}
+.profil-detail{color:#718096;font-size:14px;line-height:1.9;margin-bottom:24px}
+.profil-button{display:inline-flex;align-items:center;gap:13px;padding:13px 21px;color:#fff;background:#1265d8;border-radius:11px;text-decoration:none;font-size:13px;font-weight:800;box-shadow:0 8px 20px rgba(18,101,216,.2);transition:.3s}
+.profil-button:hover{color:#fff;background:#082b59;transform:translateY(-3px)}
+.profil-commitment{margin-top:85px}
+.commitment-heading{text-align:center;margin-bottom:32px}
+.commitment-heading span{color:#1265d8;font-size:11px;letter-spacing:2px;font-weight:800}
+.commitment-heading h3{color:#102d50;font-size:clamp(23px,3vw,31px);font-weight:850;margin:10px 0}
+.commitment-heading p{color:#718096;font-size:14px;margin:0}
+.commitment-card{height:100%;min-height:205px;padding:25px 22px;background:#fff;border:1px solid #e5edf8;border-radius:18px;box-shadow:0 8px 25px rgba(16,45,80,.045);transition:all .3s}
+.commitment-card:hover{transform:translateY(-8px);border-color:#8bbaff;box-shadow:0 18px 35px rgba(16,45,80,.11)}
+.commitment-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:14px;font-size:22px;margin-bottom:17px}
+.commitment-icon.blue{color:#1265d8;background:#e7f0ff}.commitment-icon.orange{color:#e99a20;background:#fff3df}.commitment-icon.red{color:#e44c65;background:#ffe9ed}.commitment-icon.green{color:#239b67;background:#e3f8ed}
+.commitment-card h4{color:#102d50;font-size:15px;font-weight:800;margin-bottom:10px}
+.commitment-card p{color:#718096;font-size:13px;line-height:1.75;margin:0}
+@media(max-width:991px){.profil-modern{padding:70px 0}.profil-main-image{height:370px}.profil-information{padding:10px 0}.profil-commitment{margin-top:60px}}
+@media(max-width:575px){.profil-modern{padding:55px 0}.profil-visual{padding:12px 8px 15px 0}.profil-main-image{height:290px;border-radius:18px}.profil-photo-overlay{left:10px;right:15px;bottom:28px;padding:13px}.profil-photo-overlay h4{font-size:16px}.profil-floating{top:18px;right:0;font-size:9px}.profil-information h2{font-size:30px}.profil-commitment{margin-top:48px}.commitment-card{min-height:0}}
+
 </style>
 </head>
 
@@ -953,51 +990,75 @@ body {
 </section>
 
 <!-- PROFIL SEKOLAH -->
-<section class="section section-light" id="profil">
+<section class="profil-modern" id="profil">
 <div class="container">
-<div class="row align-items-center g-5">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+            <div class="profil-visual">
+                <div class="profil-decoration"></div>
+                <img class="profil-main-image"
+                     src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=90"
+                     alt="Ilustrasi lingkungan belajar di sekolah">
+                <div class="profil-photo-overlay">
+                    <div class="profil-overlay-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div>
+                        <h4>SDN 1 Beririjarak</h4>
+                        <p>Tempat tumbuh, belajar, dan meraih cita-cita</p>
+                    </div>
+                </div>
+                <div class="profil-floating">
+                    <i class="bi bi-stars"></i>
+                    <span>Pendidikan untuk Masa Depan</span>
+                </div>
+            </div>
+        </div>
 
-<div class="col-lg-6">
-    <div class="profile-visual">
-        <img class="profile-image"
-             src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1000&q=85"
-             alt="Ilustrasi lingkungan belajar di sekolah">
-        <div class="profile-photo-caption">
-            <strong><i class="bi bi-mortarboard-fill me-2"></i>SDN 1 Beririjarak</strong>
-            <span>Tempat tumbuh, belajar, dan meraih cita-cita</span>
+        <div class="col-lg-6">
+            <div class="profil-information">
+                <div class="profil-eyebrow"><span></span> PROFIL SEKOLAH</div>
+                <h2>Mengenal Lebih Dekat <span>SDN 1 Beririjarak</span></h2>
+                <p class="profil-intro">
+                    SDN 1 Beririjarak merupakan lembaga pendidikan dasar yang berkomitmen mendukung perkembangan pengetahuan, keterampilan, karakter, dan potensi setiap peserta didik.
+                </p>
+                <p class="profil-detail">
+                    Melalui lingkungan belajar yang aman, nyaman, dan menyenangkan, sekolah mendorong siswa untuk aktif, percaya diri, berprestasi, serta memiliki akhlak mulia dan kepedulian terhadap lingkungan.
+                </p>
+                <a href="#visi-misi" class="profil-button">
+                    Jelajahi Visi dan Misi <i class="bi bi-arrow-up-right"></i>
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="col-lg-6">
-    <span class="section-label"><i class="bi bi-buildings me-1"></i> Profil Sekolah</span>
-    <h2 class="section-title mt-2 mb-3">Mengenal Lebih Dekat SDN 1 Beririjarak</h2>
-
-    <p class="profile-intro">
-        SDN 1 Beririjarak merupakan lembaga pendidikan dasar yang
-        berkomitmen mendukung perkembangan pengetahuan, keterampilan,
-        karakter, dan potensi setiap peserta didik.
-    </p>
-
-    <p class="profile-intro">
-        Melalui lingkungan belajar yang aman, nyaman, dan menyenangkan,
-        sekolah mendorong siswa untuk aktif, percaya diri, berprestasi,
-        serta memiliki akhlak mulia dan kepedulian terhadap lingkungan.
-    </p>
-
-    <div class="profile-points">
-        <div class="profile-point"><i class="bi bi-book-half"></i><span>Pembelajaran Berkualitas</span></div>
-        <div class="profile-point"><i class="bi bi-award-fill"></i><span>Pengembangan Prestasi</span></div>
-        <div class="profile-point"><i class="bi bi-heart-fill"></i><span>Pembentukan Karakter</span></div>
-        <div class="profile-point"><i class="bi bi-tree-fill"></i><span>Peduli Lingkungan</span></div>
+    <div class="profil-commitment">
+        <div class="commitment-heading">
+            <span>KEUNGGULAN KAMI</span>
+            <h3>Komitmen Membangun Generasi Unggul</h3>
+            <p>Empat komitmen dalam mendukung pendidikan peserta didik.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3"><div class="commitment-card">
+                <div class="commitment-icon blue"><i class="bi bi-book-half"></i></div>
+                <h4>Pembelajaran Berkualitas</h4>
+                <p>Menghadirkan pembelajaran aktif, kreatif, inovatif, dan menyenangkan.</p>
+            </div></div>
+            <div class="col-md-6 col-lg-3"><div class="commitment-card">
+                <div class="commitment-icon orange"><i class="bi bi-trophy-fill"></i></div>
+                <h4>Pengembangan Prestasi</h4>
+                <p>Mendorong bakat, minat, dan potensi setiap peserta didik.</p>
+            </div></div>
+            <div class="col-md-6 col-lg-3"><div class="commitment-card">
+                <div class="commitment-icon red"><i class="bi bi-heart-fill"></i></div>
+                <h4>Pembentukan Karakter</h4>
+                <p>Menanamkan nilai keimanan, kedisiplinan, dan tanggung jawab.</p>
+            </div></div>
+            <div class="col-md-6 col-lg-3"><div class="commitment-card">
+                <div class="commitment-icon green"><i class="bi bi-tree-fill"></i></div>
+                <h4>Peduli Lingkungan</h4>
+                <p>Membiasakan hidup bersih dan menjaga kelestarian lingkungan.</p>
+            </div></div>
+        </div>
     </div>
-
-    <a href="#visi-misi" class="btn-utama">
-        Jelajahi Visi dan Misi <i class="bi bi-arrow-right ms-2"></i>
-    </a>
-</div>
-
-</div>
 </div>
 </section>
 
