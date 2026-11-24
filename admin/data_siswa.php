@@ -79,7 +79,7 @@ function bacaExcelSiswa($file) {
 }
 $fields = [
     ["nama_siswa", "Nama Lengkap", "text"],
-    ["nipd", "NIPD", "text"],
+    ["nisn", "NISN", "text"],
     ["jenis_kelamin", "Jenis Kelamin", "select"],
     ["tanggal_lahir", "Tanggal Lahir", "date"],
     ["alamat", "Alamat", "textarea"],
@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
             // Posisi kolom berdasarkan lembar "Daftar Peserta Didik" dari ekspor Dapodik.
             $petaKolom = [
-                "nama_siswa"=>1, "nipd"=>2, "jenis_kelamin"=>3,
+                "nama_siswa"=>1, "jenis_kelamin"=>3, "nisn"=>4,
                 "tanggal_lahir"=>6, "alamat"=>9, "kelas"=>42
             ];
             $jumlahMasuk = 0; $jumlahLewat = 0;
@@ -134,10 +134,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         if ($key === "tanggal_lahir" && $v !== "" && !preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $v)) $v = "";
                         if ($v !== "") $dataIsi[$key] = $v;
                     }
-                    $nipdCek = $dataIsi["nipd"] ?? "";
-                    if ($nipdCek !== "") {
-                        $cek = mysqli_prepare($koneksi, "SELECT id FROM tb_siswa WHERE nipd = ? LIMIT 1");
-                        mysqli_stmt_bind_param($cek, "s", $nipdCek);
+                    $nisnCek = $dataIsi["nisn"] ?? "";
+                    if ($nisnCek !== "") {
+                        $cek = mysqli_prepare($koneksi, "SELECT id FROM tb_siswa WHERE nisn = ? LIMIT 1");
+                        mysqli_stmt_bind_param($cek, "s", $nisnCek);
                         mysqli_stmt_execute($cek);
                         $sudahAda = mysqli_fetch_assoc(mysqli_stmt_get_result($cek));
                         mysqli_stmt_close($cek);
@@ -223,7 +223,7 @@ if (isset($_GET["edit"])) {
 $q = trim($_GET["q"] ?? "");
 if ($q !== "") {
     $like = "%".$q."%";
-    $stmt = mysqli_prepare($koneksi, "SELECT * FROM tb_siswa WHERE nama_siswa LIKE ? OR nipd LIKE ? OR jenis_kelamin LIKE ? OR alamat LIKE ? OR kelas LIKE ? ORDER BY nama_siswa ASC");
+    $stmt = mysqli_prepare($koneksi, "SELECT * FROM tb_siswa WHERE nama_siswa LIKE ? OR nisn LIKE ? OR jenis_kelamin LIKE ? OR alamat LIKE ? OR kelas LIKE ? ORDER BY nama_siswa ASC");
     mysqli_stmt_bind_param($stmt, "sssss", $like, $like, $like, $like, $like);
     mysqli_stmt_execute($stmt);
     $daftar = mysqli_stmt_get_result($stmt);
@@ -231,7 +231,7 @@ if ($q !== "") {
     $daftar = mysqli_query($koneksi, "SELECT * FROM tb_siswa ORDER BY nama_siswa ASC");
 }
 if (!$daftar) die("Gagal mengambil data siswa: " . e(mysqli_error($koneksi)));
-$grup = ["Data Siswa" => ["nama_siswa","nipd","jenis_kelamin","tanggal_lahir","alamat","kelas"]];
+$grup = ["Data Siswa" => ["nama_siswa","nisn","jenis_kelamin","tanggal_lahir","alamat","kelas"]];
 $labelMap = [];
 foreach ($fields as $f) $labelMap[$f[0]] = [$f[1], $f[2]];
 ?>
@@ -246,7 +246,7 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 </style></head><body>
 <header class="topbar"><div class="container-fluid d-flex justify-content-between"><div class="d-flex align-items-center gap-3"><img src="../logo.jpeg" alt="Logo SDN 1 Beririjarak" class="logo-admin"><strong>SDN 1 BERIRIJARAK — ADMIN</strong></div><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
 <main class="wrap">
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><div><h1 class="h3 judul mb-1">CRUD Data Siswa</h1><p class="text-secondary mb-0">Kelola enam informasi utama siswa: nama, NIPD, jenis kelamin, tanggal lahir, alamat, dan kelas.</p></div><a href="../dashboard_admin.php" class="btn btn-outline-primary"><i class="bi bi-arrow-left me-1"></i>Dashboard</a></div>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><div><h1 class="h3 judul mb-1">CRUD Data Siswa</h1><p class="text-secondary mb-0">Kelola enam informasi utama siswa: nama, NISN, jenis kelamin, tanggal lahir, alamat, dan kelas.</p></div><a href="../dashboard_admin.php" class="btn btn-outline-primary"><i class="bi bi-arrow-left me-1"></i>Dashboard</a></div>
 <?php if ($pesan): ?><div class="alert alert-<?= e($jenisPesan) ?>"><?= e($pesan) ?></div><?php endif; ?>
 <section class="panel mb-4">
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2"><h2 class="h5 judul mb-0"><?= $editData ? "Ubah Biodata Siswa" : "Tambah Biodata Siswa" ?></h2><span class="text-muted small">Kolom bertanda * wajib diisi</span></div>
@@ -265,7 +265,7 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 </form></section>
 <section class="panel mb-4">
 <h2 class="h5 judul">Impor Daftar Peserta Didik</h2>
-<p class="small text-secondary mb-3">Unggah file Excel (.xlsx) dari daftar peserta didik atau file TXT/CSV hasil ekspor Dapodik. Hanya nama, NIPD, jenis kelamin, tanggal lahir, alamat, dan kelas yang diimpor. Data kosong dan NIPD yang sudah terdaftar akan dilewati.</p>
+<p class="small text-secondary mb-3">Unggah file Excel (.xlsx) dari daftar peserta didik atau file TXT/CSV hasil ekspor Dapodik. Hanya nama, NISN, jenis kelamin, tanggal lahir, alamat, dan kelas yang diimpor. Data kosong dan NISN yang sudah terdaftar akan dilewati.</p>
 <form method="post" enctype="multipart/form-data" class="row g-2 align-items-end">
 <input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>">
 <input type="hidden" name="aksi" value="importir">
@@ -273,7 +273,7 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 <div class="col-md-4"><button class="btn btn-success w-100" onclick="return confirm('Impor data dari file ini ke database siswa? Data kosong dan data ganda akan dilewati.')"><i class="bi bi-upload me-1"></i>Impor Data Siswa</button></div>
 </form>
 </section>
-<section class="panel"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Siswa</h2><form class="d-flex gap-2" method="get"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama, NIPD, alamat, kelas"><button class="btn btn-outline-primary"><i class="bi bi-search"></i></button></form></div>
+<section class="panel"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Siswa</h2><form class="d-flex gap-2" method="get"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama, NISN, alamat, kelas"><button class="btn btn-outline-primary"><i class="bi bi-search"></i></button></form></div>
 <div class="table-responsive"><table class="table table-hover table-bordered align-middle table-siswa"><thead><tr><th>No</th><?php foreach ($fields as $f): ?><th><?= e($f[1]) ?></th><?php endforeach; ?><th>Aksi</th></tr></thead><tbody>
 <?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="<?= count($fields) + 2 ?>" class="text-center text-muted py-4">Belum ada data siswa.</td></tr><?php else: $no=1; while ($s=mysqli_fetch_assoc($daftar)): ?><tr><td><?= $no++ ?></td><?php foreach ($fields as $f): $kolom = $f[0]; ?><td><?= e($s[$kolom] ?? "") ?></td><?php endforeach; ?><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_siswa.php?edit=<?= (int)$s["id"] ?>"><i class="bi bi-pencil"></i> Ubah</a> <form method="post" class="d-inline" onsubmit="return confirm('Hapus biodata siswa ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$s["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr><?php endwhile; endif; ?>
 </tbody></table></div></section>
