@@ -5,7 +5,7 @@ $daftarGuru = false;
 if (isset($koneksi) && $koneksi) {
     $queryGuru = mysqli_query(
         $koneksi,
-        "SELECT nama_guru, jabatan, pendidikan, foto
+        "SELECT nama_guru, gelar, jabatan, foto
          FROM tb_guru
          ORDER BY id ASC"
     );
@@ -1571,12 +1571,9 @@ body {
                 <i class="bi bi-person-fill"></i>
             </div>
         <?php endif; ?>
-        <h5><?= aman($guru["nama_guru"]) ?></h5>
+        <h5><?= aman($guru["nama_guru"]) ?><?php if (!empty($guru["gelar"])): ?>, <?= aman($guru["gelar"]) ?><?php endif; ?></h5>
         <?php if (!empty($guru["jabatan"])): ?>
             <div class="jabatan-guru"><?= aman($guru["jabatan"]) ?></div>
-        <?php endif; ?>
-        <?php if (!empty($guru["pendidikan"])): ?>
-            <p class="quote-guru"><?= aman($guru["pendidikan"]) ?></p>
         <?php endif; ?>
     </article>
     <?php endwhile; ?>
