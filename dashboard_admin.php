@@ -87,7 +87,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <li class="<?= $page === "profil" ? "active" : "" ?>"><a href="dashboard_admin.php?page=profil"><i class="bi bi-building"></i>Profil Sekolah</a></li>
         <li class="<?= $page === "guru" ? "active" : "" ?>"><a href="admin/data_guru.php"><i class="bi bi-person-workspace"></i>Data Guru</a></li>
         <li class="<?= $page === "siswa" ? "active" : "" ?>"><a href="admin/data_siswa.php"><i class="bi bi-people-fill"></i>Data Siswa</a></li>
-        <li class="<?= $page === "berita" ? "active" : "" ?>"><a href="admin/data_berita.php"><i class="bi bi-newspaper"></i>Berita Sekolah</a></li>
+        <li><a href="admin/data_berita.php"><i class="bi bi-award"></i>Prestasi Sekolah</a></li>
         <li class="<?= $page === "galeri" ? "active" : "" ?>"><a href="admin/data_galeri.php"><i class="bi bi-images"></i>Galeri Foto</a></li>
         <li><a href="admin/data_ekstrakurikuler.php"><i class="bi bi-trophy"></i>Ekstrakurikuler</a></li>
         <li class="<?= $page === "media" ? "active" : "" ?>"><a href="dashboard_admin.php?page=media"><i class="bi bi-journal-bookmark-fill"></i>Media Pembelajaran</a></li>
@@ -108,20 +108,20 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                 <div><h2 class="h4 fw-bold mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
             </div>
             <div class="row g-3">
-                <?php foreach ([["bi-people","Data Guru","tb_guru"],["bi-mortarboard","Data Siswa","tb_siswa"],["bi-newspaper","Berita Sekolah","tb_berita"],["bi-images","Galeri Foto","tb_galeri"],["bi-trophy","Ekstrakurikuler","tb_ekstrakurikuler"]] as $item): $total=jumlahData($koneksi,$item[2]); ?>
+                <?php foreach ([["bi-people","Data Guru","tb_guru"],["bi-mortarboard","Data Siswa","tb_siswa"],["bi-award","Prestasi Sekolah","tb_berita"],["bi-images","Galeri Foto","tb_galeri"],["bi-trophy","Ekstrakurikuler","tb_ekstrakurikuler"]] as $item): $total=jumlahData($koneksi,$item[2]); ?>
                 <div class="col-sm-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi <?= $item[0] ?>"></i></div><div><div class="stat-number"><?= $total === null ? "—" : $total ?></div><div class="stat-label"><?= $item[1] ?></div></div></div></div>
                 <?php endforeach; ?>
             </div>
             <div class="card-custom info-card mt-4">
                 <div class="info-card-heading"><i class="bi bi-info-lg"></i><h5 class="card-title-custom mb-0">Informasi Sistem</h5></div>
-                <div class="info-card-body">Gunakan menu di sebelah kiri untuk mengelola profil sekolah, data guru dan siswa, berita, galeri, serta media pembelajaran. Angka ringkasan akan muncul setelah tabel terkait tersedia di database.</div>
+                <div class="info-card-body">Gunakan menu di sebelah kiri untuk mengelola profil sekolah, data guru dan siswa, prestasi sekolah, galeri, ekstrakurikuler, serta media pembelajaran. Angka ringkasan akan muncul setelah tabel terkait tersedia di database.</div>
             </div>
         <?php elseif ($page === "profil"): ?>
             <div class="card-custom"><h5 class="card-title-custom">Pengelolaan Profil Sekolah</h5><p class="text-muted mb-0">Bagian ini disiapkan untuk pengelolaan informasi umum, sambutan kepala sekolah, visi dan misi, serta fasilitas SDN 1 Beririjarak.</p></div>
         <?php else: ?>
             <?php
-            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Berita Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","media"=>"Media Pembelajaran"];
-            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola berita, kegiatan, dan pengumuman sekolah.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
+            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Prestasi Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","media"=>"Media Pembelajaran"];
+            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola informasi prestasi dan pencapaian peserta didik.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
             ?>
             <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard. Fitur tambah, ubah, hapus, dan penyimpanan database akan diaktifkan pada tahap pengembangan berikutnya.</div></div>
         <?php endif; ?>
