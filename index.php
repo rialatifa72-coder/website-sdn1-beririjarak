@@ -3,6 +3,11 @@ require_once __DIR__ . "/koneksi.php";
 
 $daftarGuru = false;
 if (isset($koneksi) && $koneksi) {
+    // Pastikan kolom gelar tersedia meskipun halaman admin belum pernah dibuka.
+    $cekKolomGelarGuru = mysqli_query($koneksi, "SHOW COLUMNS FROM tb_guru LIKE 'gelar'");
+    if ($cekKolomGelarGuru && mysqli_num_rows($cekKolomGelarGuru) === 0) {
+        mysqli_query($koneksi, "ALTER TABLE tb_guru ADD COLUMN gelar VARCHAR(100) NULL AFTER nama_guru");
+    }
     $queryGuru = mysqli_query(
         $koneksi,
         "SELECT nama_guru, gelar, jabatan, foto
