@@ -19,6 +19,64 @@ function bindDynamic($stmt, $types, &$values) {
     foreach ($values as $i => &$value) $args[] = &$value;
     return call_user_func_array([$stmt, "bind_param"], $args);
 }
+
+function bacaExcelSiswa($file) {
+    if (!class_exists("ZipArchive") || !function_exists("simplexml_load_string")) {
+        throw new RuntimeException("Fitur pembaca Excel belum aktif di PHP. Aktifkan ekstensi zip dan simplexml pada XAMPP.");
+    }
+    $zip = new ZipArchive();
+    if ($zip->open($file) !== true) throw new RuntimeException("File Excel tidak dapat dibuka.");
+    try {
+        $shared = [];
+        $sharedXml = $zip->getFromName("xl/sharedStrings.xml");
+        if ($sharedXml !== false) {
+            $sx = simplexml_load_string($sharedXml);
+            if ($sx === false) throw new RuntimeException("Format shared strings Excel tidak valid.");
+            $ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+            foreach ($sx->children($ns)->si as $si) {
+                $teks = "";
+                foreach ($si->children($ns)->t as $t) $teks .= (string)$t;
+                foreach ($si->children($ns)->r as $run) $teks .= (string)$run->children($ns)->t;
+                $shared[] = $teks;
+            }
+        }
+        $sheetXml = $zip->getFromName("xl/worksheets/sheet1.xml");
+        if ($sheetXml === false) throw new RuntimeException("Lembar pertama Excel tidak ditemukan.");
+        $sheet = simplexml_load_string($sheetXml);
+        if ($sheet === false) throw new RuntimeException("Isi lembar Excel tidak dapat dibaca.");
+        $ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+        $rows = [];
+        foreach ($sheet->children($ns)->sheetData->children($ns)->row as $rowXml) {
+            $row = [];
+            foreach ($rowXml->children($ns)->c as $cell) {
+                $ref = (string)$cell["r"];
+                if (!preg_match('/^([A-Z]+)/', $ref, $m)) continue;
+                $col = 0;
+                foreach (str_split($m[1]) as $letter) $col = $col * 26 + ord($letter) - 64;
+                $col--;
+                $type = (string)$cell["t"];
+                $value = "";
+                if ($type === "inlineStr") {
+                    foreach ($cell->children($ns)->is->children($ns)->t as $t) $value .= (string)$t;
+                } else {
+                    $v = (string)$cell->children($ns)->v;
+                    if ($type === "s") $value = $shared[(int)$v] ?? "";
+                    else $value = $v;
+                }
+                $row[$col] = $value;
+            }
+            if ($row) {
+                $max = max(array_keys($row));
+                $normalized = array_fill(0, $max + 1, "");
+                foreach ($row as $col => $value) $normalized[$col] = $value;
+                $rows[] = $normalized;
+            } else $rows[] = [];
+        }
+        return $rows;
+    } finally {
+        $zip->close();
+    }
+}
 $fields = [
     ["nama_siswa", "Nama Lengkap", "text"],
     ["nisn", "NISN", "text"],
@@ -39,24 +97,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $aksi = $_POST["aksi"] ?? "";
         if ($aksi === "importir") {
             if (!isset($_FILES["file_data_siswa"]) || $_FILES["file_data_siswa"]["error"] !== UPLOAD_ERR_OK) {
-                throw new RuntimeException("Pilih file daftar peserta didik TXT/CSV terlebih dahulu.");
+                throw new RuntimeException("Pilih file Excel (.xlsx) atau TXT/CSV terlebih dahulu.");
             }
             $namaFile = $_FILES["file_data_siswa"]["name"] ?? "";
             $ekstensi = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
-            if (!in_array($ekstensi, ["txt", "csv"], true)) throw new RuntimeException("Format file harus TXT atau CSV hasil ekspor tab-delimited.");
-            $handle = fopen($_FILES["file_data_siswa"]["tmp_name"], "r");
-            if (!$handle) throw new RuntimeException("File tidak dapat dibaca.");
-            // Indeks kolom mengikuti format Daftar Peserta Didik yang diberikan.
-            // Seluruh kolom NIK dan kolom yang diminta dihilangkan tidak dipetakan.
+            if (!in_array($ekstensi, ["xlsx", "txt", "csv"], true)) throw new RuntimeException("Format file harus XLSX, TXT, atau CSV.");
+            if ($ekstensi === "xlsx") {
+                $barisData = bacaExcelSiswa($_FILES["file_data_siswa"]["tmp_name"]);
+            } else {
+                $handle = fopen($_FILES["file_data_siswa"]["tmp_name"], "r");
+                if (!$handle) throw new RuntimeException("File tidak dapat dibaca.");
+                $barisData = [];
+                while (($row = fgetcsv($handle, 0, "\t", '"', "\\\\")) !== false) $barisData[] = $row;
+                fclose($handle);
+            }
+            // Posisi kolom berdasarkan lembar "Daftar Peserta Didik" dari ekspor Dapodik.
             $petaKolom = [
                 "nama_siswa"=>1, "jenis_kelamin"=>3, "nisn"=>4,
                 "tanggal_lahir"=>6, "alamat"=>9, "kelas"=>42
             ];
-            $barisKe = 0; $jumlahMasuk = 0; $jumlahLewat = 0;
+            $jumlahMasuk = 0; $jumlahLewat = 0;
             mysqli_begin_transaction($koneksi);
             try {
-                while (($row = fgetcsv($handle, 0, "\t", '"', "\\")) !== false) {
-                    if ($barisKe++ < 6 || !is_array($row)) continue;
+                foreach ($barisData as $nomorBaris => $row) {
+                    if ($nomorBaris < 6 || !is_array($row)) continue;
                     $nama = normalisasiNilai($row[1] ?? "");
                     if ($nama === "") { $jumlahLewat++; continue; }
                     $dataIsi = [];
@@ -93,12 +157,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     mysqli_stmt_close($stmtImport);
                     $jumlahMasuk++;
                 }
-                fclose($handle);
                 mysqli_commit($koneksi);
-                $pesan = "Impor selesai: " . $jumlahMasuk . " siswa ditambahkan, " . $jumlahLewat . " baris kosong/duplikat dilewati. Kolom kosong tidak disimpan.";
+                $pesan = "Impor selesai: " . $jumlahMasuk . " siswa ditambahkan, " . $jumlahLewat . " baris kosong/duplikat dilewati. Enam kolom utama saja yang diimpor.";
             } catch (Throwable $errImport) {
                 mysqli_rollback($koneksi);
-                if (is_resource($handle)) fclose($handle);
                 throw $errImport;
             }
         } elseif ($aksi === "hapus") {
@@ -203,11 +265,11 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 </form></section>
 <section class="panel mb-4">
 <h2 class="h5 judul">Impor Daftar Peserta Didik</h2>
-<p class="small text-secondary mb-3">Unggah file TXT/CSV hasil ekspor Dapodik (dipisahkan tab). Data yang kosong, baris kosong, dan siswa yang sudah terdaftar akan dilewati. Hanya enam kolom utama siswa yang akan diimpor: nama, NISN, jenis kelamin, tanggal lahir, alamat, dan kelas.</p>
+<p class="small text-secondary mb-3">Unggah file Excel (.xlsx) dari daftar peserta didik atau file TXT/CSV hasil ekspor Dapodik. Hanya nama, NISN, jenis kelamin, tanggal lahir, alamat, dan kelas yang diimpor. Data kosong dan NISN yang sudah terdaftar akan dilewati.</p>
 <form method="post" enctype="multipart/form-data" class="row g-2 align-items-end">
 <input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>">
 <input type="hidden" name="aksi" value="importir">
-<div class="col-md-8"><label class="form-label" for="file_data_siswa">File daftar peserta didik (.txt atau .csv)</label><input class="form-control" type="file" id="file_data_siswa" name="file_data_siswa" accept=".txt,.csv" required></div>
+<div class="col-md-8"><label class="form-label" for="file_data_siswa">File daftar peserta didik (.xlsx, .txt, atau .csv)</label><input class="form-control" type="file" id="file_data_siswa" name="file_data_siswa" accept=".xlsx,.txt,.csv" required></div>
 <div class="col-md-4"><button class="btn btn-success w-100" onclick="return confirm('Impor data dari file ini ke database siswa? Data kosong dan data ganda akan dilewati.')"><i class="bi bi-upload me-1"></i>Impor Data Siswa</button></div>
 </form>
 </section>
