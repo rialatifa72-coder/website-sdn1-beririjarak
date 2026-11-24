@@ -87,13 +87,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $fotoLama = "";
             if ($aksi === "ubah") {
+                $cek = mysqli_prepare($koneksi, "SELECT foto FROM tb_guru WHERE id = ?");
+                mysqli_stmt_bind_param($cek, "i", $id);
+                mysqli_stmt_execute($cek);
+                mysqli_stmt_bind_result($cek, $fotoLama);
+                if (!mysqli_stmt_fetch($cek)) {
+                    mysqli_stmt_close($cek);
+                    throw new RuntimeException("Data guru tidak ditemukan.");
+                }
+                mysqli_stmt_close($cek);
+            }
+
+            $foto = simpanFotoGuru("foto", $folderUpload, $prefixUpload, $fotoLama);
             if ($aksi === "simpan") {
-                // Kolom lama tetap diisi nilai kosong agar kompatibel dengan struktur database sebelumnya.
-                $stmt = mysqli_prepare($koneksi, "INSERT INTO tb_guru (nip, nama_guru, gelar, jenis_kelamin, jabatan, pendidikan, foto) VALUES ('', ?, ?, NULLIF(?, ''), ?, '', '')");
-                mysqli_stmt_bind_param($stmt, "ssss", $nama, $gelar, $jk, $jabatan);
+                $stmt = mysqli_prepare($koneksi, "INSERT INTO tb_guru (nip, nama_guru, gelar, jenis_kelamin, jabatan, pendidikan, foto) VALUES ('', ?, ?, NULLIF(?, ''), ?, '', ?)");
+                mysqli_stmt_bind_param($stmt, "sssss", $nama, $gelar, $jk, $jabatan, $foto);
             } else {
-                $stmt = mysqli_prepare($koneksi, "UPDATE tb_guru SET nama_guru=?, gelar=?, jenis_kelamin=NULLIF(?, ''), jabatan=? WHERE id=?");
-                mysqli_stmt_bind_param($stmt, "ssssi", $nama, $gelar, $jk, $jabatan, $id);
+                $stmt = mysqli_prepare($koneksi, "UPDATE tb_guru SET nama_guru=?, gelar=?, jenis_kelamin=NULLIF(?, ''), jabatan=?, foto=? WHERE id=?");
+                mysqli_stmt_bind_param($stmt, "sssssi", $nama, $gelar, $jk, $jabatan, $foto, $id);
             }
             if (!mysqli_stmt_execute($stmt)) throw new RuntimeException("Data gagal disimpan: " . mysqli_stmt_error($stmt));
             mysqli_stmt_close($stmt);
@@ -108,14 +119,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $editData = null;
 if (isset($_GET["edit"])) {
     $idEdit = (int)$_GET["edit"];
-    $stmt = mysqli_prepare($koneksi, "SELECT id,nama_guru,gelar,jenis_kelamin,jabatan FROM tb_guru WHERE id=?");
+    $stmt = mysqli_prepare($koneksi, "SELECT id,nama_guru,gelar,jenis_kelamin,jabatan,foto FROM tb_guru WHERE id=?");
     mysqli_stmt_bind_param($stmt, "i", $idEdit);
     mysqli_stmt_execute($stmt);
     $hasilEdit = mysqli_stmt_get_result($stmt);
     $editData = mysqli_fetch_assoc($hasilEdit);
     mysqli_stmt_close($stmt);
 }
-$daftarGuru = mysqli_query($koneksi, "SELECT id,nama_guru,gelar,jenis_kelamin,jabatan FROM tb_guru ORDER BY id DESC");
+$daftarGuru = mysqli_query($koneksi, "SELECT id,nama_guru,gelar,jenis_kelamin,jabatan,foto FROM tb_guru ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -151,15 +162,16 @@ body{background:#f4f7fb;color:#26364a;font-family:'Segoe UI',Tahoma,sans-serif}.
 <div class="col-md-4"><label class="form-label">Gelar</label><input class="form-control" name="gelar" maxlength="100" value="<?= e($editData["gelar"] ?? "") ?>" placeholder="Contoh: S.Pd., M.Pd."></div>
 <div class="col-md-4"><label class="form-label">Jenis Kelamin</label><select class="form-select" name="jenis_kelamin"><option value="">-- Pilih --</option><?php foreach (["Laki-laki","Perempuan"] as $jk): ?><option value="<?= e($jk) ?>" <?= ($editData["jenis_kelamin"] ?? "") === $jk ? "selected" : "" ?>><?= e($jk) ?></option><?php endforeach; ?></select></div>
 <div class="col-md-4"><label class="form-label">Jabatan di Sekolah</label><input class="form-control" name="jabatan" maxlength="100" value="<?= e($editData["jabatan"] ?? "") ?>" placeholder="Contoh: Kepala Sekolah, Guru Kelas"></div>
+<div class="col-md-6"><label class="form-label">Foto Guru (JPG/PNG/WEBP, maks. 3 MB)</label><input type="file" class="form-control" name="foto" accept=".jpg,.jpeg,.png,.webp"><?php if (!empty($editData["foto"])): ?><div class="mt-2"><img src="../<?= e($editData["foto"]) ?>" alt="Foto guru saat ini" class="foto"><small class="text-muted ms-2">Foto saat ini</small></div><?php endif; ?></div>
 <div class="col-12 d-flex gap-2"><button class="btn btn-primary"><i class="bi bi-save me-1"></i><?= $editData ? "Simpan Perubahan" : "Tambah Guru" ?></button><?php if ($editData): ?><a href="data_guru.php" class="btn btn-light">Batal</a><?php endif; ?></div>
 </form>
 </section>
 <section class="panel">
 <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 judul mb-0">Daftar Guru</h2><span class="badge text-bg-primary"><?= mysqli_num_rows($daftarGuru) ?> data</span></div>
 <div class="table-responsive"><table class="table table-hover align-middle">
-<thead><tr><th>No.</th><th>Nama Guru</th><th>Gelar</th><th>Jenis Kelamin</th><th>Jabatan di Sekolah</th><th>Aksi</th></tr></thead><tbody>
-<?php if (mysqli_num_rows($daftarGuru) === 0): ?><tr><td colspan="6" class="text-center text-muted py-4">Belum ada data guru.</td></tr><?php else: $no=1; while ($g=mysqli_fetch_assoc($daftarGuru)): ?>
-<tr><td><?= $no++ ?></td><td class="fw-semibold"><?= e($g["nama_guru"]) ?></td><td><?= e($g["gelar"]) ?></td><td><?= e($g["jenis_kelamin"]) ?></td><td><?= e($g["jabatan"]) ?></td><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_guru.php?edit=<?= (int)$g["id"] ?>"><i class="bi bi-pencil"></i> Edit</a> <form method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data guru ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION["csrf_guru"]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$g["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr>
+<thead><tr><th>No.</th><th>Foto</th><th>Nama Guru</th><th>Gelar</th><th>Jenis Kelamin</th><th>Jabatan di Sekolah</th><th>Aksi</th></tr></thead><tbody>
+<?php if (mysqli_num_rows($daftarGuru) === 0): ?><tr><td colspan="7" class="text-center text-muted py-4">Belum ada data guru.</td></tr><?php else: $no=1; while ($g=mysqli_fetch_assoc($daftarGuru)): ?>
+<tr><td><?= $no++ ?></td><td><?php if (!empty($g["foto"])): ?><img class="foto" src="../<?= e($g["foto"]) ?>" alt="Foto guru"><?php else: ?><span class="text-muted">—</span><?php endif; ?></td><td class="fw-semibold"><?= e($g["nama_guru"]) ?></td><td><?= e($g["gelar"]) ?></td><td><?= e($g["jenis_kelamin"]) ?></td><td><?= e($g["jabatan"]) ?></td><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_guru.php?edit=<?= (int)$g["id"] ?>"><i class="bi bi-pencil"></i> Edit</a> <form method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data guru ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION["csrf_guru"]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$g["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr>
 <?php endwhile; endif; ?>
 </tbody></table></div>
 </section>
