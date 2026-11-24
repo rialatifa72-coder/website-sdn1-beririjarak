@@ -43,19 +43,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $aksi = $_POST["aksi"] ?? "";
         if ($aksi === "hapus") {
             $id = (int)($_POST["id"] ?? 0);
-            if ($id < 1) throw new RuntimeException("ID berita tidak valid.");
+            if ($id < 1) throw new RuntimeException("ID prestasi tidak valid.");
             $cek = mysqli_prepare($koneksi, "SELECT gambar FROM tb_berita WHERE id=?");
             mysqli_stmt_bind_param($cek, "i", $id);
             mysqli_stmt_execute($cek);
             $lama = mysqli_fetch_assoc(mysqli_stmt_get_result($cek));
             mysqli_stmt_close($cek);
-            if (!$lama) throw new RuntimeException("Berita tidak ditemukan.");
+            if (!$lama) throw new RuntimeException("Data prestasi tidak ditemukan.");
             $stmt = mysqli_prepare($koneksi, "DELETE FROM tb_berita WHERE id=?");
             mysqli_stmt_bind_param($stmt, "i", $id);
-            if (!mysqli_stmt_execute($stmt)) throw new RuntimeException("Berita gagal dihapus.");
+            if (!mysqli_stmt_execute($stmt)) throw new RuntimeException("Data prestasi gagal dihapus.");
             mysqli_stmt_close($stmt);
             hapusGambarBerita($lama["gambar"] ?? "");
-            $pesan = "Berita berhasil dihapus.";
+            $pesan = "Data prestasi berhasil dihapus.";
         } elseif ($aksi === "simpan" || $aksi === "ubah") {
             $id = (int)($_POST["id"] ?? 0);
             $judul = trim($_POST["judul"] ?? "");
@@ -72,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($slug === "") $slug = "berita-" . time();
             $gambarLama = "";
             if ($aksi === "ubah") {
-                if ($id < 1) throw new RuntimeException("ID berita tidak valid.");
+                if ($id < 1) throw new RuntimeException("ID prestasi tidak valid.");
                 $cek = mysqli_prepare($koneksi, "SELECT gambar FROM tb_berita WHERE id=?");
                 mysqli_stmt_bind_param($cek, "i", $id);
                 mysqli_stmt_execute($cek);
                 $dataLama = mysqli_fetch_assoc(mysqli_stmt_get_result($cek));
                 mysqli_stmt_close($cek);
-                if (!$dataLama) throw new RuntimeException("Berita tidak ditemukan.");
+                if (!$dataLama) throw new RuntimeException("Data prestasi tidak ditemukan.");
                 $gambarLama = $dataLama["gambar"] ?? "";
             }
             $gambar = simpanGambarBerita($folderUpload, $prefixUpload, $gambarLama);
@@ -89,9 +89,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $stmt = mysqli_prepare($koneksi, "UPDATE tb_berita SET judul=?,slug=?,isi=?,gambar=?,tanggal_publikasi=?,status=? WHERE id=?");
                 mysqli_stmt_bind_param($stmt, "ssssssi", $judul, $slug, $isi, $gambar, $tanggalDb, $status, $id);
             }
-            if (!mysqli_stmt_execute($stmt)) throw new RuntimeException("Berita gagal disimpan: " . mysqli_stmt_error($stmt));
+            if (!mysqli_stmt_execute($stmt)) throw new RuntimeException("Data prestasi gagal disimpan: " . mysqli_stmt_error($stmt));
             mysqli_stmt_close($stmt);
-            $pesan = $aksi === "simpan" ? "Berita berhasil ditambahkan." : "Berita berhasil diperbarui.";
+            $pesan = $aksi === "simpan" ? "Data prestasi berhasil ditambahkan." : "Data prestasi berhasil diperbarui.";
         }
     } catch (Throwable $err) {
         $pesan = $err->getMessage();
@@ -107,7 +107,7 @@ if (isset($_GET["edit"])) {
     mysqli_stmt_execute($stmt);
     $editData = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
     mysqli_stmt_close($stmt);
-    if (!$editData) { $pesan = "Berita tidak ditemukan."; $jenisPesan = "warning"; }
+    if (!$editData) { $pesan = "Data prestasi tidak ditemukan."; $jenisPesan = "warning"; }
 }
 $q = trim($_GET["q"] ?? "");
 if ($q !== "") {
@@ -124,7 +124,7 @@ if (!$daftar) die("Gagal mengambil berita: " . e(mysqli_error($koneksi)));
 <!doctype html>
 <html lang="id"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRUD Berita | SDN 1 Beririjarak</title>
+<title>CRUD Prestasi Sekolah | SDN 1 Beririjarak</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <style>
@@ -136,27 +136,27 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 </style></head><body>
 <header class="topbar"><div class="container-fluid d-flex justify-content-between"><div class="admin-brand"><img src="../logo.jpeg" alt="Logo SDN 1 Beririjarak" class="admin-brand-logo"><strong>SDN 1 BERIRIJARAK — ADMIN</strong></div><span>Halo, <?= e($_SESSION["username"]) ?></span></div></header>
 <main class="wrap">
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><div><h1 class="h3 judul mb-1">Pengelolaan Berita Sekolah</h1><p class="text-secondary mb-0">Tambah, lihat, ubah, hapus, dan terbitkan berita atau pengumuman sekolah.</p></div><a href="../dashboard_admin.php" class="btn btn-outline-primary"><i class="bi bi-arrow-left me-1"></i>Dashboard</a></div>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><div><h1 class="h3 judul mb-1">Pengelolaan Prestasi Sekolah</h1><p class="text-secondary mb-0">Tambah, lihat, ubah, hapus, dan publikasikan informasi prestasi sekolah.</p></div><a href="../dashboard_admin.php" class="btn btn-outline-primary"><i class="bi bi-arrow-left me-1"></i>Dashboard</a></div>
 <?php if ($pesan): ?><div class="alert alert-<?= e($jenisPesan) ?> alert-dismissible fade show"><?= e($pesan) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div><?php endif; ?>
 <section class="panel mb-4">
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h2 class="h5 judul mb-0"><?= $editData ? "Ubah Berita" : "Tambah Berita Baru" ?></h2><span class="text-muted small">Kolom bertanda * wajib diisi</span></div>
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h2 class="h5 judul mb-0"><?= $editData ? "Ubah Prestasi" : "Tambah Prestasi Baru" ?></h2><span class="text-muted small">Kolom bertanda * wajib diisi</span></div>
 <form method="post" enctype="multipart/form-data" class="row g-3">
 <input type="hidden" name="csrf" value="<?= e($_SESSION["csrf_berita"]) ?>"><input type="hidden" name="aksi" value="<?= $editData ? "ubah" : "simpan" ?>">
 <?php if ($editData): ?><input type="hidden" name="id" value="<?= (int)$editData["id"] ?>"><?php endif; ?>
-<div class="col-lg-8"><label class="form-label">Judul Berita <span class="text-danger">*</span></label><input class="form-control" name="judul" maxlength="200" required value="<?= e($editData["judul"] ?? "") ?>"></div>
+<div class="col-lg-8"><label class="form-label">Nama/Judul Prestasi <span class="text-danger">*</span></label><input class="form-control" name="judul" maxlength="200" required value="<?= e($editData["judul"] ?? "") ?>"></div>
 <div class="col-lg-4"><label class="form-label">Status Publikasi</label><select class="form-select" name="status"><?php foreach (["Draft","Terbit"] as $st): ?><option value="<?= e($st) ?>" <?= ($editData["status"] ?? "Draft") === $st ? "selected" : "" ?>><?= e($st) ?></option><?php endforeach; ?></select></div>
 <div class="col-md-6"><label class="form-label">Tanggal Publikasi</label><input type="datetime-local" class="form-control" name="tanggal_publikasi" value="<?= !empty($editData["tanggal_publikasi"]) ? e(date("Y-m-d\TH:i", strtotime($editData["tanggal_publikasi"]))) : e(date("Y-m-d\TH:i")) ?>"></div>
-<div class="col-md-6"><label class="form-label">Gambar Berita (JPG/PNG/WEBP, maks. 4 MB)</label><input type="file" class="form-control" name="gambar" accept=".jpg,.jpeg,.png,.webp"><?php if (!empty($editData["gambar"])): ?><small class="text-muted">Gambar saat ini: <?= e($editData["gambar"]) ?></small><?php endif; ?></div>
-<div class="col-12"><label class="form-label">Isi Berita <span class="text-danger">*</span></label><textarea class="form-control" name="isi" rows="7" required><?= e($editData["isi"] ?? "") ?></textarea><div class="form-text">Teks berita ditampilkan sebagai paragraf di halaman utama.</div></div>
-<div class="col-12 d-flex gap-2"><button class="btn btn-primary"><i class="bi bi-save me-1"></i><?= $editData ? "Simpan Perubahan" : "Tambah Berita" ?></button><?php if ($editData): ?><a href="data_berita.php" class="btn btn-light">Batal</a><?php endif; ?></div>
+<div class="col-md-6"><label class="form-label">Foto/Dokumentasi Prestasi (JPG/PNG/WEBP, maks. 4 MB)</label><input type="file" class="form-control" name="gambar" accept=".jpg,.jpeg,.png,.webp"><?php if (!empty($editData["gambar"])): ?><small class="text-muted">Gambar saat ini: <?= e($editData["gambar"]) ?></small><?php endif; ?></div>
+<div class="col-12"><label class="form-label">Deskripsi Prestasi <span class="text-danger">*</span></label><textarea class="form-control" name="isi" rows="7" required><?= e($editData["isi"] ?? "") ?></textarea><div class="form-text">Deskripsi prestasi ditampilkan pada bagian Prestasi Sekolah di halaman utama.</div></div>
+<div class="col-12 d-flex gap-2"><button class="btn btn-primary"><i class="bi bi-save me-1"></i><?= $editData ? "Simpan Perubahan" : "Tambah Prestasi" ?></button><?php if ($editData): ?><a href="data_berita.php" class="btn btn-light">Batal</a><?php endif; ?></div>
 </form>
 </section>
 <section class="panel">
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Berita</h2><span class="badge text-bg-primary"><?= mysqli_num_rows($daftar) ?> data</span></div>
-<form method="get" class="row g-2 mb-3"><div class="col-md-5"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari judul atau isi berita..."></div><div class="col-auto"><button class="btn btn-outline-primary"><i class="bi bi-search me-1"></i>Cari</button></div><?php if ($q !== ""): ?><div class="col-auto"><a href="data_berita.php" class="btn btn-light">Reset</a></div><?php endif; ?></form>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Prestasi Sekolah</h2><span class="badge text-bg-primary"><?= mysqli_num_rows($daftar) ?> data</span></div>
+<form method="get" class="row g-2 mb-3"><div class="col-md-5"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama atau deskripsi prestasi..."></div><div class="col-auto"><button class="btn btn-outline-primary"><i class="bi bi-search me-1"></i>Cari</button></div><?php if ($q !== ""): ?><div class="col-auto"><a href="data_berita.php" class="btn btn-light">Reset</a></div><?php endif; ?></form>
 <div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>No.</th><th>Gambar</th><th>Judul</th><th>Tanggal Publikasi</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
-<?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="6" class="text-center text-muted py-4">Belum ada berita.</td></tr><?php else: $no=1; while ($b=mysqli_fetch_assoc($daftar)): ?>
-<tr><td><?= $no++ ?></td><td><?php if (!empty($b["gambar"])): ?><img class="thumb" src="../<?= e($b["gambar"]) ?>" alt="Gambar berita"><?php else: ?><span class="text-muted">—</span><?php endif; ?></td><td class="fw-semibold"><?= e($b["judul"]) ?></td><td><?= e(date("d-m-Y H:i", strtotime($b["tanggal_publikasi"]))) ?></td><td><span class="badge <?= $b["status"] === "Terbit" ? "text-bg-success" : "text-bg-secondary" ?>"><?= e($b["status"]) ?></span></td><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_berita.php?edit=<?= (int)$b["id"] ?>"><i class="bi bi-pencil"></i> Edit</a> <form method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus berita ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION["csrf_berita"]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$b["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr>
+<?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="6" class="text-center text-muted py-4">Belum ada data prestasi.</td></tr><?php else: $no=1; while ($b=mysqli_fetch_assoc($daftar)): ?>
+<tr><td><?= $no++ ?></td><td><?php if (!empty($b["gambar"])): ?><img class="thumb" src="../<?= e($b["gambar"]) ?>" alt="Foto prestasi"><?php else: ?><span class="text-muted">—</span><?php endif; ?></td><td class="fw-semibold"><?= e($b["judul"]) ?></td><td><?= e(date("d-m-Y H:i", strtotime($b["tanggal_publikasi"]))) ?></td><td><span class="badge <?= $b["status"] === "Terbit" ? "text-bg-success" : "text-bg-secondary" ?>"><?= e($b["status"]) ?></span></td><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_berita.php?edit=<?= (int)$b["id"] ?>"><i class="bi bi-pencil"></i> Edit</a> <form method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data prestasi ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION["csrf_berita"]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$b["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr>
 <?php endwhile; endif; ?>
 </tbody></table></div>
 </section>
