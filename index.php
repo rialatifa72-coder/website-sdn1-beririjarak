@@ -1646,13 +1646,13 @@ if (isset($koneksi) && $koneksi) {
     if ($queryBerita) $daftarBerita = $queryBerita;
 }
 ?>
-<!-- BERITA -->
-<section class="section" id="berita">
+<!-- PRESTASI SEKOLAH -->
+<section class="section" id="prestasi">
 <div class="container">
 <div class="text-center mb-5">
-    <span class="section-label">Informasi Terbaru</span>
-    <h2 class="section-title">Berita dan Kegiatan Sekolah</h2>
-    <p class="section-subtitle">Informasi kegiatan dan pengumuman sekolah.</p>
+    <span class="section-label">Pencapaian Sekolah</span>
+    <h2 class="section-title">Prestasi Sekolah</h2>
+    <p class="section-subtitle">Informasi pencapaian dan penghargaan yang diraih oleh peserta didik serta sekolah.</p>
 </div>
 <div class="row g-4">
 <?php if ($daftarBerita && mysqli_num_rows($daftarBerita) > 0): ?>
@@ -1674,9 +1674,9 @@ if (isset($koneksi) && $koneksi) {
     <?php endwhile; ?>
 <?php else: ?>
     <div class="col-12"><div class="text-center py-5 px-3 rounded-4 bg-light">
-        <i class="bi bi-newspaper text-primary" style="font-size:3rem"></i>
-        <h5 class="mt-3 fw-bold">Belum ada berita yang diterbitkan</h5>
-        <p class="text-secondary mb-0">Berita sekolah akan ditampilkan di sini setelah admin menerbitkannya.</p>
+        <i class="bi bi-trophy-fill text-primary" style="font-size:3rem"></i>
+        <h5 class="mt-3 fw-bold">Belum ada prestasi yang ditampilkan</h5>
+        <p class="text-secondary mb-0">Prestasi sekolah akan ditampilkan di sini setelah admin menambahkannya.</p>
     </div></div>
 <?php endif; ?>
 </div>
