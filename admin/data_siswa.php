@@ -221,14 +221,34 @@ if (isset($_GET["edit"])) {
     if (!$editData) { $pesan = "Data siswa tidak ditemukan."; $jenisPesan = "warning"; }
 }
 $q = trim($_GET["q"] ?? "");
+$kelasFilter = $_GET["kelas_filter"] ?? "";
+if (!in_array($kelasFilter, ["1","2","3","4","5","6"], true)) $kelasFilter = "";
+$sql = "SELECT * FROM tb_siswa";
+$conditions = [];
+$valuesQuery = [];
+$typesQuery = "";
+if ($kelasFilter !== "") {
+    // Mendukung format kelas seperti "1", "1A", maupun "Kelas 1".
+    $conditions[] = "(kelas LIKE ? OR kelas LIKE ?)";
+    $valuesQuery[] = $kelasFilter . "%";
+    $valuesQuery[] = "Kelas " . $kelasFilter . "%";
+    $typesQuery .= "ss";
+}
 if ($q !== "") {
-    $like = "%".$q."%";
-    $stmt = mysqli_prepare($koneksi, "SELECT * FROM tb_siswa WHERE nama_siswa LIKE ? OR nisn LIKE ? OR jenis_kelamin LIKE ? OR alamat LIKE ? OR kelas LIKE ? ORDER BY nama_siswa ASC");
-    mysqli_stmt_bind_param($stmt, "sssss", $like, $like, $like, $like, $like);
+    $conditions[] = "(nama_siswa LIKE ? OR nisn LIKE ? OR jenis_kelamin LIKE ? OR alamat LIKE ? OR kelas LIKE ?)";
+    $like = "%" . $q . "%";
+    for ($i=0; $i<5; $i++) $valuesQuery[] = $like;
+    $typesQuery .= "sssss";
+}
+if ($conditions) $sql .= " WHERE " . implode(" AND ", $conditions);
+$sql .= " ORDER BY nama_siswa ASC";
+if ($valuesQuery) {
+    $stmt = mysqli_prepare($koneksi, $sql);
+    bindDynamic($stmt, $typesQuery, $valuesQuery);
     mysqli_stmt_execute($stmt);
     $daftar = mysqli_stmt_get_result($stmt);
 } else {
-    $daftar = mysqli_query($koneksi, "SELECT * FROM tb_siswa ORDER BY nama_siswa ASC");
+    $daftar = mysqli_query($koneksi, $sql);
 }
 if (!$daftar) die("Gagal mengambil data siswa: " . e(mysqli_error($koneksi)));
 $grup = ["Data Siswa" => ["nama_siswa","nisn","jenis_kelamin","tanggal_lahir","alamat","kelas"]];
@@ -273,7 +293,8 @@ body{background:#f3f7fc;color:#26364a;font-family:Segoe UI,Tahoma,sans-serif}.to
 <div class="col-md-4"><button class="btn btn-success w-100" onclick="return confirm('Impor data dari file ini ke database siswa? Data kosong dan data ganda akan dilewati.')"><i class="bi bi-upload me-1"></i>Impor Data Siswa</button></div>
 </form>
 </section>
-<section class="panel"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Siswa</h2><form class="d-flex gap-2" method="get"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama, NISN, alamat, kelas"><button class="btn btn-outline-primary"><i class="bi bi-search"></i></button></form></div>
+<section class="panel"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><h2 class="h5 judul mb-0">Daftar Siswa <?= $kelasFilter !== "" ? "— Kelas " . e($kelasFilter) : "— Semua Kelas" ?></h2><form class="d-flex gap-2" method="get"><input type="hidden" name="kelas_filter" value="<?= e($kelasFilter) ?>"><input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari nama, NISN, alamat, kelas"><button class="btn btn-outline-primary"><i class="bi bi-search"></i></button></form></div>
+<div class="d-flex flex-wrap gap-2 mb-3"><a class="btn btn-sm <?= $kelasFilter === "" ? "btn-primary" : "btn-outline-primary" ?>" href="data_siswa.php">Semua Kelas</a><?php for ($i=1; $i<=6; $i++): ?><a class="btn btn-sm <?= $kelasFilter === (string)$i ? "btn-primary" : "btn-outline-primary" ?>" href="data_siswa.php?kelas_filter=<?= $i ?>">Kelas <?= $i ?></a><?php endfor; ?></div>
 <div class="table-responsive"><table class="table table-hover table-bordered align-middle table-siswa"><thead><tr><th>No</th><?php foreach ($fields as $f): ?><th><?= e($f[1]) ?></th><?php endforeach; ?><th>Aksi</th></tr></thead><tbody>
 <?php if (mysqli_num_rows($daftar) === 0): ?><tr><td colspan="<?= count($fields) + 2 ?>" class="text-center text-muted py-4">Belum ada data siswa.</td></tr><?php else: $no=1; while ($s=mysqli_fetch_assoc($daftar)): ?><tr><td><?= $no++ ?></td><?php foreach ($fields as $f): $kolom = $f[0]; ?><td><?= e($s[$kolom] ?? "") ?></td><?php endforeach; ?><td class="text-nowrap"><a class="btn btn-sm btn-warning" href="data_siswa.php?edit=<?= (int)$s["id"] ?>"><i class="bi bi-pencil"></i> Ubah</a> <form method="post" class="d-inline" onsubmit="return confirm('Hapus biodata siswa ini?')"><input type="hidden" name="csrf" value="<?= e($_SESSION[$csrfName]) ?>"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$s["id"] ?>"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Hapus</button></form></td></tr><?php endwhile; endif; ?>
 </tbody></table></div></section>
