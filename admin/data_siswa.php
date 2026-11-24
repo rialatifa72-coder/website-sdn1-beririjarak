@@ -222,8 +222,8 @@ if (isset($_GET["edit"])) {
 }
 $q = trim($_GET["q"] ?? "");
 $kelasFilter = $_GET["kelas_filter"] ?? "";
-$pilihanKelas = [];
-foreach (range(1, 6) as $nomorKelas) {
+$pilihanKelas = ["1"];
+foreach (range(2, 6) as $nomorKelas) {
     $pilihanKelas[] = $nomorKelas . "A";
     $pilihanKelas[] = $nomorKelas . "B";
 }
