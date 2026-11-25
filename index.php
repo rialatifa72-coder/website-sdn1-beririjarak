@@ -1289,8 +1289,8 @@ body {
                     <img src="kepsek.jpeg" alt="Foto Kepala SD Negeri 1 Beririjarak" class="sambutan-photo sambutan-photo-animate" role="button" tabindex="0" data-bs-toggle="modal" data-bs-target="#fotoKepsekModal" aria-label="Perbesar foto Kepala Sekolah" title="Klik untuk memperbesar foto">
                     <div class="sambutan-photo-caption">
                         <span>Hormat kami,</span>
-                        <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
-                        <span class="d-block mt-1 fw-semibold" style="color:#123d76;font-size:15px;">PAUZANUDDIN, S.Pd.</span>
+                        <strong>PAUZANUDDIN, S.Pd.</strong>
+                        <span class="d-block mt-1 fw-semibold" style="color:#123d76;font-size:15px;">Kepala SD NEGERI 1 BERIRIJARAK</span>
                     </div>
                 </div>
                 <div class="sambutan-content">
