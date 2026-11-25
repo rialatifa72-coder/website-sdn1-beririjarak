@@ -1078,18 +1078,21 @@ body {
 @media(max-width:767px){.sambutan-card{grid-template-columns:1fr;padding:24px 20px;gap:22px}.sambutan-photo-column{max-width:280px;margin:0 auto}.sambutan-photo{height:330px}.sambutan-body{font-size:14px}}
 
 
-/* ===== LATAR HALAMAN LEBIH LEMBUT DAN SERASI ===== */
+/* ===== LATAR HALAMAN ELEGANT NATURAL ===== */
 body {
-    background-color: #f1f5fb;
+    background-color: #faf9f4;
 }
 .section {
-    background-color: #f1f5fb;
+    background-color: #f7f8f5;
 }
 .section-light {
-    background: linear-gradient(135deg, #e8eff9 0%, #f0f4fa 52%, #e9f1fb 100%);
+    background: linear-gradient(135deg, #fffdf8 0%, #f5f6f1 55%, #edf2ed 100%);
 }
 .profil-modern {
-    background: linear-gradient(135deg, #eaf1fb 0%, #f2f6fc 68%, #e7effa 100%);
+    background: linear-gradient(120deg, #faf9f4 0%, #f1f4ed 58%, #edf2f1 100%);
+}
+.sambutan-section {
+    background: linear-gradient(120deg, #fffdf8 0%, #f4f5ef 55%, #eef2ef 100%);
 }
 </style>
 </head>
