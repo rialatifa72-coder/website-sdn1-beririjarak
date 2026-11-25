@@ -121,63 +121,118 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                 <div class="dashboard-heading-icon"><i class="bi bi-building"></i></div>
                 <div>
                     <h2 class="h4 fw-bold mb-1">Profil SDN 1 Beririjarak</h2>
-                    <p class="text-muted mb-0">Informasi utama sekolah yang ditampilkan kepada pengunjung website.</p>
+                    <p class="text-muted mb-0">Ringkasan identitas, kondisi, dan sarana pendukung sekolah berdasarkan data profil sekolah.</p>
                 </div>
             </div>
 
             <div class="row g-3 mb-4">
-                <div class="col-md-6">
+                <div class="col-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi bi-people-fill"></i></div><div><div class="stat-number">211</div><div class="stat-label">Peserta Didik</div></div></div></div>
+                <div class="col-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi bi-person-workspace"></i></div><div><div class="stat-number">15</div><div class="stat-label">Pendidik dan Tenaga Kependidikan</div></div></div></div>
+                <div class="col-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi bi-door-open"></i></div><div><div class="stat-number">11</div><div class="stat-label">Rombongan Belajar</div></div></div></div>
+                <div class="col-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi bi-calendar-check"></i></div><div><div class="stat-number">1968</div><div class="stat-label">Tahun Pendirian</div></div></div></div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-lg-7">
                     <div class="card-custom info-card">
-                        <div class="info-card-heading"><i class="bi bi-info-circle"></i><h5 class="card-title-custom mb-0">Informasi Umum Sekolah</h5></div>
+                        <div class="info-card-heading"><i class="bi bi-card-list"></i><h5 class="card-title-custom mb-0">Identitas Sekolah</h5></div>
                         <div class="info-card-body">
-                            <p>SDN 1 Beririjarak merupakan lembaga pendidikan dasar yang berkomitmen mendukung perkembangan pengetahuan, keterampilan, karakter, dan potensi setiap peserta didik.</p>
-                            <p class="mb-0">Melalui lingkungan belajar yang aman, nyaman, dan menyenangkan, sekolah mendorong siswa untuk aktif, percaya diri, berprestasi, serta memiliki akhlak mulia dan kepedulian terhadap lingkungan.</p>
-                            <hr>
-                            <div class="d-flex justify-content-between py-1"><strong>Nama Sekolah</strong><span>SDN 1 Beririjarak</span></div>
-                            <div class="d-flex justify-content-between py-1"><strong>NPSN</strong><span>50203014</span></div>
-                            <div class="d-flex justify-content-between py-1"><strong>Jenjang</strong><span>Sekolah Dasar</span></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">Nama Sekolah</div><div class="col-sm-7">SD NEGERI 1 BERIRIJARAK</div></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">NPSN</div><div class="col-sm-7">50203014</div></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">Jenjang Pendidikan</div><div class="col-sm-7">Sekolah Dasar (SD)</div></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">Status Sekolah</div><div class="col-sm-7">Negeri</div></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">Status Kepemilikan</div><div class="col-sm-7">Pemerintah Daerah</div></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">Tahun Pendirian</div><div class="col-sm-7">1968</div></div>
+                            <div class="row py-2 border-bottom"><div class="col-sm-5 fw-semibold text-dark">Waktu Penyelenggaraan</div><div class="col-sm-7">Double Shift / 6 Hari</div></div>
+                            <div class="row py-2"><div class="col-sm-5 fw-semibold text-dark">Kurikulum</div><div class="col-sm-7">Kurikulum SD Merdeka (sesuai data rombongan belajar)</div></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card-custom info-card">
-                        <div class="info-card-heading"><i class="bi bi-chat-quote"></i><h5 class="card-title-custom mb-0">Sambutan Kepala Sekolah</h5></div>
+                <div class="col-lg-5">
+                    <div class="card-custom info-card h-100">
+                        <div class="info-card-heading"><i class="bi bi-geo-alt"></i><h5 class="card-title-custom mb-0">Lokasi dan Kontak</h5></div>
                         <div class="info-card-body">
-                            <p>Dengan penuh rasa syukur, website resmi SDN 1 Beririjarak hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas.</p>
-                            <p>Website ini menjadi sarana penyampaian informasi secara transparan, cepat, dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah.</p>
-                            <p class="mb-0">Kami berharap melalui website ini terjalin komunikasi yang lebih baik antara sekolah, orang tua, dan masyarakat dalam mendukung kemajuan pendidikan.</p>
-                            <div class="mt-3 fw-bold text-primary">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</div>
+                            <p class="fw-semibold text-dark mb-1">Alamat Sekolah</p>
+                            <p>Beririjarak, RT 01/RW 01, Kelurahan Beriri Jarak, Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat, 83658, Indonesia.</p>
+                            <hr>
+                            <p class="fw-semibold text-dark mb-1">Email Sekolah</p>
+                            <p class="mb-0"><a href="mailto:sdn1beririjarak661@gmail.com">sdn1beririjarak661@gmail.com</a></p>
+                            <hr>
+                            <p class="small mb-0">Data telepon dan alamat website tidak tercantum pada dokumen profil yang diberikan.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card-custom info-card mb-4">
-                <div class="info-card-heading"><i class="bi bi-eye"></i><h5 class="card-title-custom mb-0">Visi Sekolah</h5></div>
+                <div class="info-card-heading"><i class="bi bi-people"></i><h5 class="card-title-custom mb-0">Data Peserta Didik</h5></div>
                 <div class="info-card-body">
-                    <h4 class="fw-bold text-primary mb-2">Mewujudkan Generasi CIKAL</h4>
-                    <p class="mb-0">Menjadi sekolah yang menghasilkan lulusan <strong>CIKAL</strong>: Cerdas, Iman dan Taqwa, Kreatif, Amanah, dan peduli Lingkungan.</p>
+                    <div class="row g-3 text-center mb-3">
+                        <div class="col-4"><div class="p-3 rounded-3 bg-light"><div class="fs-4 fw-bold text-primary">102</div><div class="small">Laki-laki</div></div></div>
+                        <div class="col-4"><div class="p-3 rounded-3 bg-light"><div class="fs-4 fw-bold text-primary">109</div><div class="small">Perempuan</div></div></div>
+                        <div class="col-4"><div class="p-3 rounded-3 bg-light"><div class="fs-4 fw-bold text-primary">211</div><div class="small">Total Siswa</div></div></div>
+                    </div>
+                    <p class="mb-2">Peserta didik tersebar dalam 11 rombongan belajar dari kelas 1 sampai kelas 6.</p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-custom table-bordered mb-0">
+                            <thead><tr><th>Tingkat</th><th>Rombel</th><th>Jumlah Siswa</th></tr></thead>
+                            <tbody>
+                                <tr><td>Kelas 1</td><td>1</td><td>23</td></tr>
+                                <tr><td>Kelas 2</td><td>2A dan 2B</td><td>39</td></tr>
+                                <tr><td>Kelas 3</td><td>3A dan 3B</td><td>35</td></tr>
+                                <tr><td>Kelas 4</td><td>4A dan 4B</td><td>30</td></tr>
+                                <tr><td>Kelas 5</td><td>5A dan 5B</td><td>39</td></tr>
+                                <tr><td>Kelas 6</td><td>6A dan 6B</td><td>48</td></tr>
+                                <tr class="fw-bold"><td colspan="2">Total</td><td>214</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-warning mt-3 mb-0 small">Catatan: total per rombongan belajar pada tabel sumber perlu diperiksa kembali karena jumlah rinciannya tidak sama dengan rekap peserta didik 211 orang. Rekap jenis kelamin pada dokumen mencatat 102 laki-laki dan 109 perempuan.</div>
                 </div>
             </div>
 
-            <div class="card-custom mb-4">
-                <h5 class="card-title-custom"><i class="bi bi-list-check me-2"></i>Misi Sekolah</h5>
-                <div class="row g-3">
-                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>01. Meningkatkan Kecerdasan</strong><p class="text-muted mb-0 mt-1">Mengembangkan kemampuan berpikir, pengetahuan, dan keterampilan peserta didik.</p></div></div>
-                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>02. Menanamkan Iman dan Taqwa</strong><p class="text-muted mb-0 mt-1">Membiasakan perilaku religius, berakhlak mulia, dan menghormati sesama.</p></div></div>
-                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>03. Mengembangkan Kreativitas</strong><p class="text-muted mb-0 mt-1">Memberikan ruang bagi siswa untuk mengembangkan bakat, minat, dan karya.</p></div></div>
-                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>04. Membentuk Pribadi Amanah</strong><p class="text-muted mb-0 mt-1">Membentuk sikap jujur, disiplin, bertanggung jawab, dan dapat dipercaya.</p></div></div>
-                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>05. Menumbuhkan Kepedulian Lingkungan</strong><p class="text-muted mb-0 mt-1">Membiasakan warga sekolah menjaga kebersihan dan kelestarian lingkungan.</p></div></div>
+            <div class="row g-3 mb-4">
+                <div class="col-lg-6">
+                    <div class="card-custom info-card h-100">
+                        <div class="info-card-heading"><i class="bi bi-person-vcard"></i><h5 class="card-title-custom mb-0">Pendidik dan Tenaga Kependidikan</h5></div>
+                        <div class="info-card-body">
+                            <div class="display-6 fw-bold text-primary mb-2">15 Orang</div>
+                            <p class="mb-0">Dokumen mencatat 15 pendidik dan tenaga kependidikan, termasuk guru kelas, guru agama, guru bahasa Inggris, tenaga administrasi, dan penjaga sekolah.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-custom info-card h-100">
+                        <div class="info-card-heading"><i class="bi bi-lightning-charge"></i><h5 class="card-title-custom mb-0">Dukungan Operasional</h5></div>
+                        <div class="info-card-body">
+                            <p class="mb-2"><strong>Sumber listrik:</strong> PLN</p>
+                            <p class="mb-2"><strong>Daya listrik:</strong> 900 watt</p>
+                            <p class="mb-0"><strong>Akses internet:</strong> ALFAS (sesuai dokumen profil)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="card-custom">
-                <h5 class="card-title-custom"><i class="bi bi-buildings me-2"></i>Fasilitas Sekolah</h5>
-                <p class="text-muted">Sarana pendukung kegiatan belajar mengajar dan pengembangan peserta didik.</p>
-                <div class="row g-3">
-                    <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-book-half"></i></div><strong>Ruang Kelas</strong><p class="text-muted small mb-0 mt-2">Tempat berlangsungnya kegiatan belajar mengajar antara guru dan siswa.</p></div></div>
-                    <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-journal-bookmark-fill"></i></div><strong>Perpustakaan</strong><p class="text-muted small mb-0 mt-2">Sarana untuk mendukung minat baca dan menambah pengetahuan siswa.</p></div></div>
-                    <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-tree-fill"></i></div><strong>Lingkungan Sekolah</strong><p class="text-muted small mb-0 mt-2">Lingkungan yang mendukung kenyamanan, kebersihan, dan aktivitas siswa.</p></div></div>
+            <div class="card-custom info-card mb-4">
+                <div class="info-card-heading"><i class="bi bi-building"></i><h5 class="card-title-custom mb-0">Sarana dan Prasarana</h5></div>
+                <div class="info-card-body">
+                    <p>Sarana dan prasarana utama yang tercatat dalam dokumen sekolah meliputi:</p>
+                    <div class="row g-3">
+                        <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-door-open"></i></div><strong>6 Ruang Kelas</strong><p class="small text-muted mb-0 mt-2">Ruang kelas untuk tingkat I sampai VI.</p></div></div>
+                        <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-person-workspace"></i></div><strong>Ruang Guru</strong><p class="small text-muted mb-0 mt-2">Ruang kerja pendidik dan tenaga kependidikan.</p></div></div>
+                        <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-person-badge"></i></div><strong>Ruang Kepala Sekolah</strong><p class="small text-muted mb-0 mt-2">Ruang untuk kegiatan administrasi dan pengelolaan sekolah.</p></div></div>
+                        <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-book"></i></div><strong>Perpustakaan</strong><p class="small text-muted mb-0 mt-2">Sarana pendukung literasi dan kegiatan membaca.</p></div></div>
+                        <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-droplet"></i></div><strong>4 Kamar Mandi / WC</strong><p class="small text-muted mb-0 mt-2">Tercatat untuk guru laki-laki dan perempuan serta siswa laki-laki dan perempuan.</p></div></div>
+                    </div>
+                    <p class="small text-muted mt-3 mb-0">Dokumen juga mencatat sarana pembelajaran seperti meja, kursi, papan tulis, lemari, rak buku, alat peraga, dan laptop.</p>
+                </div>
+            </div>
+
+            <div class="card-custom info-card">
+                <div class="info-card-heading"><i class="bi bi-journal-check"></i><h5 class="card-title-custom mb-0">Informasi Tambahan</h5></div>
+                <div class="info-card-body">
+                    <p class="mb-2"><strong>Sumber data:</strong> Dokumen Profil SD NEGERI 1 BERIRIJARAK yang diunduh pada 23 Oktober 2026.</p>
+                    <p class="mb-0">Informasi rekening, NPWP, NIK, dan data pribadi peserta didik maupun tenaga kependidikan tidak ditampilkan pada halaman profil publik demi menjaga keamanan dan privasi.</p>
                 </div>
             </div>
         <?php else: ?>
