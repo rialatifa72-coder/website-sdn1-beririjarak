@@ -1089,7 +1089,7 @@ body {
 <div class="container">
 
 <a class="navbar-brand" href="#beranda">
-    <img src="logo.jpeg" alt="Logo SDN 1 Beririjarak" class="logo-sekolah">
+    <img src="logo.jpeg" alt="" class="logo-sekolah">
     <span class="brand-text">
         <strong>SDN 1 BERIRIJARAK</strong>
         <small>Sekolah Dasar Negeri</small>
@@ -1127,8 +1127,8 @@ body {
 
 <li class="nav-item"><a class="nav-link" href="#guru">Guru</a></li>
 <li class="nav-item"><a class="nav-link" href="#galeri">Galeri</a></li>
-<li class="nav-item"><a class="nav-link" href="#berita">Berita</a></li>
-<li class="nav-item"><a class="nav-link" href="#media-pembelajaran">Media Belajar</a></li>
+<li class="nav-item"><a class="nav-link" href="#prestasi">Prestasi</a></li>
+<li class="nav-item"><a class="nav-link" href="#media-pembelajaran">Media Pembelajaran</a></li>
 <li class="nav-item"><a class="nav-link" href="#lokasi">Lokasi</a></li>
 
 <li class="nav-item ms-lg-2">
