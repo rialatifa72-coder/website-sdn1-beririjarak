@@ -1017,6 +1017,26 @@ body {
 .btn-outline-primary { color: #198754 !important; border-color: #198754 !important; }
 .btn-outline-primary:hover { background-color: #198754 !important; border-color: #198754 !important; color: #fff !important; }
 
+/* Informasi ringkas pada profil sekolah */
+.profil-data-grid { margin-top: 18px; }
+.profil-data-item {
+    height: 100%; min-height: 76px; padding: 12px 14px;
+    background: #fff; border: 1px solid #e3ebf5; border-radius: 12px;
+    box-shadow: 0 5px 16px rgba(20, 55, 90, .05);
+}
+.profil-data-item strong {
+    display: block; color: #1769d2; font-size: 21px;
+    line-height: 1.2; font-weight: 800;
+}
+.profil-data-item span {
+    display: block; margin-top: 5px; color: #52647a;
+    font-size: 11px; line-height: 1.35; font-weight: 600;
+}
+@media (max-width: 575px) {
+    .profil-data-item { padding: 10px; }
+    .profil-data-item strong { font-size: 19px; }
+}
+
 /* ===== PROFIL SEKOLAH MODERN ===== */
 .profil-modern{position:relative;padding:95px 0;background:linear-gradient(135deg,#f3f7ff 0%,#fff 68%);overflow:hidden}
 .profil-modern:before{content:"";position:absolute;width:420px;height:420px;right:-170px;top:-210px;border-radius:50%;background:rgba(13,110,253,.055)}
@@ -1278,14 +1298,22 @@ body {
         <div class="col-lg-6">
             <div class="profil-information">
                 <div class="profil-eyebrow"><span></span> PROFIL SEKOLAH</div>
-                <h2>Mewujudkan Generasi <span>CIKAL</span> di SDN 1 Beririjarak</h2>
+                <h2>Mengenal <span>SD Negeri 1 Beririjarak</span></h2>
                 <p class="profil-intro">
-                    SD Negeri 1 Beririjarak merupakan satuan pendidikan dasar negeri yang berlokasi di Desa Beririjarak, Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat. Berdiri sejak tahun 1968, sekolah ini terus berkomitmen memberikan layanan pendidikan yang berkualitas bagi peserta didik.
+                    SD Negeri 1 Beririjarak merupakan satuan pendidikan dasar negeri yang berlokasi di Desa Beririjarak, Kecamatan Wanasaba, Kabupaten Lombok Timur, Provinsi Nusa Tenggara Barat. Berdiri sejak tahun 1968, sekolah berkomitmen menyelenggarakan pendidikan berkualitas untuk mendukung perkembangan pengetahuan, keterampilan, dan karakter peserta didik.
                 </p>
                 <p class="profil-detail">
-                    Dengan dukungan 15 guru dan tenaga kependidikan, 11 rombongan belajar, serta fasilitas pembelajaran yang tersedia, SD Negeri 1 Beririjarak berupaya membentuk lulusan CIKAL: Cerdas, beriman dan bertakwa, Kreatif, Amanah, serta peduli terhadap lingkungan.
+                    Dalam mewujudkan tujuan pendidikan, SD Negeri 1 Beririjarak berupaya membentuk lulusan <strong>CIKAL</strong>: Cerdas, beriman dan bertakwa, Kreatif, Amanah, serta peduli Lingkungan. Komitmen ini didukung oleh tenaga pendidik, kegiatan pembelajaran, dan fasilitas sekolah.
                 </p>
-                <a href="#visi-misi" class="profil-button">
+                <div class="row g-2 profil-data-grid">
+                    <div class="col-6"><div class="profil-data-item"><strong>50203014</strong><span>NPSN Sekolah</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>1968</strong><span>Tahun Berdiri</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>B</strong><span>Akreditasi</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>15</strong><span>Guru &amp; Tenaga Kependidikan</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>211</strong><span>Peserta Didik</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>11</strong><span>Rombongan Belajar</span></div></div>
+                </div>
+                <a href="#visi-misi" class="profil-button mt-3">
                     Jelajahi Visi dan Misi <i class="bi bi-arrow-up-right"></i>
                 </a>
             </div>
