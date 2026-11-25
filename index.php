@@ -19,6 +19,15 @@ if (isset($koneksi) && $koneksi) {
     }
 }
 
+$daftarFasilitas = false;
+if (isset($koneksi) && $koneksi) {
+    $cekTabelFasilitas = mysqli_query($koneksi, "SHOW TABLES LIKE 'tb_fasilitas'");
+    if ($cekTabelFasilitas && mysqli_num_rows($cekTabelFasilitas) > 0) {
+        $queryFasilitas = mysqli_query($koneksi, "SELECT nama_fasilitas, deskripsi, foto FROM tb_fasilitas ORDER BY id DESC");
+        if ($queryFasilitas) { $daftarFasilitas = $queryFasilitas; }
+    }
+}
+
 $daftarGaleri = false;
 if (isset($koneksi) && $koneksi) {
     $queryGaleri = mysqli_query(
@@ -1378,42 +1387,32 @@ body {
 <!-- FASILITAS -->
 <section class="section section-light" id="fasilitas">
 <div class="container">
-
-<div class="text-center mb-5">
-    <span class="section-label">Fasilitas Sekolah</span>
-    <h2 class="section-title">Fasilitas Pendukung Pembelajaran</h2>
-    <p class="section-subtitle">
-        Fasilitas sekolah dapat disesuaikan dengan kondisi nyata sekolah.
-    </p>
-</div>
-
-<div class="row g-4">
-
-<div class="col-md-4">
-<div class="info-card">
-    <div class="feature-icon"><i class="bi bi-book-half"></i></div>
-    <h5>Ruang Kelas</h5>
-    <p>Tempat berlangsungnya kegiatan belajar mengajar siswa dan guru.</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="info-card">
-    <div class="feature-icon"><i class="bi bi-journal-bookmark-fill"></i></div>
-    <h5>Perpustakaan</h5>
-    <p>Sarana untuk mendukung minat baca dan menambah pengetahuan siswa.</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="info-card">
-    <div class="feature-icon"><i class="bi bi-tree-fill"></i></div>
-    <h5>Lingkungan Sekolah</h5>
-    <p>Lingkungan yang mendukung kenyamanan, kebersihan, dan aktivitas siswa.</p>
-</div>
-</div>
-
-</div>
+    <div class="text-center mb-5">
+        <span class="section-label">Fasilitas Sekolah</span>
+        <h2 class="section-title">Fasilitas Pendukung Pembelajaran</h2>
+        <p class="section-subtitle">Berbagai fasilitas yang mendukung kegiatan belajar dan lingkungan sekolah.</p>
+    </div>
+    <div class="row g-4">
+        <?php if ($daftarFasilitas && mysqli_num_rows($daftarFasilitas) > 0): ?>
+            <?php while ($fasilitas = mysqli_fetch_assoc($daftarFasilitas)): ?>
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card h-100">
+                        <?php if (!empty($fasilitas["foto"])): ?>
+                            <img src="<?= htmlspecialchars($fasilitas["foto"], ENT_QUOTES, "UTF-8") ?>" alt="<?= htmlspecialchars($fasilitas["nama_fasilitas"], ENT_QUOTES, "UTF-8") ?>" style="width:100%;height:210px;object-fit:cover;border-radius:12px;margin-bottom:18px">
+                        <?php else: ?>
+                            <div class="feature-icon"><i class="bi bi-building"></i></div>
+                        <?php endif; ?>
+                        <h5><?= htmlspecialchars($fasilitas["nama_fasilitas"], ENT_QUOTES, "UTF-8") ?></h5>
+                        <p><?= nl2br(htmlspecialchars($fasilitas["deskripsi"] ?? "", ENT_QUOTES, "UTF-8")) ?></p>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <div class="col-md-4"><div class="info-card h-100"><div class="feature-icon"><i class="bi bi-book-half"></i></div><h5>Ruang Kelas</h5><p>Tempat berlangsungnya kegiatan belajar mengajar siswa dan guru.</p></div></div>
+            <div class="col-md-4"><div class="info-card h-100"><div class="feature-icon"><i class="bi bi-journal-bookmark-fill"></i></div><h5>Perpustakaan</h5><p>Sarana untuk mendukung minat baca dan menambah pengetahuan siswa.</p></div></div>
+            <div class="col-md-4"><div class="info-card h-100"><div class="feature-icon"><i class="bi bi-tree-fill"></i></div><h5>Lingkungan Sekolah</h5><p>Lingkungan yang mendukung kenyamanan, kebersihan, dan aktivitas siswa.</p></div></div>
+        <?php endif; ?>
+    </div>
 </div>
 </section>
 
