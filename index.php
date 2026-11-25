@@ -252,27 +252,25 @@ body {
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    animation:
-        heroTitleEntrance 2.2s cubic-bezier(.2,.75,.25,1) both,
-        heroTitleShimmer 14s ease-in-out 2.2s infinite,
-        heroTitleDrift 10s ease-in-out 2.2s infinite;
-    will-change: transform, opacity, background-position;
+    animation: heroTitleShimmer 14s ease-in-out 8s infinite;
+    will-change: background-position;
 }
-
-@keyframes heroTitleEntrance {
-    from { opacity: 0; transform: translateY(22px) scale(.99); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+.hero-title-animate .hero-word {
+    display: inline-block;
+    opacity: 0;
+    margin-right: .22em;
+    animation: heroWordReveal .75s ease-out forwards;
+    animation-delay: var(--word-delay);
+}
+@keyframes heroWordReveal {
+    from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
 }
 
 @keyframes heroTitleShimmer {
     0%, 100% { background-position: 100% 50%; }
     50% { background-position: 0% 50%; }
-}
-
-/* Gerakan judul yang halus dan lambat */
-@keyframes heroTitleDrift {
-    0%, 100% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -282,6 +280,12 @@ body {
         color: #fff;
         -webkit-text-fill-color: #fff;
         transform: none;
+    }
+    .hero-title-animate .hero-word {
+        opacity: 1;
+        animation: none;
+        transform: none;
+        filter: none;
     }
 }
 
@@ -1185,7 +1189,7 @@ body {
     Website Resmi Sekolah
 </span>
 
-<h1 class="hero-title-animate">MENCETAK GENERASI CIKAL, CERDAS, BERIMAN, KREATIF, AMANAH, DAN PEDULI LINGKUNGAN</h1>
+<h1 class="hero-title-animate"><span class="hero-word" style="--word-delay: 0.00s">MENCETAK</span> <span class="hero-word" style="--word-delay: 0.55s">GENERASI</span> <span class="hero-word" style="--word-delay: 1.10s">CIKAL,</span> <span class="hero-word" style="--word-delay: 1.65s">CERDAS,</span> <span class="hero-word" style="--word-delay: 2.20s">BERIMAN,</span> <span class="hero-word" style="--word-delay: 2.75s">KREATIF,</span> <span class="hero-word" style="--word-delay: 3.30s">AMANAH,</span> <span class="hero-word" style="--word-delay: 3.85s">DAN</span> <span class="hero-word" style="--word-delay: 4.40s">PEDULI</span> <span class="hero-word" style="--word-delay: 4.95s">LINGKUNGAN</span></h1>
 
 <p class="mt-4 mb-4">
     Selamat datang di website resmi SDN 1 Beririjarak.
