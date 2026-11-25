@@ -173,21 +173,11 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                         <div class="col-4"><div class="p-3 rounded-3 bg-light"><div class="fs-4 fw-bold text-primary">211</div><div class="small">Total Siswa</div></div></div>
                     </div>
                     <p class="mb-2">Peserta didik tersebar dalam 11 rombongan belajar dari kelas 1 sampai kelas 6.</p>
-                    <div class="table-responsive">
-                        <table class="table table-sm table-custom table-bordered mb-0">
-                            <thead><tr><th>Tingkat</th><th>Rombel</th><th>Jumlah Siswa</th></tr></thead>
-                            <tbody>
-                                <tr><td>Kelas 1</td><td>1</td><td>23</td></tr>
-                                <tr><td>Kelas 2</td><td>2A dan 2B</td><td>39</td></tr>
-                                <tr><td>Kelas 3</td><td>3A dan 3B</td><td>35</td></tr>
-                                <tr><td>Kelas 4</td><td>4A dan 4B</td><td>30</td></tr>
-                                <tr><td>Kelas 5</td><td>5A dan 5B</td><td>39</td></tr>
-                                <tr><td>Kelas 6</td><td>6A dan 6B</td><td>48</td></tr>
-                                <tr class="fw-bold"><td colspan="2">Total</td><td>214</td></tr>
-                            </tbody>
-                        </table>
+                    <div class="p-3 rounded-3 bg-light">
+                        <strong>Jenjang kelas:</strong> Kelas 1, 2A, 2B, 3A, 3B, 4A, 4B, 5A, 5B, 6A, dan 6B.
+                        <div class="small text-muted mt-2">Jumlah peserta didik ditampilkan berdasarkan rekap resmi pada lembar Peserta Didik.</div>
                     </div>
-                    <div class="alert alert-warning mt-3 mb-0 small">Catatan: total per rombongan belajar pada tabel sumber perlu diperiksa kembali karena jumlah rinciannya tidak sama dengan rekap peserta didik 211 orang. Rekap jenis kelamin pada dokumen mencatat 102 laki-laki dan 109 perempuan.</div>
+                    <div class="alert alert-warning mt-3 mb-0 small">Catatan verifikasi: jumlah siswa pada lembar Rombongan Belajar jika dijumlahkan adalah 214, sedangkan rekap Peserta Didik mencatat 211 orang. Karena itu, angka utama yang ditampilkan adalah 211 sesuai rekap peserta didik; rincian jumlah per kelas tidak ditampilkan sampai data dikonfirmasi.</div>
                 </div>
             </div>
 
