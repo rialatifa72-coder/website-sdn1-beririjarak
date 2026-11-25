@@ -152,6 +152,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <li><a href="admin/data_berita.php"><i class="bi bi-award"></i>Prestasi Sekolah</a></li>
         <li class="<?= $page === "galeri" ? "active" : "" ?>"><a href="admin/data_galeri.php"><i class="bi bi-images"></i>Galeri Foto</a></li>
         <li><a href="admin/data_ekstrakurikuler.php"><i class="bi bi-trophy"></i>Ekstrakurikuler</a></li>
+        <li class="<?= $page === "fasilitas" ? "active" : "" ?>"><a href="dashboard_admin.php?page=fasilitas"><i class="bi bi-building"></i>Fasilitas Sekolah</a></li>
         <li class="<?= $page === "media" ? "active" : "" ?>"><a href="dashboard_admin.php?page=media"><i class="bi bi-journal-bookmark-fill"></i>Media Pembelajaran</a></li>
         <li class="mt-3 pt-2 border-top border-light border-opacity-25"><a href="logout.php"><i class="bi bi-box-arrow-left"></i>Logout</a></li>
     </ul>
@@ -293,8 +294,8 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
             </div>
         <?php else: ?>
             <?php
-            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Prestasi Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","media"=>"Media Pembelajaran"];
-            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola informasi prestasi dan pencapaian peserta didik.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
+            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Prestasi Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","fasilitas"=>"Fasilitas Sekolah","media"=>"Media Pembelajaran"];
+            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola informasi prestasi dan pencapaian peserta didik.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","fasilitas"=>"Kelola informasi fasilitas dan sarana prasarana SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
             ?>
             <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard. Fitur tambah, ubah, hapus, dan penyimpanan database akan diaktifkan pada tahap pengembangan berikutnya.</div></div>
         <?php endif; ?>
