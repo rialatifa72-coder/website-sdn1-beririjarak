@@ -1183,9 +1183,6 @@ body {
     Kenali Sekolah Kami <i class="bi bi-arrow-right ms-2"></i>
 </a>
 
-<a href="#akademik" class="btn-outline-light-custom mb-2">
-    Program Pendidikan
-</a>
 
 
 </div>
