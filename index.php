@@ -19,12 +19,21 @@ if (isset($koneksi) && $koneksi) {
     }
 }
 
-$daftarFasilitas = false;
+$daftarFasilitas = [];
 if (isset($koneksi) && $koneksi) {
     $cekTabelFasilitas = mysqli_query($koneksi, "SHOW TABLES LIKE 'tb_fasilitas'");
     if ($cekTabelFasilitas && mysqli_num_rows($cekTabelFasilitas) > 0) {
-        $queryFasilitas = mysqli_query($koneksi, "SELECT nama_fasilitas, deskripsi, foto FROM tb_fasilitas ORDER BY id DESC");
-        if ($queryFasilitas) { $daftarFasilitas = $queryFasilitas; }
+        $queryFasilitas = mysqli_query($koneksi, "SELECT nama_fasilitas, deskripsi, foto FROM tb_fasilitas ORDER BY nama_fasilitas ASC, id ASC");
+        if ($queryFasilitas) {
+            while ($barisFasilitas = mysqli_fetch_assoc($queryFasilitas)) {
+                $kunciFasilitas = function_exists("mb_strtolower") ? mb_strtolower(trim($barisFasilitas["nama_fasilitas"]), "UTF-8") : strtolower(trim($barisFasilitas["nama_fasilitas"]));
+                if (!isset($daftarFasilitas[$kunciFasilitas])) {
+                    $daftarFasilitas[$kunciFasilitas] = ["nama_fasilitas" => $barisFasilitas["nama_fasilitas"], "deskripsi" => $barisFasilitas["deskripsi"], "foto" => []];
+                }
+                $daftarFasilitas[$kunciFasilitas]["foto"][] = $barisFasilitas["foto"];
+                if (empty($daftarFasilitas[$kunciFasilitas]["deskripsi"]) && !empty($barisFasilitas["deskripsi"])) $daftarFasilitas[$kunciFasilitas]["deskripsi"] = $barisFasilitas["deskripsi"];
+            }
+        }
     }
 }
 
@@ -1390,27 +1399,50 @@ body {
     <div class="text-center mb-5">
         <span class="section-label">Fasilitas Sekolah</span>
         <h2 class="section-title">Fasilitas Pendukung Pembelajaran</h2>
-        <p class="section-subtitle">Berbagai fasilitas yang mendukung kegiatan belajar dan lingkungan sekolah.</p>
+        <p class="section-subtitle">Lihat berbagai fasilitas sekolah beserta dokumentasi fotonya.</p>
     </div>
     <div class="row g-4">
-        <?php if ($daftarFasilitas && mysqli_num_rows($daftarFasilitas) > 0): ?>
-            <?php while ($fasilitas = mysqli_fetch_assoc($daftarFasilitas)): ?>
-                <div class="col-md-6 col-lg-4">
-                    <div class="info-card h-100">
-                        <?php if (!empty($fasilitas["foto"])): ?>
-                            <img src="<?= htmlspecialchars($fasilitas["foto"], ENT_QUOTES, "UTF-8") ?>" alt="<?= htmlspecialchars($fasilitas["nama_fasilitas"], ENT_QUOTES, "UTF-8") ?>" style="width:100%;height:210px;object-fit:cover;border-radius:12px;margin-bottom:18px">
-                        <?php else: ?>
-                            <div class="feature-icon"><i class="bi bi-building"></i></div>
-                        <?php endif; ?>
-                        <h5><?= htmlspecialchars($fasilitas["nama_fasilitas"], ENT_QUOTES, "UTF-8") ?></h5>
-                        <p><?= nl2br(htmlspecialchars($fasilitas["deskripsi"] ?? "", ENT_QUOTES, "UTF-8")) ?></p>
+        <?php if (!empty($daftarFasilitas)): ?>
+            <?php $nomorFasilitas = 0; foreach ($daftarFasilitas as $fasilitas): $nomorFasilitas++; $modalFasilitasId = "modalFasilitas" . $nomorFasilitas; ?>
+            <div class="col-md-6 col-lg-4">
+                <button type="button" class="ekskul-card w-100 p-0 border-0 text-start" data-bs-toggle="modal" data-bs-target="#<?= aman($modalFasilitasId) ?>" aria-label="Lihat foto <?= aman($fasilitas["nama_fasilitas"]) ?>">
+                    <div class="ekskul-cover">
+                        <?php $fotoSampulFasilitas = !empty($fasilitas["foto"][0]) ? $fasilitas["foto"][0] : ""; ?>
+                        <?php if ($fotoSampulFasilitas && is_file(__DIR__ . "/" . $fotoSampulFasilitas)): ?>
+                            <img src="<?= aman($fotoSampulFasilitas) ?>" alt="<?= aman($fasilitas["nama_fasilitas"]) ?>" loading="lazy">
+                        <?php else: ?><div class="ekskul-cover-placeholder"><i class="bi bi-building"></i></div><?php endif; ?>
+                        <div class="ekskul-cover-shade"></div>
+                        <span class="ekskul-photo-count"><i class="bi bi-images me-1"></i><?= count($fasilitas["foto"]) ?> Foto</span>
+                        <div class="ekskul-cover-title"><span class="ekskul-kicker">FASILITAS SEKOLAH</span><h3><?= aman($fasilitas["nama_fasilitas"]) ?></h3></div>
                     </div>
-                </div>
-            <?php endwhile; ?>
+                    <div class="ekskul-card-body">
+                        <p><?= !empty($fasilitas["deskripsi"]) ? nl2br(aman($fasilitas["deskripsi"])) : "Dokumentasi " . aman($fasilitas["nama_fasilitas"]) . "." ?></p>
+                        <span class="ekskul-open-link">Lihat fasilitas <i class="bi bi-arrow-right-circle-fill"></i></span>
+                    </div>
+                </button>
+            </div>
+            <div class="modal fade" id="<?= aman($modalFasilitasId) ?>" tabindex="-1" aria-labelledby="<?= aman($modalFasilitasId) ?>Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"><div class="modal-content border-0 rounded-4">
+                    <div class="modal-header text-white" style="background:var(--gelap)">
+                        <div><h5 class="modal-title fw-bold" id="<?= aman($modalFasilitasId) ?>Label"><?= aman($fasilitas["nama_fasilitas"]) ?></h5><small class="text-white-50">Dokumentasi fasilitas sekolah</small></div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <?php if (!empty($fasilitas["deskripsi"])): ?><p class="text-secondary mb-4"><?= nl2br(aman($fasilitas["deskripsi"])) ?></p><?php endif; ?>
+                        <div class="row g-3">
+                            <?php $jumlahFotoFasilitasValid = 0; foreach ($fasilitas["foto"] as $fotoFasilitas): ?>
+                                <?php if (!empty($fotoFasilitas) && is_file(__DIR__ . "/" . $fotoFasilitas)): $jumlahFotoFasilitasValid++; ?>
+                                <div class="col-sm-6 col-lg-4"><img src="<?= aman($fotoFasilitas) ?>" alt="Foto <?= aman($fasilitas["nama_fasilitas"]) ?>" class="w-100 rounded-3 shadow-sm" style="height:230px;object-fit:cover" loading="lazy"></div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php if ($jumlahFotoFasilitasValid === 0): ?><div class="col-12 text-center py-4"><i class="bi bi-camera text-primary" style="font-size:2.5rem"></i><p class="text-secondary mt-2 mb-0">Foto fasilitas belum tersedia.</p></div><?php endif; ?>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+            <?php endforeach; ?>
         <?php else: ?>
-            <div class="col-md-4"><div class="info-card h-100"><div class="feature-icon"><i class="bi bi-book-half"></i></div><h5>Ruang Kelas</h5><p>Tempat berlangsungnya kegiatan belajar mengajar siswa dan guru.</p></div></div>
-            <div class="col-md-4"><div class="info-card h-100"><div class="feature-icon"><i class="bi bi-journal-bookmark-fill"></i></div><h5>Perpustakaan</h5><p>Sarana untuk mendukung minat baca dan menambah pengetahuan siswa.</p></div></div>
-            <div class="col-md-4"><div class="info-card h-100"><div class="feature-icon"><i class="bi bi-tree-fill"></i></div><h5>Lingkungan Sekolah</h5><p>Lingkungan yang mendukung kenyamanan, kebersihan, dan aktivitas siswa.</p></div></div>
+            <div class="col-12"><div class="text-center text-muted py-4"><i class="bi bi-building fs-1 d-block mb-2"></i>Dokumentasi fasilitas sekolah akan ditampilkan setelah admin mengunggah foto.</div></div>
         <?php endif; ?>
     </div>
 </div>
