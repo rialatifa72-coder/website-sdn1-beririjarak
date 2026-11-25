@@ -1879,6 +1879,7 @@ if (isset($koneksi) && $koneksi) {
     <p><a href="#media-pembelajaran">Media Pembelajaran</a></p>
     <p><a href="#lokasi">Lokasi Sekolah</a></p>
     <p><a href="login.php">Login</a></p>
+    <p><i class="bi bi-envelope me-2"></i><a href="mailto:sdn1beririjarak661@gmail.com">sdn1beririjarak661@gmail.com</a></p>
 </div>
 
 </div>
