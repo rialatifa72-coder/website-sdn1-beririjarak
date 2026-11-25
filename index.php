@@ -205,8 +205,8 @@ body {
     isolation: isolate;
     overflow: hidden;
     background:
-        linear-gradient(90deg, rgba(5, 31, 67, .62) 0%, rgba(8, 53, 105, .32) 48%, rgba(8, 53, 105, .12) 100%),
-        linear-gradient(0deg, rgba(4, 25, 55, .08), rgba(4, 25, 55, .02)),
+        linear-gradient(90deg, rgba(28, 34, 31, .68) 0%, rgba(38, 43, 38, .38) 48%, rgba(38, 43, 38, .14) 100%),
+        linear-gradient(0deg, rgba(28, 31, 27, .16), rgba(28, 31, 27, .04)),
         url("guru.jpeg")
         center 42%/cover no-repeat;
 }
@@ -245,7 +245,7 @@ body {
 
 /* ANIMASI JUDUL UTAMA BERANDA */
 .hero-title-animate {
-    background-image: linear-gradient(100deg, #ffffff 0%, #ffffff 35%, #bde8ff 50%, #ffffff 65%, #ffffff 100%);
+    background-image: linear-gradient(100deg, #ffffff 0%, #ffffff 35%, #ffe2b8 50%, #ffffff 65%, #ffffff 100%);
     background-size: 220% 100%;
     background-position: 100% 50%;
     background-clip: text;
@@ -281,11 +281,11 @@ body {
 .hero p {
     max-width: 650px;
     line-height: 1.8;
-    color: #e5edfa;
+    color: #f3f0e9;
 }
 
 .btn-utama {
-    background: var(--biru);
+    background: #496b50;
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
@@ -296,7 +296,7 @@ body {
 }
 
 .btn-utama:hover {
-    background: #1b4297;
+    background: #36563d;
     color: white;
 }
 
