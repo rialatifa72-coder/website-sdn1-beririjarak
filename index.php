@@ -347,6 +347,18 @@ body {
     margin-bottom: 0;
 }
 
+/* Kombinasi warna lembut untuk setiap kartu statistik */
+.stats .row > div:nth-child(1) .stat-card { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+.stats .row > div:nth-child(2) .stat-card { background: linear-gradient(135deg, #e0f2f1, #b2dfdb); }
+.stats .row > div:nth-child(3) .stat-card { background: linear-gradient(135deg, #ede7f6, #d1c4e9); }
+.stats .row > div:nth-child(4) .stat-card { background: linear-gradient(135deg, #e1f5fe, #b3e5fc); }
+.stats .row > div:nth-child(5) .stat-card { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.stats .row > div:nth-child(6) .stat-card { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+.stats .row > div:nth-child(7) .stat-card { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.stats .stat-card i { color: #174a7e; }
+.stats .stat-card h3 { color: #173b63; }
+.stats .stat-card p { color: #40566b; }
+
 /* KELAS ANIMASI KLIK STATISTIK */
 .interactive-card {
     cursor: pointer;
