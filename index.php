@@ -253,19 +253,26 @@ body {
     color: transparent;
     -webkit-text-fill-color: transparent;
     animation:
-        heroTitleEntrance 1.1s cubic-bezier(.2,.75,.25,1) both,
-        heroTitleShimmer 6s ease-in-out 1.1s infinite;
+        heroTitleEntrance 2.2s cubic-bezier(.2,.75,.25,1) both,
+        heroTitleShimmer 14s ease-in-out 2.2s infinite,
+        heroTitleDrift 10s ease-in-out 2.2s infinite;
     will-change: transform, opacity, background-position;
 }
 
 @keyframes heroTitleEntrance {
-    from { opacity: 0; transform: translateY(35px) scale(.97); }
+    from { opacity: 0; transform: translateY(22px) scale(.99); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes heroTitleShimmer {
     0%, 100% { background-position: 100% 50%; }
     50% { background-position: 0% 50%; }
+}
+
+/* Gerakan judul yang halus dan lambat */
+@keyframes heroTitleDrift {
+    0%, 100% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
