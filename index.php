@@ -1314,6 +1314,7 @@ body {
                     <div class="col-6"><div class="profil-data-item"><strong>50203014</strong><span>NPSN Sekolah</span></div></div>
                     <div class="col-6"><div class="profil-data-item"><strong>B</strong><span>Akreditasi</span></div></div>
                     <div class="col-6"><div class="profil-data-item"><strong>1968</strong><span>Tahun Berdiri</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>15</strong><span>Guru &amp; Tenaga Kependidikan</span></div></div>
                     <div class="col-6"><div class="profil-data-item"><strong>211</strong><span>Peserta Didik</span></div></div>
                 </div>
                 <a href="#visi-misi" class="profil-button mt-4">
