@@ -1290,6 +1290,7 @@ body {
                     <div class="sambutan-photo-caption">
                         <span>Hormat kami,</span>
                         <strong>Kepala SD NEGERI 1 BERIRIJARAK</strong>
+                        <span class="d-block mt-1 fw-semibold" style="color:#123d76;font-size:15px;">PAUZANUDDIN, S.Pd.</span>
                     </div>
                 </div>
                 <div class="sambutan-content">
