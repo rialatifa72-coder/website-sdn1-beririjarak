@@ -7,10 +7,98 @@ if (!isset($_SESSION["username"])) {
 require_once __DIR__ . "/koneksi.php";
 
 $namaAdmin = $_SESSION["username"];
-$allowedPages = ["beranda", "profil", "guru", "siswa", "berita", "galeri", "ekstrakurikuler", "media"];
+$allowedPages = ["beranda", "profil", "guru", "siswa", "berita", "galeri", "ekstrakurikuler", "media", "fasilitas"];
 $page = $_GET["page"] ?? "beranda";
 if (!in_array($page, $allowedPages, true)) {
     $page = "beranda";
+}
+
+function h($value) { return htmlspecialchars((string) $value, ENT_QUOTES, "UTF-8"); }
+
+$allowedPages[] = "fasilitas";
+$page = $_GET["page"] ?? "beranda";
+if (!in_array($page, $allowedPages, true)) { $page = "beranda"; }
+
+if ($koneksi) {
+    mysqli_query($koneksi, "CREATE TABLE IF NOT EXISTS tb_fasilitas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nama_fasilitas VARCHAR(150) NOT NULL,
+        deskripsi TEXT NULL,
+        foto VARCHAR(255) NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+}
+
+$pesanFasilitas = "";
+if ($page === "fasilitas" && $koneksi && $_SERVER["REQUEST_METHOD"] === "POST") {
+    $aksi = $_POST["aksi"] ?? "";
+    $nama = trim($_POST["nama_fasilitas"] ?? "");
+    $deskripsi = trim($_POST["deskripsi"] ?? "");
+    $id = (int) ($_POST["id"] ?? 0);
+    $fotoPath = "";
+
+    if ($aksi === "hapus" && $id > 0) {
+        $stmt = mysqli_prepare($koneksi, "SELECT foto FROM tb_fasilitas WHERE id=?");
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+        $lama = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+        if ($lama) {
+            $stmtHapus = mysqli_prepare($koneksi, "DELETE FROM tb_fasilitas WHERE id=?");
+            mysqli_stmt_bind_param($stmtHapus, "i", $id);
+            mysqli_stmt_execute($stmtHapus);
+            if (!empty($lama["foto"]) && is_file(__DIR__ . "/" . $lama["foto"])) { @unlink(__DIR__ . "/" . $lama["foto"]); }
+            $pesanFasilitas = "Data fasilitas berhasil dihapus.";
+        }
+    } elseif (($aksi === "tambah" || $aksi === "ubah") && $nama !== "") {
+        if (!empty($_FILES["foto"]["name"])) {
+            $folder = __DIR__ . "/uploads/fasilitas/";
+            if (!is_dir($folder)) { mkdir($folder, 0775, true); }
+            $ekstensi = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
+            $izin = ["jpg", "jpeg", "png", "webp"];
+            if (!in_array($ekstensi, $izin, true) || $_FILES["foto"]["error"] !== UPLOAD_ERR_OK || $_FILES["foto"]["size"] > 4 * 1024 * 1024 || !@getimagesize($_FILES["foto"]["tmp_name"])) {
+                $pesanFasilitas = "Foto harus berupa JPG, PNG, atau WEBP dengan ukuran maksimal 4 MB.";
+            } else {
+                $namaFile = "fasilitas_" . bin2hex(random_bytes(8)) . "." . $ekstensi;
+                if (move_uploaded_file($_FILES["foto"]["tmp_name"], $folder . $namaFile)) { $fotoPath = "uploads/fasilitas/" . $namaFile; }
+                else { $pesanFasilitas = "Foto gagal diunggah. Periksa izin folder uploads."; }
+            }
+        }
+        if ($pesanFasilitas === "") {
+            if ($aksi === "tambah") {
+                $stmt = mysqli_prepare($koneksi, "INSERT INTO tb_fasilitas (nama_fasilitas, deskripsi, foto) VALUES (?, ?, ?)");
+                mysqli_stmt_bind_param($stmt, "sss", $nama, $deskripsi, $fotoPath);
+                mysqli_stmt_execute($stmt);
+                $pesanFasilitas = "Fasilitas berhasil ditambahkan.";
+            } else {
+                if ($fotoPath !== "") {
+                    $stmtLama = mysqli_prepare($koneksi, "SELECT foto FROM tb_fasilitas WHERE id=?");
+                    mysqli_stmt_bind_param($stmtLama, "i", $id);
+                    mysqli_stmt_execute($stmtLama);
+                    $lama = mysqli_fetch_assoc(mysqli_stmt_get_result($stmtLama));
+                    $stmt = mysqli_prepare($koneksi, "UPDATE tb_fasilitas SET nama_fasilitas=?, deskripsi=?, foto=? WHERE id=?");
+                    mysqli_stmt_bind_param($stmt, "sssi", $nama, $deskripsi, $fotoPath, $id);
+                    mysqli_stmt_execute($stmt);
+                    if (!empty($lama["foto"]) && is_file(__DIR__ . "/" . $lama["foto"])) { @unlink(__DIR__ . "/" . $lama["foto"]); }
+                } else {
+                    $stmt = mysqli_prepare($koneksi, "UPDATE tb_fasilitas SET nama_fasilitas=?, deskripsi=? WHERE id=?");
+                    mysqli_stmt_bind_param($stmt, "ssi", $nama, $deskripsi, $id);
+                    mysqli_stmt_execute($stmt);
+                }
+                $pesanFasilitas = "Data fasilitas berhasil diperbarui.";
+            }
+        }
+    } else {
+        $pesanFasilitas = "Nama fasilitas wajib diisi.";
+    }
+}
+
+$editFasilitas = null;
+if ($page === "fasilitas" && $koneksi && isset($_GET["edit"])) {
+    $idEdit = (int) $_GET["edit"];
+    $stmt = mysqli_prepare($koneksi, "SELECT * FROM tb_fasilitas WHERE id=?");
+    mysqli_stmt_bind_param($stmt, "i", $idEdit);
+    mysqli_stmt_execute($stmt);
+    $editFasilitas = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 }
 
 function jumlahData($koneksi, $table) {
@@ -292,12 +380,39 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
             </div>
             </div>
             </div>
+        <?php elseif ($page === "fasilitas"): ?>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div><h2 class="h4 fw-bold mb-1">Fasilitas Sekolah</h2><p class="text-muted mb-0">Tambahkan foto dan keterangan fasilitas sekolah.</p></div>
+                <a class="btn btn-primary" href="dashboard_admin.php?page=fasilitas"><i class="bi bi-plus-lg me-1"></i>Tambah Fasilitas</a>
+            </div>
+            <?php if ($pesanFasilitas !== ""): ?><div class="alert alert-info"><?= h($pesanFasilitas) ?></div><?php endif; ?>
+            <div class="card-custom mb-4">
+                <h5 class="card-title-custom"><?= $editFasilitas ? "Ubah Fasilitas" : "Tambah Fasilitas Baru" ?></h5>
+                <form method="POST" enctype="multipart/form-data" action="dashboard_admin.php?page=fasilitas<?= $editFasilitas ? "&edit=" . (int)$editFasilitas["id"] : "" ?>">
+                    <input type="hidden" name="aksi" value="<?= $editFasilitas ? "ubah" : "tambah" ?>">
+                    <?php if ($editFasilitas): ?><input type="hidden" name="id" value="<?= (int)$editFasilitas["id"] ?>"><?php endif; ?>
+                    <div class="row g-3">
+                        <div class="col-md-6"><label class="form-label fw-semibold">Nama Fasilitas</label><input type="text" name="nama_fasilitas" class="form-control" required maxlength="150" value="<?= h($editFasilitas["nama_fasilitas"] ?? "") ?>" placeholder="Contoh: Ruang Kelas"></div>
+                        <div class="col-md-6"><label class="form-label fw-semibold">Foto Fasilitas</label><input type="file" name="foto" class="form-control" accept="image/jpeg,image/png,image/webp"><small class="text-muted">JPG, PNG, WEBP, maksimal 4 MB. Foto boleh dikosongkan saat mengubah data.</small></div>
+                        <div class="col-12"><label class="form-label fw-semibold">Deskripsi</label><textarea name="deskripsi" class="form-control" rows="3" placeholder="Tuliskan keterangan fasilitas..."><?= h($editFasilitas["deskripsi"] ?? "") ?></textarea></div>
+                        <?php if (!empty($editFasilitas["foto"])): ?><div class="col-12"><img src="<?= h($editFasilitas["foto"]) ?>" alt="Foto fasilitas" style="width:150px;height:100px;object-fit:cover;border-radius:10px"></div><?php endif; ?>
+                        <div class="col-12"><button class="btn btn-primary" type="submit"><i class="bi bi-save me-1"></i><?= $editFasilitas ? "Simpan Perubahan" : "Simpan Fasilitas" ?></button><?php if ($editFasilitas): ?> <a href="dashboard_admin.php?page=fasilitas" class="btn btn-outline-secondary">Batal</a><?php endif; ?></div>
+                    </div>
+                </form>
+            </div>
+            <div class="row g-3">
+                <?php $daftarFasilitas = $koneksi ? mysqli_query($koneksi, "SELECT * FROM tb_fasilitas ORDER BY id DESC") : false; ?>
+                <?php if ($daftarFasilitas && mysqli_num_rows($daftarFasilitas) > 0): while ($fasilitas = mysqli_fetch_assoc($daftarFasilitas)): ?>
+                    <div class="col-md-6 col-xl-4"><div class="card-custom h-100">
+                        <?php if (!empty($fasilitas["foto"])): ?><img src="<?= h($fasilitas["foto"]) ?>" alt="<?= h($fasilitas["nama_fasilitas"]) ?>" style="width:100%;height:190px;object-fit:cover;border-radius:10px;margin-bottom:14px"><?php else: ?><div class="bg-light rounded d-flex align-items-center justify-content-center mb-3" style="height:150px"><i class="bi bi-image text-secondary fs-1"></i></div><?php endif; ?>
+                        <h5 class="fw-bold"><?= h($fasilitas["nama_fasilitas"]) ?></h5><p class="text-muted"><?= nl2br(h($fasilitas["deskripsi"])) ?></p>
+                        <div class="d-flex gap-2 mt-auto"><a class="btn btn-sm btn-outline-primary" href="dashboard_admin.php?page=fasilitas&edit=<?= (int)$fasilitas["id"] ?>"><i class="bi bi-pencil"></i> Ubah</a><form method="POST" onsubmit="return confirm('Yakin ingin menghapus fasilitas ini?')"><input type="hidden" name="aksi" value="hapus"><input type="hidden" name="id" value="<?= (int)$fasilitas["id"] ?>"><button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-trash"></i> Hapus</button></form></div>
+                    </div></div>
+                <?php endwhile; else: ?><div class="col-12"><div class="alert alert-secondary">Belum ada fasilitas. Silakan tambahkan fasilitas beserta fotonya melalui formulir di atas.</div></div><?php endif; ?>
+            </div>
         <?php else: ?>
-            <?php
-            $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Prestasi Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","fasilitas"=>"Fasilitas Sekolah","media"=>"Media Pembelajaran"];
-            $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola informasi prestasi dan pencapaian peserta didik.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","fasilitas"=>"Kelola informasi fasilitas dan sarana prasarana SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."];
-            ?>
-            <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard. Fitur tambah, ubah, hapus, dan penyimpanan database akan diaktifkan pada tahap pengembangan berikutnya.</div></div>
+            <?php $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Prestasi Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","media"=>"Media Pembelajaran"]; $descriptions = ["guru"=>"Kelola informasi guru dan tenaga kependidikan.","siswa"=>"Kelola data peserta didik SDN 1 Beririjarak.","berita"=>"Kelola informasi prestasi dan pencapaian peserta didik.","galeri"=>"Kelola dokumentasi foto kegiatan sekolah.","ekstrakurikuler"=>"Kelola informasi kegiatan ekstrakurikuler SDN 1 Beririjarak.","media"=>"Kelola materi, video pembelajaran, dan latihan soal."]; ?>
+            <div class="card-custom"><h5 class="card-title-custom"><?= $titles[$page] ?></h5><p class="text-muted mb-0"><?= $descriptions[$page] ?></p><div class="alert alert-info mt-4 mb-0"><i class="bi bi-info-circle me-2"></i>Halaman ini sudah terhubung dengan navigasi dashboard.</div></div>
         <?php endif; ?>
     </main>
 </div>
