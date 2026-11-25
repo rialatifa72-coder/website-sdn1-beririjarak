@@ -1173,6 +1173,20 @@ body {
 <h1 class="hero-title-animate"><span class="hero-word" style="--word-delay: 0.00s">MENCETAK</span> <span class="hero-word" style="--word-delay: 0.55s">GENERASI</span> <span class="hero-word" style="--word-delay: 1.10s">CIKAL,</span> <span class="hero-word" style="--word-delay: 1.65s">CERDAS,</span> <span class="hero-word" style="--word-delay: 2.20s">BERIMAN,</span> <span class="hero-word" style="--word-delay: 2.75s">KREATIF,</span> <span class="hero-word" style="--word-delay: 3.30s">AMANAH,</span> <span class="hero-word" style="--word-delay: 3.85s">DAN</span> <span class="hero-word" style="--word-delay: 4.40s">PEDULI</span> <span class="hero-word" style="--word-delay: 4.95s">LINGKUNGAN</span></h1>
 
 
+<p class="mt-4 mb-4">
+    Selamat datang di website resmi SDN 1 Beririjarak.
+    Mari bersama membangun lingkungan belajar yang nyaman,
+    menyenangkan, berkarakter, dan mendukung prestasi setiap siswa.
+</p>
+
+<a href="#profil" class="btn-utama me-2 mb-2">
+    Kenali Sekolah Kami <i class="bi bi-arrow-right ms-2"></i>
+</a>
+
+<a href="#akademik" class="btn-outline-light-custom mb-2">
+    Program Pendidikan
+</a>
+
 
 </div>
 </div>
