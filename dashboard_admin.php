@@ -240,7 +240,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
         <li><a href="admin/data_berita.php"><i class="bi bi-award"></i>Prestasi Sekolah</a></li>
         <li class="<?= $page === "galeri" ? "active" : "" ?>"><a href="admin/data_galeri.php"><i class="bi bi-images"></i>Galeri Foto</a></li>
         <li><a href="admin/data_ekstrakurikuler.php"><i class="bi bi-trophy"></i>Ekstrakurikuler</a></li>
-        <li class="<?= $page === "fasilitas" ? "active" : "" ?>"><a href="dashboard_admin.php?page=fasilitas"><i class="bi bi-building"></i>Fasilitas Sekolah</a></li>
+        <li class="<?= $page === "fasilitas" ? "active" : "" ?>"><a href="admin/data_fasilitas.php"><i class="bi bi-building"></i>Fasilitas Sekolah</a></li>
         <li class="<?= $page === "media" ? "active" : "" ?>"><a href="dashboard_admin.php?page=media"><i class="bi bi-journal-bookmark-fill"></i>Media Pembelajaran</a></li>
         <li class="mt-3 pt-2 border-top border-light border-opacity-25"><a href="logout.php"><i class="bi bi-box-arrow-left"></i>Logout</a></li>
     </ul>
