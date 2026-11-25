@@ -117,7 +117,69 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                 <div class="info-card-body">Gunakan menu di sebelah kiri untuk mengelola profil sekolah, data guru dan siswa, prestasi sekolah, galeri, ekstrakurikuler, serta media pembelajaran. Angka ringkasan akan muncul setelah tabel terkait tersedia di database.</div>
             </div>
         <?php elseif ($page === "profil"): ?>
-            <div class="card-custom"><h5 class="card-title-custom">Pengelolaan Profil Sekolah</h5><p class="text-muted mb-0">Bagian ini disiapkan untuk pengelolaan informasi umum, sambutan kepala sekolah, visi dan misi, serta fasilitas SDN 1 Beririjarak.</p></div>
+            <div class="dashboard-heading">
+                <div class="dashboard-heading-icon"><i class="bi bi-building"></i></div>
+                <div>
+                    <h2 class="h4 fw-bold mb-1">Profil SDN 1 Beririjarak</h2>
+                    <p class="text-muted mb-0">Informasi utama sekolah yang ditampilkan kepada pengunjung website.</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="card-custom info-card">
+                        <div class="info-card-heading"><i class="bi bi-info-circle"></i><h5 class="card-title-custom mb-0">Informasi Umum Sekolah</h5></div>
+                        <div class="info-card-body">
+                            <p>SDN 1 Beririjarak merupakan lembaga pendidikan dasar yang berkomitmen mendukung perkembangan pengetahuan, keterampilan, karakter, dan potensi setiap peserta didik.</p>
+                            <p class="mb-0">Melalui lingkungan belajar yang aman, nyaman, dan menyenangkan, sekolah mendorong siswa untuk aktif, percaya diri, berprestasi, serta memiliki akhlak mulia dan kepedulian terhadap lingkungan.</p>
+                            <hr>
+                            <div class="d-flex justify-content-between py-1"><strong>Nama Sekolah</strong><span>SDN 1 Beririjarak</span></div>
+                            <div class="d-flex justify-content-between py-1"><strong>NPSN</strong><span>50203014</span></div>
+                            <div class="d-flex justify-content-between py-1"><strong>Jenjang</strong><span>Sekolah Dasar</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-custom info-card">
+                        <div class="info-card-heading"><i class="bi bi-chat-quote"></i><h5 class="card-title-custom mb-0">Sambutan Kepala Sekolah</h5></div>
+                        <div class="info-card-body">
+                            <p>Dengan penuh rasa syukur, website resmi SDN 1 Beririjarak hadir sebagai jendela informasi dan komunikasi bagi seluruh warga sekolah dan masyarakat luas.</p>
+                            <p>Website ini menjadi sarana penyampaian informasi secara transparan, cepat, dan akurat mengenai profil sekolah, program pendidikan, prestasi siswa, karya guru, serta berbagai kegiatan sekolah.</p>
+                            <p class="mb-0">Kami berharap melalui website ini terjalin komunikasi yang lebih baik antara sekolah, orang tua, dan masyarakat dalam mendukung kemajuan pendidikan.</p>
+                            <div class="mt-3 fw-bold text-primary">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-custom info-card mb-4">
+                <div class="info-card-heading"><i class="bi bi-eye"></i><h5 class="card-title-custom mb-0">Visi Sekolah</h5></div>
+                <div class="info-card-body">
+                    <h4 class="fw-bold text-primary mb-2">Mewujudkan Generasi CIKAL</h4>
+                    <p class="mb-0">Menjadi sekolah yang menghasilkan lulusan <strong>CIKAL</strong>: Cerdas, Iman dan Taqwa, Kreatif, Amanah, dan peduli Lingkungan.</p>
+                </div>
+            </div>
+
+            <div class="card-custom mb-4">
+                <h5 class="card-title-custom"><i class="bi bi-list-check me-2"></i>Misi Sekolah</h5>
+                <div class="row g-3">
+                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>01. Meningkatkan Kecerdasan</strong><p class="text-muted mb-0 mt-1">Mengembangkan kemampuan berpikir, pengetahuan, dan keterampilan peserta didik.</p></div></div>
+                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>02. Menanamkan Iman dan Taqwa</strong><p class="text-muted mb-0 mt-1">Membiasakan perilaku religius, berakhlak mulia, dan menghormati sesama.</p></div></div>
+                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>03. Mengembangkan Kreativitas</strong><p class="text-muted mb-0 mt-1">Memberikan ruang bagi siswa untuk mengembangkan bakat, minat, dan karya.</p></div></div>
+                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>04. Membentuk Pribadi Amanah</strong><p class="text-muted mb-0 mt-1">Membentuk sikap jujur, disiplin, bertanggung jawab, dan dapat dipercaya.</p></div></div>
+                    <div class="col-md-6"><div class="p-3 rounded-3 bg-light h-100"><strong>05. Menumbuhkan Kepedulian Lingkungan</strong><p class="text-muted mb-0 mt-1">Membiasakan warga sekolah menjaga kebersihan dan kelestarian lingkungan.</p></div></div>
+                </div>
+            </div>
+
+            <div class="card-custom">
+                <h5 class="card-title-custom"><i class="bi bi-buildings me-2"></i>Fasilitas Sekolah</h5>
+                <p class="text-muted">Sarana pendukung kegiatan belajar mengajar dan pengembangan peserta didik.</p>
+                <div class="row g-3">
+                    <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-book-half"></i></div><strong>Ruang Kelas</strong><p class="text-muted small mb-0 mt-2">Tempat berlangsungnya kegiatan belajar mengajar antara guru dan siswa.</p></div></div>
+                    <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-journal-bookmark-fill"></i></div><strong>Perpustakaan</strong><p class="text-muted small mb-0 mt-2">Sarana untuk mendukung minat baca dan menambah pengetahuan siswa.</p></div></div>
+                    <div class="col-md-4"><div class="border rounded-3 p-3 h-100"><div class="stat-icon mb-3"><i class="bi bi-tree-fill"></i></div><strong>Lingkungan Sekolah</strong><p class="text-muted small mb-0 mt-2">Lingkungan yang mendukung kenyamanan, kebersihan, dan aktivitas siswa.</p></div></div>
+                </div>
+            </div>
         <?php else: ?>
             <?php
             $titles = ["guru"=>"Data Guru","siswa"=>"Data Siswa","berita"=>"Prestasi Sekolah","galeri"=>"Galeri Foto","ekstrakurikuler"=>"Ekstrakurikuler","media"=>"Media Pembelajaran"];
