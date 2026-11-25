@@ -1195,6 +1195,14 @@ body {
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
+        <i class="bi bi-patch-check-fill"></i>
+        <h3>B</h3>
+        <p>Akreditasi</p>
+    </div>
+</div>
+
+<div class="col-6 col-md-4 col-lg-2 stat-card-animate">
+    <div class="stat-card interactive-card" onclick="cardClick(this)">
         <i class="bi bi-calendar-check-fill"></i>
         <h3>1968</h3>
         <p>Tahun Berdiri</p>
