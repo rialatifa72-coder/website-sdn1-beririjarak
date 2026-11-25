@@ -1011,6 +1011,17 @@ body {
 .text-primary { color: #198754 !important; }
 .btn-primary { background-color: #198754 !important; border-color: #198754 !important; }
 .btn-primary:hover { background-color: #146c43 !important; border-color: #146c43 !important; }
+/* Tombol Login navbar tetap biru, bukan hijau */
+.navbar .btn-primary {
+    background-color: #1769d2 !important;
+    border-color: #1769d2 !important;
+    color: #fff !important;
+}
+.navbar .btn-primary:hover,
+.navbar .btn-primary:focus {
+    background-color: #124fa3 !important;
+    border-color: #124fa3 !important;
+}
 .btn-outline-primary { color: #198754 !important; border-color: #198754 !important; }
 .btn-outline-primary:hover { background-color: #198754 !important; border-color: #198754 !important; color: #fff !important; }
 
