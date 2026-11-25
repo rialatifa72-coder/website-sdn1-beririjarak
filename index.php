@@ -1017,24 +1017,32 @@ body {
 .btn-outline-primary { color: #198754 !important; border-color: #198754 !important; }
 .btn-outline-primary:hover { background-color: #198754 !important; border-color: #198754 !important; color: #fff !important; }
 
-/* Informasi ringkas pada profil sekolah */
-.profil-data-grid { margin-top: 18px; }
+/* Kartu data ringkas pada profil sekolah */
+.profil-data-grid { margin-top: 22px; }
 .profil-data-item {
-    height: 100%; min-height: 76px; padding: 12px 14px;
-    background: #fff; border: 1px solid #e3ebf5; border-radius: 12px;
-    box-shadow: 0 5px 16px rgba(20, 55, 90, .05);
+    height: 100%; min-height: 92px; padding: 16px 18px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: linear-gradient(145deg, #ffffff 0%, #f4f8fd 100%);
+    border: 1px solid #e2eaf4; border-left: 4px solid #1769d2;
+    border-radius: 14px; box-shadow: 0 7px 20px rgba(20, 55, 90, .07);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.profil-data-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(20, 55, 90, .12);
 }
 .profil-data-item strong {
-    display: block; color: #1769d2; font-size: 21px;
+    display: block; color: #1769d2; font-size: 25px;
     line-height: 1.2; font-weight: 800;
 }
 .profil-data-item span {
-    display: block; margin-top: 5px; color: #52647a;
-    font-size: 11px; line-height: 1.35; font-weight: 600;
+    display: block; margin-top: 7px; color: #52647a;
+    font-size: 12px; line-height: 1.4; font-weight: 600;
 }
 @media (max-width: 575px) {
-    .profil-data-item { padding: 10px; }
-    .profil-data-item strong { font-size: 19px; }
+    .profil-data-item { min-height: 82px; padding: 12px; }
+    .profil-data-item strong { font-size: 21px; }
+    .profil-data-item span { font-size: 11px; }
 }
 
 /* ===== PROFIL SEKOLAH MODERN ===== */
@@ -1298,22 +1306,17 @@ body {
         <div class="col-lg-6">
             <div class="profil-information">
                 <div class="profil-eyebrow"><span></span> PROFIL SEKOLAH</div>
-                <h2>Mengenal <span>SD Negeri 1 Beririjarak</span></h2>
+                <h2>SD Negeri <span>1 Beririjarak</span></h2>
                 <p class="profil-intro">
-                    SD Negeri 1 Beririjarak merupakan satuan pendidikan dasar negeri yang berlokasi di Desa Beririjarak, Kecamatan Wanasaba, Kabupaten Lombok Timur, Provinsi Nusa Tenggara Barat. Berdiri sejak tahun 1968, sekolah berkomitmen menyelenggarakan pendidikan berkualitas untuk mendukung perkembangan pengetahuan, keterampilan, dan karakter peserta didik.
+                    SD Negeri 1 Beririjarak merupakan sekolah dasar negeri di Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat. Berdiri sejak tahun 1968, sekolah berkomitmen membentuk generasi CIKAL yang cerdas, beriman dan bertakwa, kreatif, amanah, serta peduli lingkungan.
                 </p>
-                <p class="profil-detail">
-                    Dalam mewujudkan tujuan pendidikan, SD Negeri 1 Beririjarak berupaya membentuk lulusan <strong>CIKAL</strong>: Cerdas, beriman dan bertakwa, Kreatif, Amanah, serta peduli Lingkungan. Komitmen ini didukung oleh tenaga pendidik, kegiatan pembelajaran, dan fasilitas sekolah.
-                </p>
-                <div class="row g-2 profil-data-grid">
+                <div class="row g-3 profil-data-grid">
                     <div class="col-6"><div class="profil-data-item"><strong>50203014</strong><span>NPSN Sekolah</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>1968</strong><span>Tahun Berdiri</span></div></div>
                     <div class="col-6"><div class="profil-data-item"><strong>B</strong><span>Akreditasi</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>15</strong><span>Guru &amp; Tenaga Kependidikan</span></div></div>
+                    <div class="col-6"><div class="profil-data-item"><strong>1968</strong><span>Tahun Berdiri</span></div></div>
                     <div class="col-6"><div class="profil-data-item"><strong>211</strong><span>Peserta Didik</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>11</strong><span>Rombongan Belajar</span></div></div>
                 </div>
-                <a href="#visi-misi" class="profil-button mt-3">
+                <a href="#visi-misi" class="profil-button mt-4">
                     Jelajahi Visi dan Misi <i class="bi bi-arrow-up-right"></i>
                 </a>
             </div>
