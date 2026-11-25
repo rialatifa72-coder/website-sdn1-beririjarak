@@ -1165,10 +1165,7 @@ body {
 <div class="container">
 <div class="hero-content">
 
-<span class="hero-label">
-    <i class="bi bi-mortarboard me-2"></i>
-    Website Resmi Sekolah
-</span>
+
 
 <h1 class="hero-title-animate"><span class="hero-word" style="--word-delay: 0.00s">MENCETAK</span> <span class="hero-word" style="--word-delay: 0.55s">GENERASI</span> <span class="hero-word" style="--word-delay: 1.10s">CIKAL,</span> <span class="hero-word" style="--word-delay: 1.65s">CERDAS,</span> <span class="hero-word" style="--word-delay: 2.20s">BERIMAN,</span> <span class="hero-word" style="--word-delay: 2.75s">KREATIF,</span> <span class="hero-word" style="--word-delay: 3.30s">AMANAH,</span> <span class="hero-word" style="--word-delay: 3.85s">DAN</span> <span class="hero-word" style="--word-delay: 4.40s">PEDULI</span> <span class="hero-word" style="--word-delay: 4.95s">LINGKUNGAN</span></h1>
 
