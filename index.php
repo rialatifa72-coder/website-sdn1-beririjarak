@@ -1187,16 +1187,16 @@ body {
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
-        <i class="bi bi-patch-check-fill"></i>
-        <h3>B</h3>
-        <p>Akreditasi</p>
+        <i class="bi bi-collection-fill"></i>
+        <h3>11</h3>
+        <p>Rombongan Belajar</p>
     </div>
 </div>
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
         <i class="bi bi-calendar-check-fill"></i>
-        <h3>1984</h3>
+        <h3>1968</h3>
         <p>Tahun Berdiri</p>
     </div>
 </div>
@@ -1204,24 +1204,24 @@ body {
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
         <i class="bi bi-person-workspace"></i>
-        <h3>12</h3>
-        <p>Guru & Tenaga</p>
+        <h3>15</h3>
+        <p>Guru & Tenaga Kependidikan</p>
     </div>
 </div>
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
         <i class="bi bi-people-fill"></i>
-        <h3>150+</h3>
-        <p>Siswa Aktif</p>
+        <h3>211</h3>
+        <p>Peserta Didik</p>
     </div>
 </div>
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
     <div class="stat-card interactive-card" onclick="cardClick(this)">
-        <i class="bi bi-trophy-fill"></i>
-        <h3>25+</h3>
-        <p>Prestasi</p>
+        <i class="bi bi-building"></i>
+        <h3>6</h3>
+        <p>Ruang Kelas</p>
     </div>
 </div>
 
