@@ -243,49 +243,30 @@ body {
     max-width: 620px;
 }
 
-/* ANIMASI JUDUL UTAMA BERANDA */
+/* ANIMASI JUDUL MUNCUL KATA DEMI KATA */
 .hero-title-animate {
-    background-image: linear-gradient(100deg, #ffffff 0%, #ffffff 35%, #bde8ff 50%, #ffffff 65%, #ffffff 100%);
-    background-size: 220% 100%;
-    background-position: 100% 50%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: heroTitleShimmer 14s ease-in-out 8s infinite;
-    will-change: background-position;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
 }
 .hero-title-animate .hero-word {
     display: inline-block;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
     opacity: 0;
     margin-right: .22em;
-    animation: heroWordReveal .75s ease-out forwards;
+    animation: heroWordReveal .8s ease-out forwards;
     animation-delay: var(--word-delay);
 }
 @keyframes heroWordReveal {
-    from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
-    to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-}
-
-@keyframes heroTitleShimmer {
-    0%, 100% { background-position: 100% 50%; }
-    50% { background-position: 0% 50%; }
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero-title-animate {
-        animation: none;
-        background: none;
-        color: #fff;
-        -webkit-text-fill-color: #fff;
-        transform: none;
-    }
     .hero-title-animate .hero-word {
         opacity: 1;
         animation: none;
         transform: none;
-        filter: none;
     }
 }
 
