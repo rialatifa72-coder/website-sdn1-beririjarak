@@ -111,6 +111,28 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
     .profile-page .stat-card,.profile-page .info-card,.profile-page .info-card-heading .bi{transition:none}
 }
 @media(max-width:768px){#sidebar{width:220px;min-width:220px}#sidebar.collapsed{margin-left:-220px}.main-container{padding:16px}.topbar{padding:0 15px}}
+
+/* Animasi khusus halaman Profil Sekolah */
+.profile-page .dashboard-heading{animation:profileFadeUp .65s ease both}
+.profile-page .stat-card{opacity:0;animation:profileFadeUp .65s ease forwards}
+.profile-page .stat-card:nth-child(1){animation-delay:.08s}
+.profile-page .stat-card:nth-child(2){animation-delay:.18s}
+.profile-page .stat-card:nth-child(3){animation-delay:.28s}
+.profile-page .stat-card:nth-child(4){animation-delay:.38s}
+.profile-page .info-card{opacity:0;animation:profileFadeUp .7s ease forwards}
+.profile-page .row.g-3.mb-4 > [class*="col-"] .info-card{animation-delay:.18s}
+.profile-page > .card-custom:nth-of-type(2){animation-delay:.28s}
+.profile-page > .row:nth-of-type(3) .info-card{animation-delay:.36s}
+.profile-page > .card-custom:nth-of-type(4){animation-delay:.44s}
+.profile-page > .card-custom:nth-of-type(5){animation-delay:.52s}
+.profile-page .info-card-heading .bi{transition:transform .3s ease}
+.profile-page .info-card:hover .info-card-heading .bi{transform:rotate(-8deg) scale(1.08)}
+.profile-page .border.rounded-3.p-3{transition:transform .25s ease,box-shadow .25s ease}
+.profile-page .border.rounded-3.p-3:hover{transform:translateY(-5px);box-shadow:0 9px 20px rgba(8,43,89,.10)}
+.profile-page .stat-icon{transition:transform .3s ease}
+.profile-page .stat-card:hover .stat-icon{transform:scale(1.08) rotate(-4deg)}
+@keyframes profileFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.profile-page .dashboard-heading,.profile-page .stat-card,.profile-page .info-card{animation:none;opacity:1}.profile-page .info-card-heading .bi,.profile-page .border.rounded-3.p-3,.profile-page .stat-icon{transition:none}}
 </style>
 </head>
 <body>
@@ -157,6 +179,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                 <div class="info-card-body">Gunakan menu di sebelah kiri untuk mengelola profil sekolah, data guru dan siswa, prestasi sekolah, galeri, ekstrakurikuler, serta media pembelajaran. Angka ringkasan akan muncul setelah tabel terkait tersedia di database.</div>
             </div>
         <?php elseif ($page === "profil"): ?>
+            <div class="profile-page">
             <div class="profile-page">
             <div class="dashboard-heading">
                 <div class="dashboard-heading-icon"><i class="bi bi-building"></i></div>
@@ -265,6 +288,7 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                     <p class="mb-2"><strong>Sumber data:</strong> Dokumen Profil SD NEGERI 1 BERIRIJARAK yang diunduh pada 23 Oktober 2026.</p>
                     <p class="mb-0">Informasi rekening, NPWP, NIK, dan data pribadi peserta didik maupun tenaga kependidikan tidak ditampilkan pada halaman profil publik demi menjaga keamanan dan privasi.</p>
                 </div>
+            </div>
             </div>
             </div>
         <?php else: ?>
