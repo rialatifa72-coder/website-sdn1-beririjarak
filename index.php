@@ -1204,6 +1204,7 @@ body {
 </style>
 
 
+<style>
 /* Informasi sekolah bergaya daftar detail */
 .school-detail-card{margin-top:24px;padding:14px 22px;background:linear-gradient(145deg,#f0f6ff 0%,#fff 100%);border:1px solid #dce6f1;border-radius:22px;box-shadow:0 8px 28px rgba(24,57,94,.06)}
 .school-detail-item{display:flex;align-items:center;gap:18px;padding:14px 8px;border-bottom:1px solid #e6edf5;min-width:0}
@@ -1216,6 +1217,7 @@ body {
 .school-stats-section{padding:42px 0 70px;background:#fff}
 .school-stats-title{margin:0 0 22px;color:#172b45;font-size:clamp(25px,3vw,32px);font-weight:700}
 @media(max-width:575px){.school-detail-card{padding:10px 14px;border-radius:19px}.school-detail-item{gap:14px;padding:13px 4px}.school-detail-icon{width:52px;height:52px;flex-basis:52px;font-size:23px}.school-detail-label{font-size:14px}.school-detail-item strong,.school-detail-item a{font-size:16px}.school-stats-section{padding-top:34px}}
+</style>
 </head>
 
 <body>
