@@ -1064,6 +1064,21 @@ body {
 .profil-information h2.profil-school-heading{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin:0 0 22px;color:#102d50;font-family:"Plus Jakarta Sans",sans-serif;font-size:clamp(34px,3.8vw,49px);line-height:1.13;font-weight:800;letter-spacing:-1.8px}
 .profil-information h2 .profil-heading-main{display:block;color:#183653;font-weight:700}
 .profil-information h2 .profil-heading-accent{display:block;color:#1265d8;font-weight:800;letter-spacing:-2px;text-shadow:0 3px 14px rgba(18,101,216,.10)}
+.profil-information h2.profil-school-heading .profil-heading-main,
+.profil-information h2.profil-school-heading .profil-heading-accent{
+    animation:profilTitleFloat 3.8s ease-in-out infinite;
+}
+.profil-information h2.profil-school-heading .profil-heading-accent{
+    animation-delay:.18s;
+}
+@keyframes profilTitleFloat{
+    0%,100%{transform:translateY(0);opacity:1}
+    50%{transform:translateY(-6px);opacity:.92}
+}
+@media(prefers-reduced-motion:reduce){
+    .profil-information h2.profil-school-heading .profil-heading-main,
+    .profil-information h2.profil-school-heading .profil-heading-accent{animation:none}
+}
 @media(max-width:575px){.profil-information h2.profil-school-heading{font-size:32px;letter-spacing:-.7px}}
 .profil-intro{color:#455b75;font-family:"Plus Jakarta Sans",sans-serif;font-size:15px;line-height:1.9;font-weight:500;margin-bottom:14px}
 .profil-detail{color:#718096;font-size:14px;line-height:1.9;margin-bottom:24px}
