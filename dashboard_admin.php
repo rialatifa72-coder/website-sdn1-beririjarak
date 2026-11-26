@@ -258,9 +258,17 @@ body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);colo
                 <div class="dashboard-heading-icon"><i class="bi bi-speedometer2"></i></div>
                 <div><h2 class="h4 fw-bold mb-1">Dashboard Administrator</h2><p class="text-muted mb-0">Selamat datang di panel pengelolaan website SDN 1 Beririjarak.</p></div>
             </div>
-            <div class="row g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-5 g-3">
                 <?php foreach ([["bi-people","Data Guru","tb_guru"],["bi-mortarboard","Data Siswa","tb_siswa"],["bi-award","Prestasi Sekolah","tb_berita"],["bi-images","Galeri Foto","tb_galeri"],["bi-trophy","Ekstrakurikuler","tb_ekstrakurikuler"]] as $item): $total=jumlahData($koneksi,$item[2]); ?>
-                <div class="col-sm-6 col-xl-3"><div class="card-custom stat-card"><div class="stat-icon"><i class="bi <?= $item[0] ?>"></i></div><div><div class="stat-number"><?= $total === null ? "—" : $total ?></div><div class="stat-label"><?= $item[1] ?></div></div></div></div>
+                <div class="col">
+                    <div class="card-custom stat-card h-100">
+                        <div class="stat-icon"><i class="bi <?= $item[0] ?>"></i></div>
+                        <div>
+                            <div class="stat-number"><?= $total === null ? "—" : $total ?></div>
+                            <div class="stat-label"><?= $item[1] ?></div>
+                        </div>
+                    </div>
+                </div>
                 <?php endforeach; ?>
             </div>
             <div class="card-custom info-card mt-4">
