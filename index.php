@@ -1059,13 +1059,13 @@ body {
 .profil-floating{position:absolute;z-index:3;top:30px;right:-3px;display:flex;align-items:center;gap:9px;padding:12px 16px;background:#fff;color:#123d76;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.1);font-size:11px;font-weight:800}
 .profil-floating i{color:#f3a623;font-size:18px}
 .profil-information{padding:10px 0 10px 15px}
-.profil-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:8px 14px;color:#1265d8;background:#eaf2ff;border:1px solid #d8e7ff;border-radius:999px;font-size:11px;font-weight:850;letter-spacing:1.8px}
+.profil-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:8px 15px;color:#1265d8;background:#eaf2ff;border:1px solid #d8e7ff;border-radius:999px;font-family:"Plus Jakarta Sans",sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px}
 .profil-eyebrow span{width:22px;height:3px;background:#1265d8;border-radius:10px}
-.profil-information h2.profil-school-heading{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin:0 0 22px;color:#102d50;font-size:clamp(32px,3.6vw,46px);line-height:1.12;font-weight:850;letter-spacing:-1.1px}
-.profil-information h2 .profil-heading-main{display:block;color:#183653}
-.profil-information h2 .profil-heading-accent{display:block;color:#1265d8}
+.profil-information h2.profil-school-heading{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin:0 0 22px;color:#102d50;font-family:"Plus Jakarta Sans",sans-serif;font-size:clamp(34px,3.8vw,49px);line-height:1.13;font-weight:800;letter-spacing:-1.8px}
+.profil-information h2 .profil-heading-main{display:block;color:#183653;font-weight:700}
+.profil-information h2 .profil-heading-accent{display:block;color:#1265d8;font-weight:800;letter-spacing:-2px;text-shadow:0 3px 14px rgba(18,101,216,.10)}
 @media(max-width:575px){.profil-information h2.profil-school-heading{font-size:32px;letter-spacing:-.7px}}
-.profil-intro{color:#455b75;font-size:16px;line-height:1.9;font-weight:600;margin-bottom:14px}
+.profil-intro{color:#455b75;font-family:"Plus Jakarta Sans",sans-serif;font-size:15px;line-height:1.9;font-weight:500;margin-bottom:14px}
 .profil-detail{color:#718096;font-size:14px;line-height:1.9;margin-bottom:24px}
 .profil-button{display:inline-flex;align-items:center;gap:13px;padding:13px 21px;color:#fff;background:#1265d8;border-radius:11px;text-decoration:none;font-size:13px;font-weight:800;box-shadow:0 8px 20px rgba(18,101,216,.2);transition:.3s}
 .profil-button:hover{color:#fff;background:#082b59;transform:translateY(-3px)}
@@ -1239,6 +1239,9 @@ body {
 .school-stats-title{margin:0 0 22px;color:#172b45;font-size:clamp(25px,3vw,32px);font-weight:700}
 @media(max-width:575px){.school-detail-card{padding:10px 14px;border-radius:19px}.school-detail-item{gap:14px;padding:13px 4px}.school-detail-icon{width:52px;height:52px;flex-basis:52px;font-size:23px}.school-detail-label{font-size:14px}.school-detail-item strong,.school-detail-item a{font-size:16px}.school-stats-section{padding-top:34px}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
