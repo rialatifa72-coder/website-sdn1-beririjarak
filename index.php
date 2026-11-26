@@ -1203,6 +1203,19 @@ body {
 }
 </style>
 
+
+/* Informasi sekolah bergaya daftar detail */
+.school-detail-card{margin-top:24px;padding:14px 22px;background:linear-gradient(145deg,#f0f6ff 0%,#fff 100%);border:1px solid #dce6f1;border-radius:22px;box-shadow:0 8px 28px rgba(24,57,94,.06)}
+.school-detail-item{display:flex;align-items:center;gap:18px;padding:14px 8px;border-bottom:1px solid #e6edf5;min-width:0}
+.school-detail-item:last-child{border-bottom:0}
+.school-detail-icon{width:58px;height:58px;flex:0 0 58px;display:flex;align-items:center;justify-content:center;border:1px solid #dce8f7;border-radius:50%;background:#edf5ff;color:#1769d2;font-size:25px}
+.school-detail-item>div{min-width:0;display:flex;flex-direction:column;gap:3px}
+.school-detail-label{color:#718096;font-size:15px;line-height:1.4}
+.school-detail-item strong,.school-detail-item a{color:#172b45;font-size:17px;font-weight:600;line-height:1.5;overflow-wrap:anywhere;text-decoration:none}
+.school-detail-item a{color:#1769d2}
+.school-stats-section{padding:42px 0 70px;background:#fff}
+.school-stats-title{margin:0 0 22px;color:#172b45;font-size:clamp(25px,3vw,32px);font-weight:700}
+@media(max-width:575px){.school-detail-card{padding:10px 14px;border-radius:19px}.school-detail-item{gap:14px;padding:13px 4px}.school-detail-icon{width:52px;height:52px;flex-basis:52px;font-size:23px}.school-detail-label{font-size:14px}.school-detail-item strong,.school-detail-item a{font-size:16px}.school-stats-section{padding-top:34px}}
 </head>
 
 <body>
@@ -1291,9 +1304,84 @@ body {
 </div>
 </header>
 
-<!-- STATISTIK -->
-<section class="stats">
+<!-- PROFIL SEKOLAH -->
+<section class="profil-modern" id="profil">
 <div class="container">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+            <div class="profil-visual">
+                <div class="profil-decoration"></div>
+                <img class="profil-main-image"
+                     src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=90"
+                     alt="Ilustrasi lingkungan belajar di sekolah">
+                <div class="profil-photo-overlay">
+                    <div class="profil-overlay-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div>
+                        <h4>SDN 1 Beririjarak</h4>
+                        <p>Tempat tumbuh, belajar, dan meraih cita-cita</p>
+                    </div>
+                </div>
+                <div class="profil-floating">
+                    <i class="bi bi-stars"></i>
+                    <span>Pendidikan untuk Masa Depan</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="profil-information">
+                <div class="profil-eyebrow"><span></span> PROFIL SEKOLAH</div>
+                <h2>SD Negeri <span>1 Beririjarak</span></h2>
+                <p class="profil-intro">
+                    Informasi resmi SD Negeri 1 Beririjarak, sekolah dasar negeri di Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat.
+                </p>
+                <div class="school-detail-card">
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-star-fill"></i></span>
+                        <div><span class="school-detail-label">Akreditasi</span><strong>B</strong></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-patch-check"></i></span>
+                        <div><span class="school-detail-label">Status Sekolah</span><strong>Negeri</strong></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-hash"></i></span>
+                        <div><span class="school-detail-label">NPSN</span><strong>50203014</strong></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-flag"></i></span>
+                        <div><span class="school-detail-label">Bentuk Pendidikan</span><strong>Sekolah Dasar (SD)</strong></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-calendar-check"></i></span>
+                        <div><span class="school-detail-label">Tahun Berdiri</span><strong>1968</strong></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-envelope"></i></span>
+                        <div><span class="school-detail-label">Email</span><a href="mailto:sdn1beririjarak661@gmail.com">sdn1beririjarak661@gmail.com</a></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-globe"></i></span>
+                        <div><span class="school-detail-label">Website Sekolah</span><a href="index.php">Lihat Laman <i class="bi bi-arrow-up-right"></i></a></div>
+                    </div>
+                    <div class="school-detail-item">
+                        <span class="school-detail-icon"><i class="bi bi-bank"></i></span>
+                        <div><span class="school-detail-label">Kepemilikan</span><strong>Pemerintah Daerah</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</section>
+
+
+
+<!-- STATISTIK SEKOLAH -->
+<section class="stats school-stats-section">
+<div class="container">
+<h2 class="school-stats-title">Statistik Sekolah</h2>
 <div class="row g-3">
 
 <div class="col-6 col-md-4 col-lg-2 stat-card-animate">
@@ -1353,54 +1441,6 @@ body {
 </div>
 
 </div>
-</div>
-</section>
-
-<!-- PROFIL SEKOLAH -->
-<section class="profil-modern" id="profil">
-<div class="container">
-    <div class="row align-items-center g-5">
-        <div class="col-lg-6">
-            <div class="profil-visual">
-                <div class="profil-decoration"></div>
-                <img class="profil-main-image"
-                     src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=90"
-                     alt="Ilustrasi lingkungan belajar di sekolah">
-                <div class="profil-photo-overlay">
-                    <div class="profil-overlay-icon"><i class="bi bi-mortarboard-fill"></i></div>
-                    <div>
-                        <h4>SDN 1 Beririjarak</h4>
-                        <p>Tempat tumbuh, belajar, dan meraih cita-cita</p>
-                    </div>
-                </div>
-                <div class="profil-floating">
-                    <i class="bi bi-stars"></i>
-                    <span>Pendidikan untuk Masa Depan</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            <div class="profil-information">
-                <div class="profil-eyebrow"><span></span> PROFIL SEKOLAH</div>
-                <h2>SD Negeri <span>1 Beririjarak</span></h2>
-                <p class="profil-intro">
-                    SD Negeri 1 Beririjarak merupakan sekolah dasar negeri di Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat. Berdiri sejak tahun 1968, sekolah berkomitmen membentuk generasi CIKAL yang cerdas, beriman dan bertakwa, kreatif, amanah, serta peduli lingkungan.
-                </p>
-                <div class="row g-3 profil-data-grid">
-                    <div class="col-6"><div class="profil-data-item"><strong>50203014</strong><span>NPSN Sekolah</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>B</strong><span>Akreditasi</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>1968</strong><span>Tahun Berdiri</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>15</strong><span>Guru &amp; Tenaga Kependidikan</span></div></div>
-                    <div class="col-6"><div class="profil-data-item"><strong>211</strong><span>Peserta Didik</span></div></div>
-                </div>
-                <a href="#visi-misi" class="profil-button mt-4">
-                    Jelajahi Visi dan Misi <i class="bi bi-arrow-up-right"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
 </div>
 </section>
 
