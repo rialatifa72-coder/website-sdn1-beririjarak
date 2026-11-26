@@ -1051,7 +1051,7 @@ body {
 .profil-modern>.container{position:relative;z-index:1}
 .profil-visual{position:relative;padding:14px 18px 24px 0}
 .profil-decoration{position:absolute;left:-12px;top:-10px;width:48%;height:45%;border-top:5px solid #438cff;border-left:5px solid #438cff;border-radius:22px 0 0;opacity:.8}
-.profil-main-image{position:relative;z-index:1;display:block;width:100%;height:530px;object-fit:cover;object-position:center;border-radius:25px;box-shadow:0 24px 55px rgba(15,47,90,.18)}
+.profil-main-image{position:relative;z-index:1;display:block;width:100%;height:610px;object-fit:cover;object-position:center;border-radius:25px;box-shadow:0 24px 55px rgba(15,47,90,.18)}
 .profil-photo-overlay{position:absolute;z-index:2;left:22px;right:42px;bottom:42px;display:flex;align-items:center;gap:14px;padding:18px;color:#fff;background:rgba(7,43,91,.93);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.16)}
 .profil-overlay-icon{width:48px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.15);border-radius:13px;font-size:22px}
 .profil-photo-overlay h4{margin:0 0 5px;font-size:18px;font-weight:800}
@@ -1078,8 +1078,8 @@ body {
 .commitment-icon.blue{color:#1265d8;background:#e7f0ff}.commitment-icon.orange{color:#e99a20;background:#fff3df}.commitment-icon.red{color:#e44c65;background:#ffe9ed}.commitment-icon.green{color:#239b67;background:#e3f8ed}
 .commitment-card h4{color:#102d50;font-size:15px;font-weight:800;margin-bottom:10px}
 .commitment-card p{color:#718096;font-size:13px;line-height:1.75;margin:0}
-@media(max-width:991px){.profil-modern{padding:70px 0}.profil-main-image{height:440px}.profil-information{padding:10px 0}.profil-commitment{margin-top:60px}}
-@media(max-width:575px){.profil-modern{padding:55px 0}.profil-visual{padding:12px 8px 15px 0}.profil-main-image{height:290px;border-radius:18px}.profil-photo-overlay{left:10px;right:15px;bottom:28px;padding:13px}.profil-photo-overlay h4{font-size:16px}.profil-floating{top:18px;right:0;font-size:9px}.profil-information h2{font-size:30px}.profil-commitment{margin-top:48px}.commitment-card{min-height:0}}
+@media(max-width:991px){.profil-modern{padding:70px 0}.profil-main-image{height:480px}.profil-information{padding:10px 0}.profil-commitment{margin-top:60px}}
+@media(max-width:575px){.profil-modern{padding:55px 0}.profil-visual{padding:12px 8px 15px 0}.profil-main-image{height:340px;border-radius:18px}.profil-photo-overlay{left:10px;right:15px;bottom:28px;padding:13px}.profil-photo-overlay h4{font-size:16px}.profil-floating{top:18px;right:0;font-size:9px}.profil-information h2{font-size:30px}.profil-commitment{margin-top:48px}.commitment-card{min-height:0}}
 
 
 /* KATA PENGANTAR KEPALA SEKOLAH */
