@@ -1059,10 +1059,12 @@ body {
 .profil-floating{position:absolute;z-index:3;top:30px;right:-3px;display:flex;align-items:center;gap:9px;padding:12px 16px;background:#fff;color:#123d76;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.1);font-size:11px;font-weight:800}
 .profil-floating i{color:#f3a623;font-size:18px}
 .profil-information{padding:10px 0 10px 15px}
-.profil-eyebrow{display:flex;align-items:center;gap:10px;color:#1265d8;font-size:12px;font-weight:800;letter-spacing:2px;margin-bottom:20px}
-.profil-eyebrow span{width:28px;height:3px;background:#1265d8;border-radius:10px}
-.profil-information h2{color:#102d50;font-size:clamp(30px,3.3vw,43px);line-height:1.2;font-weight:850;margin:0 0 22px}
-.profil-information h2 span{display:block;color:#1265d8}
+.profil-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:8px 14px;color:#1265d8;background:#eaf2ff;border:1px solid #d8e7ff;border-radius:999px;font-size:11px;font-weight:850;letter-spacing:1.8px}
+.profil-eyebrow span{width:22px;height:3px;background:#1265d8;border-radius:10px}
+.profil-information h2.profil-school-heading{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin:0 0 22px;color:#102d50;font-size:clamp(32px,3.6vw,46px);line-height:1.12;font-weight:850;letter-spacing:-1.1px}
+.profil-information h2 .profil-heading-main{display:block;color:#183653}
+.profil-information h2 .profil-heading-accent{display:block;color:#1265d8}
+@media(max-width:575px){.profil-information h2.profil-school-heading{font-size:32px;letter-spacing:-.7px}}
 .profil-intro{color:#455b75;font-size:16px;line-height:1.9;font-weight:600;margin-bottom:14px}
 .profil-detail{color:#718096;font-size:14px;line-height:1.9;margin-bottom:24px}
 .profil-button{display:inline-flex;align-items:center;gap:13px;padding:13px 21px;color:#fff;background:#1265d8;border-radius:11px;text-decoration:none;font-size:13px;font-weight:800;box-shadow:0 8px 20px rgba(18,101,216,.2);transition:.3s}
@@ -1351,8 +1353,8 @@ body {
 
         <div class="col-lg-6">
             <div class="profil-information">
-                <div class="profil-eyebrow"><span></span> PROFIL SEKOLAH</div>
-                <h2>SD Negeri <span>1 Beririjarak</span></h2>
+                <div class="profil-eyebrow"><span></span><strong>PROFIL SEKOLAH</strong></div>
+                <h2 class="profil-school-heading"><span class="profil-heading-main">SD Negeri</span><span class="profil-heading-accent">1 Beririjarak</span></h2>
                 <p class="profil-intro">
                     Informasi resmi SD Negeri 1 Beririjarak, sekolah dasar negeri di Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat.
                 </p>
