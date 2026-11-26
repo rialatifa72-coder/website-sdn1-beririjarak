@@ -1059,7 +1059,26 @@ body {
 .profil-floating{position:absolute;z-index:3;top:30px;right:-3px;display:flex;align-items:center;gap:9px;padding:12px 16px;background:#fff;color:#123d76;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.1);font-size:11px;font-weight:800}
 .profil-floating i{color:#f3a623;font-size:18px}
 .profil-information{padding:10px 0 10px 15px}
-.profil-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:8px 15px;color:#1265d8;background:#eaf2ff;border:1px solid #d8e7ff;border-radius:999px;font-family:"Plus Jakarta Sans",sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px}
+.profil-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:10px 18px;color:#1265d8;background:#eaf2ff;border:1px solid #d8e7ff;border-radius:999px;font-family:"Plus Jakarta Sans",sans-serif;font-size:16px;font-weight:800;letter-spacing:2px}
+.profil-eyebrow-animate strong{display:inline-flex;align-items:center;white-space:pre}
+.profil-eyebrow-animate strong span{display:inline-block;opacity:0;transform:translateY(9px);animation:profilLetterReveal .65s ease forwards}
+.profil-eyebrow-animate strong span:nth-child(1){animation-delay:.15s}
+.profil-eyebrow-animate strong span:nth-child(2){animation-delay:.32s}
+.profil-eyebrow-animate strong span:nth-child(3){animation-delay:.49s}
+.profil-eyebrow-animate strong span:nth-child(4){animation-delay:.66s}
+.profil-eyebrow-animate strong span:nth-child(5){animation-delay:.83s}
+.profil-eyebrow-animate strong span:nth-child(6){animation-delay:1s}
+.profil-eyebrow-animate strong span:nth-child(7){width:9px}
+.profil-eyebrow-animate strong span:nth-child(8){animation-delay:1.34s}
+.profil-eyebrow-animate strong span:nth-child(9){animation-delay:1.51s}
+.profil-eyebrow-animate strong span:nth-child(10){animation-delay:1.68s}
+.profil-eyebrow-animate strong span:nth-child(11){animation-delay:1.85s}
+.profil-eyebrow-animate strong span:nth-child(12){animation-delay:2.02s}
+.profil-eyebrow-animate strong span:nth-child(13){animation-delay:2.19s}
+.profil-eyebrow-animate strong span:nth-child(14){animation-delay:2.36s}
+@keyframes profilLetterReveal{to{opacity:1;transform:translateY(0)}}
+@media(max-width:575px){.profil-eyebrow{font-size:14px;letter-spacing:1.5px;padding:9px 15px}}
+@media(prefers-reduced-motion:reduce){.profil-eyebrow-animate strong span{opacity:1;transform:none;animation:none}}
 .profil-eyebrow span{width:22px;height:3px;background:#1265d8;border-radius:10px}
 .profil-information h2.profil-school-heading{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin:0 0 22px;color:#102d50;font-family:"Plus Jakarta Sans",sans-serif;font-size:clamp(34px,3.8vw,49px);line-height:1.13;font-weight:800;letter-spacing:-1.8px}
 .profil-information h2 .profil-heading-main{display:block;color:#183653;font-weight:700}
@@ -1371,7 +1390,7 @@ body {
 
         <div class="col-lg-6">
             <div class="profil-information">
-                <div class="profil-eyebrow"><strong>PROFIL SEKOLAH</strong></div>
+                <div class="profil-eyebrow profil-eyebrow-animate" aria-label="PROFIL SEKOLAH"><strong><span>P</span><span>R</span><span>O</span><span>F</span><span>I</span><span>L</span><span class="letter-space"> </span><span>S</span><span>E</span><span>K</span><span>O</span><span>L</span><span>A</span><span>H</span></strong></div>
                 
                 <p class="profil-intro">
                     Informasi resmi SD Negeri 1 Beririjarak, sekolah dasar negeri di Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat.
