@@ -1126,6 +1126,83 @@ body {
     background: linear-gradient(120deg, #fffdf8 0%, #f4f5ef 55%, #eef2ef 100%);
 }
 </style>
+<style>
+.media-belajar-section {
+    padding-top: 85px;
+    padding-bottom: 85px;
+}
+.media-belajar-panel {
+    position: relative;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 48px 28px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #edf5ff 100%);
+    border: 1px solid #dce9f8;
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(20, 65, 115, .10);
+}
+.media-belajar-icon {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1769d2, #3b91ef);
+    border-radius: 22px;
+    box-shadow: 0 9px 22px rgba(23, 105, 210, .24);
+    font-size: 34px;
+}
+.media-belajar-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #1769d2;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+.media-belajar-title {
+    margin-bottom: 12px;
+    color: #17365d;
+    font-size: clamp(27px, 4vw, 36px);
+    font-weight: 800;
+}
+.media-belajar-description {
+    max-width: 570px;
+    margin: 0 auto 25px;
+    color: #61738a;
+    font-size: 16px;
+    line-height: 1.8;
+}
+.media-belajar-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 25px;
+    color: #ffffff;
+    background: #1769d2;
+    border: 1px solid #1769d2;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .25s ease;
+}
+.media-belajar-button:hover {
+    color: #ffffff;
+    background: #124fa3;
+    border-color: #124fa3;
+    transform: translateY(-3px);
+    box-shadow: 0 9px 20px rgba(23, 105, 210, .22);
+}
+@media (max-width: 575px) {
+    .media-belajar-section { padding-top: 55px; padding-bottom: 55px; }
+    .media-belajar-panel { padding: 35px 20px; border-radius: 18px; }
+    .media-belajar-description { font-size: 14px; }
+}
+</style>
+
 </head>
 
 <body>
@@ -1772,16 +1849,19 @@ if (isset($koneksi) && $koneksi) {
 </section>
 
 <!-- MEDIA PEMBELAJARAN -->
-<section class="section section-light" id="media-pembelajaran">
+<section class="section section-light media-belajar-section" id="media-pembelajaran">
 <div class="container">
-    <div class="text-center">
-        <span class="section-label">Belajar Digital</span>
-        <h2 class="section-title">Media Pembelajaran</h2>
-        <p class="section-subtitle mb-4">
+    <div class="media-belajar-panel text-center">
+        <div class="media-belajar-icon">
+            <i class="bi bi-laptop"></i>
+        </div>
+        <span class="media-belajar-label">BELAJAR DIGITAL</span>
+        <h2 class="media-belajar-title">Media Pembelajaran</h2>
+        <p class="media-belajar-description">
             Sarana digital untuk membantu siswa memahami materi pelajaran.
         </p>
         <a href="https://ollieenglish.kesug.com/" target="_blank" rel="noopener noreferrer"
-           class="btn btn-primary px-4 py-3">
+           class="media-belajar-button">
             <i class="bi bi-box-arrow-up-right me-2"></i>Buka Media Pembelajaran
         </a>
     </div>
