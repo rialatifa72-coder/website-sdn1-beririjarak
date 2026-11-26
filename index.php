@@ -1125,6 +1125,25 @@ body {
 .sambutan-section {
     background: linear-gradient(120deg, #fffdf8 0%, #f4f5ef 55%, #eef2ef 100%);
 }
+/* Tampilan bagian kontak */
+.contact-info-card,.contact-form-card{height:100%;padding:30px;background:#fff;border:1px solid #e6ebf2;border-radius:18px;box-shadow:0 8px 28px rgba(24,57,94,.08)}
+.contact-info-card h4{margin-bottom:14px;color:#172b45;font-size:22px;font-weight:750}
+.contact-intro{margin-bottom:24px;color:#718096;line-height:1.7}
+.contact-info-item{display:flex;gap:16px;padding:17px 0;border-bottom:1px solid #e8edf4}
+.contact-info-item:last-child{border-bottom:0}
+.contact-info-item>i{flex:0 0 28px;color:#1769d2;font-size:23px;text-align:center}
+.contact-info-item div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.contact-info-item strong{color:#334155;font-size:15px}
+.contact-info-item span,.contact-info-item a{color:#718096;font-size:14px;line-height:1.6;overflow-wrap:anywhere;text-decoration:none}
+.contact-info-item a:hover{color:#1769d2}
+.contact-form-card .form-control,.contact-form-card .form-select{min-height:48px;padding:11px 14px;border:1px solid #d8e0e9;border-radius:8px}
+.contact-form-card textarea.form-control{min-height:120px;resize:vertical}
+.contact-form-card .form-control:focus,.contact-form-card .form-select:focus{border-color:#1769d2;box-shadow:0 0 0 .2rem rgba(23,105,210,.12)}
+.contact-submit{padding:10px 25px;border-radius:8px;background:#1769d2;border-color:#1769d2;font-weight:600}
+.contact-submit:hover{background:#124fa3;border-color:#124fa3}
+.contact-note{color:#8793a3;font-size:12px}
+@media(max-width:575px){.contact-info-card,.contact-form-card{padding:23px 19px}}
+
 </style>
 <style>
 .media-belajar-section {
@@ -1961,6 +1980,58 @@ if (isset($koneksi) && $koneksi) {
 </div>
 </section>
 
+<!-- KONTAK KAMI -->
+<section class="section section-light" id="kontak">
+<div class="container">
+    <div class="text-center mb-5">
+        <span class="section-label">Hubungi Kami</span>
+        <h2 class="section-title">Kontak Kami</h2>
+        <p class="section-subtitle">Sampaikan pesan, kritik, atau saran kepada SDN 1 Beririjarak.</p>
+    </div>
+    <div class="row g-4 align-items-stretch">
+        <div class="col-lg-4">
+            <div class="contact-info-card h-100">
+                <h4>Kontak Kami</h4>
+                <p class="contact-intro">Jika memiliki pesan, kritik atau saran silakan ajukan melalui formulir pesan di samping atau hubungi sekolah melalui alamat dan email berikut.</p>
+                <div class="contact-info-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <div><strong>Alamat:</strong><span>Beririjarak RT 01/RW 01, Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat 83658</span></div>
+                </div>
+                <div class="contact-info-item">
+                    <i class="bi bi-envelope"></i>
+                    <div><strong>Email:</strong><a href="mailto:sdn1beririjarak661@gmail.com">sdn1beririjarak661@gmail.com</a></div>
+                </div>
+                <div class="contact-info-item">
+                    <i class="bi bi-globe"></i>
+                    <div><strong>Website:</strong><a href="index.php">SDN 1 Beririjarak</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <form class="contact-form-card" id="formKontakSekolah">
+                <div class="row g-3">
+                    <div class="col-md-6"><input class="form-control" type="text" name="nama" placeholder="Nama Lengkap" aria-label="Nama Lengkap" required></div>
+                    <div class="col-md-6"><input class="form-control" type="email" name="email" placeholder="Email" aria-label="Email" required></div>
+                    <div class="col-12"><input class="form-control" type="text" name="judul" placeholder="Judul" aria-label="Judul" required></div>
+                    <div class="col-md-6">
+                        <select class="form-select" name="peran" aria-label="Saya adalah" required>
+                            <option value="" selected disabled>Saya adalah</option>
+                            <option>Siswa</option><option>Orang Tua/Wali</option><option>Guru</option><option>Alumni</option><option>Masyarakat</option><option>Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6"><input class="form-control" type="tel" name="telepon" placeholder="No. HP (opsional)" aria-label="No. HP"></div>
+                    <div class="col-12"><textarea class="form-control" name="pesan" rows="4" placeholder="Pesan" aria-label="Pesan" required></textarea></div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary contact-submit" type="submit">Kirim</button>
+                        <p class="contact-note mt-2 mb-0">Tombol Kirim akan membuka aplikasi email pada perangkat Anda.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
 <div class="container">
@@ -2008,6 +2079,25 @@ if (isset($koneksi) && $koneksi) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+
+// Form kontak menyiapkan pesan melalui aplikasi email perangkat.
+const formKontakSekolah = document.getElementById("formKontakSekolah");
+if (formKontakSekolah) {
+    formKontakSekolah.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const data = new FormData(formKontakSekolah);
+        const subject = encodeURIComponent("[Website SDN 1 Beririjarak] " + data.get("judul"));
+        const body = encodeURIComponent(
+            "Nama: " + data.get("nama") + "\n" +
+            "Email: " + data.get("email") + "\n" +
+            "Saya adalah: " + data.get("peran") + "\n" +
+            "No. HP: " + (data.get("telepon") || "-") + "\n\n" +
+            "Pesan:\n" + data.get("pesan")
+        );
+        window.location.href = "mailto:sdn1beririjarak661@gmail.com?subject=" + subject + "&body=" + body;
+    });
+}
+
 // SLIDER GURU
 const guruTrack = document.getElementById("guruTrack");
 const guruCounter = document.getElementById("guruCounter");
