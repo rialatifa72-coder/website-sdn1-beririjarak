@@ -1774,45 +1774,17 @@ if (isset($koneksi) && $koneksi) {
 <!-- MEDIA PEMBELAJARAN -->
 <section class="section section-light" id="media-pembelajaran">
 <div class="container">
-
-<div class="text-center mb-5">
-    <span class="section-label">Belajar Digital</span>
-    <h2 class="section-title">Media Pembelajaran</h2>
-    <p class="section-subtitle">
-        Sarana digital untuk membantu siswa memahami materi pelajaran.
-    </p>
-</div>
-
-<div class="row g-4">
-
-<div class="col-md-4">
-<div class="learning-card">
-    <i class="bi bi-play-circle-fill"></i>
-    <h5 class="fw-bold mt-3">Video Pembelajaran</h5>
-    <p>Video untuk membantu siswa memahami pelajaran.</p>
-    <a href="#" class="btn btn-outline-primary mt-3">Lihat Materi</a>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="learning-card">
-    <i class="bi bi-journal-bookmark-fill"></i>
-    <h5 class="fw-bold mt-3">Materi Pelajaran</h5>
-    <p>Bahan bacaan untuk mendukung pembelajaran di kelas maupun di rumah.</p>
-    <a href="#" class="btn btn-outline-primary mt-3">Lihat Materi</a>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="learning-card">
-    <i class="bi bi-patch-question-fill"></i>
-    <h5 class="fw-bold mt-3">Latihan Soal</h5>
-    <p>Latihan untuk mengulang materi dan mengukur pemahaman.</p>
-    <a href="#" class="btn btn-outline-primary mt-3">Lihat Latihan</a>
-</div>
-</div>
-
-</div>
+    <div class="text-center">
+        <span class="section-label">Belajar Digital</span>
+        <h2 class="section-title">Media Pembelajaran</h2>
+        <p class="section-subtitle mb-4">
+            Sarana digital untuk membantu siswa memahami materi pelajaran.
+        </p>
+        <a href="https://ollieenglish.kesug.com/" target="_blank" rel="noopener noreferrer"
+           class="btn btn-primary px-4 py-3">
+            <i class="bi bi-box-arrow-up-right me-2"></i>Buka Media Pembelajaran
+        </a>
+    </div>
 </div>
 </section>
 
