@@ -1372,7 +1372,7 @@ body {
         <div class="col-lg-6">
             <div class="profil-information">
                 <div class="profil-eyebrow"><strong>PROFIL SEKOLAH</strong></div>
-                <h2 class="profil-school-heading"><span class="profil-heading-main">SD Negeri</span><span class="profil-heading-accent">1 Beririjarak</span></h2>
+                
                 <p class="profil-intro">
                     Informasi resmi SD Negeri 1 Beririjarak, sekolah dasar negeri di Kecamatan Wanasaba, Kabupaten Lombok Timur, Nusa Tenggara Barat.
                 </p>
